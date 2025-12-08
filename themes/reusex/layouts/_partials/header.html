@@ -1,13 +1,20 @@
-<nav class="container mx-auto px-6 py-4">
+<nav class="container-custom py-4">
   <div class="flex items-center justify-between">
     <div class="flex items-center space-x-4">
-      <h1 class="text-2xl font-bold text-primary">{{ site.Title }}</h1>
+      <h1 class="font-display text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        {{ site.Title }}
+      </h1>
     </div>
     <div class="hidden md:flex items-center space-x-8">
       {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
     </div>
-    <button class="md:hidden">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="hidden md:flex items-center space-x-4">
+      <a href="#demo" class="btn-outline btn-secondary text-sm px-4 py-2">
+        Get Started
+      </a>
+    </div>
+    <button class="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors duration-200">
+      <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
     </button>
