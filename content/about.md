@@ -1,6 +1,7 @@
 ---
 title: "About ReUseX"
 description: "Learn about our mission to create a sustainable future through innovative resource reuse technology"
+type: "page"
 ---
 
 ## Our Mission

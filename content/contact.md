@@ -1,6 +1,7 @@
 ---
 title: "Contact Us"
 description: "Get in touch with our team to learn how ReUseX can transform your resource management"
+type: "page"
 ---
 
 ## Ready to Transform Your Resource Management?

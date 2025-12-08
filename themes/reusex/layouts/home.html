@@ -6,26 +6,53 @@
       <!-- Main Hero Content -->
       <div class="text-center lg:text-left">
         <h1 class="font-display text-5xl font-extrabold text-slate-900 sm:text-6xl lg:text-7xl leading-tight mb-6">
-          {{ site.Title }}
+          {{ .Params.hero.title | default site.Title }}
         </h1>
         <p class="text-xl lg:text-2xl text-slate-600 leading-relaxed mb-8">
-          {{ site.Params.description | default "Revolutionizing resource reuse for a sustainable future" }}
+          {{ .Params.hero.subtitle | default .Params.description | default site.Params.description }}
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          {{ with .Params.hero.cta_primary }}
+          {{- $url := .url | default "#demo" -}}
+          {{- if hasPrefix $url "#" -}}
+            <a href="{{ $url }}" class="btn-solid btn-primary text-lg px-8 py-4">
+          {{- else if or (hasPrefix $url "http") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") -}}
+            <a href="{{ $url }}" class="btn-solid btn-primary text-lg px-8 py-4">
+          {{- else -}}
+            <a href="{{ $url | relURL }}" class="btn-solid btn-primary text-lg px-8 py-4">
+          {{- end -}}
+            {{ .text | default "Get Started Today" }}
+          </a>
+          {{ else }}
           <a href="#demo" class="btn-solid btn-primary text-lg px-8 py-4">
             Get Started Today
           </a>
+          {{ end }}
+          {{ with .Params.hero.cta_secondary }}
+          {{- $url := .url | default "#about" -}}
+          {{- if hasPrefix $url "#" -}}
+            <a href="{{ $url }}" class="btn-outline btn-secondary text-lg px-8 py-4">
+          {{- else if or (hasPrefix $url "http") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") -}}
+            <a href="{{ $url }}" class="btn-outline btn-secondary text-lg px-8 py-4">
+          {{- else -}}
+            <a href="{{ $url | relURL }}" class="btn-outline btn-secondary text-lg px-8 py-4">
+          {{- end -}}
+            {{ .text | default "Learn More" }}
+          </a>
+          {{ else }}
           <a href="#about" class="btn-outline btn-secondary text-lg px-8 py-4">
             Learn More
           </a>
+          {{ end }}
         </div>
         
         <!-- Testimonial/Quote -->
+        {{ with .Params.testimonial }}
         <div class="mt-16 pt-8 border-t border-slate-200">
           <figure class="text-center lg:text-left">
             <div class="flex justify-center lg:justify-start text-blue-600 mb-4">
               <div class="flex space-x-1">
-                {{ range seq 5 }}
+                {{ range seq (.rating | default 5) }}
                 <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                 </svg>
@@ -33,13 +60,14 @@
               </div>
             </div>
             <blockquote class="text-lg font-medium text-slate-700 italic">
-              "This platform revolutionizes how we think about resource reuse."
+              "{{ .quote }}"
             </blockquote>
             <figcaption class="mt-2 text-sm text-slate-500">
-              <strong class="font-semibold text-blue-600">Dr. Sarah Chen</strong>, Environmental Expert
+              <strong class="font-semibold text-blue-600">{{ .author }}</strong>{{ with .title }}, {{ . }}{{ end }}
             </figcaption>
           </figure>
         </div>
+        {{ end }}
       </div>
       
       <!-- Hero Visual -->
@@ -70,96 +98,79 @@
 </section>
 
 <!-- Enhanced Problem Section -->
+{{ with .Params.challenges }}
 <section id="about" class="section-padding bg-white">
   <div class="container-custom">
     <div class="text-center mb-20">
-      <h2 class="font-display text-4xl font-extrabold text-slate-900 sm:text-5xl mb-6">Current Challenges</h2>
+      <h2 class="font-display text-4xl font-extrabold text-slate-900 sm:text-5xl mb-6">{{ .title }}</h2>
       <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-        The waste crisis demands urgent action. Traditional approaches to resource management create significant environmental and economic challenges.
+        {{ .subtitle }}
       </p>
     </div>
     <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+      {{ range .items }}
       <div class="text-center group">
         <div class="relative mx-auto mb-6">
-          <div class="bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl w-20 h-20 flex items-center justify-center mx-auto shadow-md group-hover:shadow-lg transition-shadow duration-300">
-            <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+          <div class="bg-gradient-to-br from-{{ .color }}-50 to-{{ .color }}-100 rounded-2xl w-20 h-20 flex items-center justify-center mx-auto shadow-md group-hover:shadow-lg transition-shadow duration-300">
+            {{ if eq .icon "warning" }}
+            <svg class="w-10 h-10 text-{{ .color }}-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
             </svg>
-          </div>
-        </div>
-        <h3 class="font-display text-xl font-bold text-slate-900 mb-3">Resource Waste</h3>
-        <p class="text-slate-600 leading-relaxed">Billions of tons of materials end up in landfills annually, representing massive economic and environmental losses</p>
-      </div>
-      <div class="text-center group">
-        <div class="relative mx-auto mb-6">
-          <div class="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl w-20 h-20 flex items-center justify-center mx-auto shadow-md group-hover:shadow-lg transition-shadow duration-300">
-            <svg class="w-10 h-10 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            {{ else if eq .icon "puzzle" }}
+            <svg class="w-10 h-10 text-{{ .color }}-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 16a9.065 9.065 0 0 1-6.23-.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.611L5 14.5" />
             </svg>
-          </div>
-        </div>
-        <h3 class="font-display text-xl font-bold text-slate-900 mb-3">Fragmented Systems</h3>
-        <p class="text-slate-600 leading-relaxed">Disconnected platforms make it difficult to track, share, and optimize resource utilization across organizations</p>
-      </div>
-      <div class="text-center group">
-        <div class="relative mx-auto mb-6">
-          <div class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl w-20 h-20 flex items-center justify-center mx-auto shadow-md group-hover:shadow-lg transition-shadow duration-300">
-            <svg class="w-10 h-10 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            {{ else if eq .icon "currency" }}
+            <svg class="w-10 h-10 text-{{ .color }}-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
             </svg>
+            {{ end }}
           </div>
         </div>
-        <h3 class="font-display text-xl font-bold text-slate-900 mb-3">Hidden Costs</h3>
-        <p class="text-slate-600 leading-relaxed">Environmental damage and disposal fees create substantial hidden costs that traditional accounting often overlooks</p>
+        <h3 class="font-display text-xl font-bold text-slate-900 mb-3">{{ .title }}</h3>
+        <p class="text-slate-600 leading-relaxed">{{ .description }}</p>
       </div>
+      {{ end }}
     </div>
   </div>
 </section>
+{{ end }}
 
 <!-- Enhanced Solution Section -->
+{{ with .Params.solution }}
 <section class="section-padding bg-white">
   <div class="container-custom">
     <div class="text-center mb-16">
-      <h2 class="font-display text-4xl font-extrabold text-slate-900 sm:text-5xl mb-6">The ReUseX Solution</h2>
+      <h2 class="font-display text-4xl font-extrabold text-slate-900 sm:text-5xl mb-6">{{ .title }}</h2>
       <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-        Our intelligent platform transforms how organizations manage resources, creating a circular economy that benefits everyone.
+        {{ .subtitle }}
       </p>
     </div>
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <div class="space-y-8">
+        {{ range .features }}
         <div class="flex items-start space-x-6">
-          <div class="flex-shrink-0 w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+          <div class="flex-shrink-0 w-12 h-12 bg-{{ .color }}-600 rounded-lg flex items-center justify-center">
+            {{ if eq .icon "lightning" }}
             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
             </svg>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">AI-Powered Matching</h3>
-            <p class="text-slate-600 leading-relaxed">Our advanced algorithms instantly connect resource suppliers with those who need them, reducing waste by up to 80%</p>
-          </div>
-        </div>
-        <div class="flex items-start space-x-6">
-          <div class="flex-shrink-0 w-12 h-12 bg-emerald-600 rounded-lg flex items-center justify-center">
+            {{ else if eq .icon "network" }}
             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
             </svg>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Unified Network</h3>
-            <p class="text-slate-600 leading-relaxed">Connect with a growing ecosystem of organizations committed to sustainable resource sharing</p>
-          </div>
-        </div>
-        <div class="flex items-start space-x-6">
-          <div class="flex-shrink-0 w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
+            {{ else if eq .icon "analytics" }}
             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
             </svg>
+            {{ end }}
           </div>
           <div>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Impact Tracking</h3>
-            <p class="text-slate-600 leading-relaxed">Real-time analytics show your environmental impact and cost savings</p>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">{{ .title }}</h3>
+            <p class="text-slate-600 leading-relaxed">{{ .description }}</p>
           </div>
         </div>
+        {{ end }}
       </div>
       <div class="bg-slate-50 rounded-2xl p-8">
         <div class="h-80 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl flex items-center justify-center">
@@ -177,78 +188,91 @@
     </div>
   </div>
 </section>
+{{ end }}
 
 <!-- Enhanced Stats Section -->
+{{ with .Params.stats }}
 <section class="section-padding bg-slate-900">
   <div class="container-custom">
     <div class="text-center mb-16">
-      <h2 class="text-3xl font-extrabold text-white sm:text-4xl mb-4">Impact at Scale</h2>
+      <h2 class="text-3xl font-extrabold text-white sm:text-4xl mb-4">{{ .title }}</h2>
       <p class="text-xl text-slate-300 max-w-2xl mx-auto">
-        Real results from organizations already using ReUseX to transform their operations
+        {{ .subtitle }}
       </p>
     </div>
     <div class="grid md:grid-cols-4 gap-8 text-center">
+      {{ range .metrics }}
       <div class="bg-slate-800 rounded-2xl p-8 hover:bg-slate-700 transition-colors duration-300">
-        <div class="text-4xl font-extrabold text-white mb-2">85%</div>
-        <div class="text-blue-200 font-medium">Waste Reduction</div>
+        <div class="text-4xl font-extrabold text-white mb-2">{{ .value }}</div>
+        <div class="text-blue-200 font-medium">{{ .label }}</div>
       </div>
-      <div class="bg-slate-800 rounded-2xl p-8 hover:bg-slate-700 transition-colors duration-300">
-        <div class="text-4xl font-extrabold text-white mb-2">2.5M</div>
-        <div class="text-blue-200 font-medium">Resources Shared</div>
-      </div>
-      <div class="bg-slate-800 rounded-2xl p-8 hover:bg-slate-700 transition-colors duration-300">
-        <div class="text-4xl font-extrabold text-white mb-2">500+</div>
-        <div class="text-blue-200 font-medium">Organizations</div>
-      </div>
-      <div class="bg-slate-800 rounded-2xl p-8 hover:bg-slate-700 transition-colors duration-300">
-        <div class="text-4xl font-extrabold text-white mb-2">$12M</div>
-        <div class="text-blue-200 font-medium">Cost Savings</div>
-      </div>
+      {{ end }}
     </div>
   </div>
 </section>
+{{ end }}
 
 <!-- Enhanced CTA Section -->
+{{ with .Params.cta }}
 <section id="demo" class="section-padding bg-gradient-to-br from-blue-50 to-indigo-100">
   <div class="container-custom text-center">
     <div class="max-w-4xl mx-auto">
       <h2 class="font-display text-4xl font-extrabold text-slate-900 sm:text-5xl mb-6">
-        Ready to Transform Your Resource Management?
+        {{ .title }}
       </h2>
       <p class="text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-        Join the circular economy revolution. Start reducing waste, saving costs, and making a positive environmental impact today.
+        {{ .subtitle }}
       </p>
       <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        {{ with .primary_button }}
+        {{- $url := .url | default "#" -}}
+        {{- if hasPrefix $url "#" -}}
+          <a href="{{ $url }}" class="btn-solid btn-primary text-lg px-10 py-4">
+        {{- else if or (hasPrefix $url "http") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") -}}
+          <a href="{{ $url }}" class="btn-solid btn-primary text-lg px-10 py-4">
+        {{- else -}}
+          <a href="{{ $url | relURL }}" class="btn-solid btn-primary text-lg px-10 py-4">
+        {{- end -}}
+          {{ .text | default "Start Free Trial" }}
+        </a>
+        {{ else }}
         <a href="#" class="btn-solid btn-primary text-lg px-10 py-4">
           Start Free Trial
         </a>
+        {{ end }}
+        {{ with .secondary_button }}
+        {{- $url := .url | default "#" -}}
+        {{- if hasPrefix $url "#" -}}
+          <a href="{{ $url }}" class="btn-outline btn-secondary text-lg px-10 py-4">
+        {{- else if or (hasPrefix $url "http") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") -}}
+          <a href="{{ $url }}" class="btn-outline btn-secondary text-lg px-10 py-4">
+        {{- else -}}
+          <a href="{{ $url | relURL }}" class="btn-outline btn-secondary text-lg px-10 py-4">
+        {{- end -}}
+          {{ .text | default "Schedule Demo" }}
+        </a>
+        {{ else }}
         <a href="#" class="btn-outline btn-secondary text-lg px-10 py-4">
           Schedule Demo
         </a>
+        {{ end }}
       </div>
+      {{ if .features }}
       <div class="mt-12 flex items-center justify-center space-x-8 text-sm text-slate-500">
+        {{ range .features }}
         <div class="flex items-center space-x-2">
           <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
           </svg>
-          <span>No credit card required</span>
+          <span>{{ . }}</span>
         </div>
-        <div class="flex items-center space-x-2">
-          <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-          </svg>
-          <span>30-day free trial</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-          </svg>
-          <span>Cancel anytime</span>
-        </div>
+        {{ end }}
       </div>
+      {{ end }}
     </div>
   </div>
 </section>
+{{ end }}
 
 <!-- Content from markdown -->
 {{ if .Content }}
@@ -262,17 +286,21 @@
 {{ end }}
 
 <!-- Enhanced Recent Posts -->
-{{ if site.RegularPages }}
+{{ with .Params.blog }}
+{{ if .show_posts }}
+{{ $posts := (where site.RegularPages "Type" "post") }}
+{{ $posts = (where $posts "Draft" false) }}
+{{ if $posts }}
 <section class="section-padding bg-white">
   <div class="container-custom">
     <div class="text-center mb-16">
-      <h2 class="font-display text-3xl font-extrabold text-slate-900 sm:text-4xl mb-4">Latest Updates</h2>
+      <h2 class="font-display text-3xl font-extrabold text-slate-900 sm:text-4xl mb-4">{{ .title }}</h2>
       <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-        Stay informed about the latest developments in sustainable resource management and circular economy practices
+        {{ .subtitle }}
       </p>
     </div>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {{ range first 6 site.RegularPages }}
+      {{ range first (.posts_count | default 6) $posts }}
         <article class="group card-modern overflow-hidden">
           <div class="h-48 bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 flex items-center justify-center relative overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-purple-600/10 group-hover:from-blue-600/20 group-hover:to-purple-600/20 transition-colors duration-300"></div>
@@ -301,5 +329,7 @@
     </div>
   </div>
 </section>
+{{ end }}
+{{ end }}
 {{ end }}
 {{ end }}

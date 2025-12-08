@@ -10,6 +10,49 @@ theme = 'reusex'
 [params]
 description = 'Revolutionizing resource reuse for a sustainable future'
 
+# Footer Configuration
+[params.footer]
+  description = "Building the future of sustainable resource management through innovative technology and collaborative networks."
+  
+  # Social Media Links
+  [params.footer.social]
+    twitter = "https://twitter.com/reusex"
+    linkedin = "https://www.linkedin.com/in/sonne-frederiksen/"
+    facebook = "https://facebook.com/reusex"
+    github = "https://github.com/pfmephisto/ReUseX"
+    instagram = "https://instagram.com/reusex"
+    
+  # Footer Menus
+  [[params.footer.menus]]
+    title = "Product"
+    [[params.footer.menus.links]]
+      name = "Features"
+      url = "/features"
+    [[params.footer.menus.links]]
+      name = "Pricing" 
+      url = "#demo"
+    #[[params.footer.menus.links]]
+    #  name = "Documentation"
+    #  url = "/docs"
+    #[[params.footer.menus.links]]
+    #  name = "API Reference"
+    #  url = "/api"
+      
+  [[params.footer.menus]]
+    title = "Support"
+    #[[params.footer.menus.links]]
+    #  name = "Help Center"
+    #  url = "help"
+    [[params.footer.menus.links]]
+      name = "Contact Us"
+      url = "contact"
+    #[[params.footer.menus.links]]
+    #  name = "Privacy Policy"
+    #  url = "privacy"
+    #[[params.footer.menus.links]]
+    #  name = "Terms of Service"
+    #  url = "terms"
+
 [menus]
   [[menus.main]]
     name = 'Home'

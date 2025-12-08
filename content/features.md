@@ -1,6 +1,7 @@
 ---
 title: "Features & Technology"
 description: "Discover the powerful features that make ReUseX the leading platform for resource optimization"
+type: "page"
 ---
 
 ## Core Features

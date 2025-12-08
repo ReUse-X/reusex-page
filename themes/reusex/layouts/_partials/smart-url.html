@@ -1,0 +1,17 @@
+{{- /* 
+Smart URL handling that automatically uses relURL for internal links
+but leaves external URLs and anchors unchanged.
+
+Usage: {{ partial "smart-url.html" "/contact" }}
+       {{ partial "smart-url.html" "https://example.com" }}
+       {{ partial "smart-url.html" "#section" }}
+*/ -}}
+
+{{- $url := . -}}
+{{- if hasPrefix $url "#" -}}
+  {{- $url -}}
+{{- else if or (hasPrefix $url "http") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") -}}
+  {{- $url -}}
+{{- else -}}
+  {{- $url | relURL -}}
+{{- end -}}
