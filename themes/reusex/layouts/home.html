@@ -1,9 +1,214 @@
 {{ define "main" }}
-  {{ .Content }}
-  {{ range site.RegularPages }}
-    <section>
-      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-      {{ .Summary }}
-    </section>
-  {{ end }}
+<!-- Hero Section -->
+<section class="bg-gradient-to-br from-primary to-secondary min-h-screen flex items-center">
+  <div class="container mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="text-white">
+        <h1 class="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+          {{ site.Title }}
+        </h1>
+        <p class="text-xl lg:text-2xl mb-8 text-blue-100">
+          {{ site.Params.description | default "Revolutionary solution for the modern world" }}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#demo" class="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
+            Get Started
+          </a>
+          <a href="#about" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors duration-200">
+            Learn More
+          </a>
+        </div>
+      </div>
+      <div class="hidden lg:block">
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8">
+          <div class="bg-white rounded-xl p-6 shadow-2xl">
+            <div class="h-64 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg flex items-center justify-center">
+              <span class="text-gray-500 text-lg">Project Preview</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Problem Section -->
+<section id="about" class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900 mb-6">The Problem</h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Traditional solutions fall short in addressing modern challenges. We identified key pain points that needed innovative solutions.
+      </p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="text-center">
+        <div class="bg-red-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Inefficiency</h3>
+        <p class="text-gray-600">Current processes waste valuable time and resources</p>
+      </div>
+      <div class="text-center">
+        <div class="bg-red-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Complexity</h3>
+        <p class="text-gray-600">Overly complicated systems create barriers to adoption</p>
+      </div>
+      <div class="text-center">
+        <div class="bg-red-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">High Costs</h3>
+        <p class="text-gray-600">Expensive solutions limit accessibility and growth</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Solution Section -->
+<section class="py-20 bg-gray-50">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900 mb-6">Our Solution</h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        We've developed a revolutionary approach that addresses these challenges with innovative technology and user-centric design.
+      </p>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="space-y-6">
+          <div class="flex items-start space-x-4">
+            <div class="bg-primary rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">Lightning Fast</h3>
+              <p class="text-gray-600">10x faster than traditional solutions with optimized performance</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div class="bg-primary rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">User-Friendly</h3>
+              <p class="text-gray-600">Intuitive interface designed for ease of use and adoption</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div class="bg-primary rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">Cost-Effective</h3>
+              <p class="text-gray-600">Affordable pricing that scales with your business needs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="bg-white rounded-2xl p-8 shadow-xl">
+          <div class="h-80 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl flex items-center justify-center">
+            <span class="text-gray-500 text-lg">Solution Demo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-20 bg-primary">
+  <div class="container mx-auto px-6">
+    <div class="grid md:grid-cols-4 gap-8 text-center text-white">
+      <div>
+        <div class="text-4xl font-bold mb-2">99%</div>
+        <div class="text-blue-100">Customer Satisfaction</div>
+      </div>
+      <div>
+        <div class="text-4xl font-bold mb-2">50k+</div>
+        <div class="text-blue-100">Active Users</div>
+      </div>
+      <div>
+        <div class="text-4xl font-bold mb-2">10x</div>
+        <div class="text-blue-100">Performance Improvement</div>
+      </div>
+      <div>
+        <div class="text-4xl font-bold mb-2">24/7</div>
+        <div class="text-blue-100">Support Available</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section id="demo" class="py-20 bg-white">
+  <div class="container mx-auto px-6 text-center">
+    <h2 class="text-4xl font-bold text-gray-900 mb-6">Ready to Get Started?</h2>
+    <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+      Join thousands of satisfied customers who have transformed their workflow with our solution.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#" class="bg-primary text-white px-8 py-4 rounded-lg font-semibold hover:bg-secondary transition-colors duration-200">
+        Start Free Trial
+      </a>
+      <a href="#" class="border-2 border-primary text-primary px-8 py-4 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors duration-200">
+        Schedule Demo
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Content from markdown -->
+{{ if .Content }}
+<section class="py-20 bg-gray-50">
+  <div class="container mx-auto px-6">
+    <div class="prose prose-lg max-w-none">
+      {{ .Content }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+<!-- Recent Posts -->
+{{ if site.RegularPages }}
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Latest Updates</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {{ range first 6 site.RegularPages }}
+        <article class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200">
+          <div class="h-48 bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+            <span class="text-gray-500">{{ .Title }}</span>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">
+              <a href="{{ .RelPermalink }}" class="text-gray-900 hover:text-primary">{{ .LinkTitle }}</a>
+            </h3>
+            <p class="text-gray-600 mb-4">{{ .Summary }}</p>
+            <div class="flex items-center justify-between text-sm text-gray-500">
+              <time>{{ .Date.Format "January 2, 2006" }}</time>
+              <a href="{{ .RelPermalink }}" class="text-primary hover:text-secondary">Read more →</a>
+            </div>
+          </div>
+        </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
 {{ end }}

@@ -1,3 +1,32 @@
-baseURL = 'https://example.org/'
+# SPDX-FileCopyrightText: 2025 Povl Filip Sonne-Frederiksen
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+baseURL = 'https://pfmephisto.github.io/reusex-page/'
 languageCode = 'en-us'
 title = 'ReUseX'
+theme = 'reusex'
+
+[params]
+description = 'Revolutionizing resource reuse for a sustainable future'
+
+[menus]
+  [[menus.main]]
+    name = 'Home'
+    pageRef = '/'
+    weight = 10
+
+  [[menus.main]]
+    name = 'About'
+    pageRef = '/about'
+    weight = 20
+
+  [[menus.main]]
+    name = 'Features'
+    pageRef = '/features'
+    weight = 30
+
+  [[menus.main]]
+    name = 'Contact'
+    pageRef = '/contact'
+    weight = 40

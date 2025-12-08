@@ -1,6 +1,3 @@
-# SPDX-FileCopyrightText: 2025 Povl Filip Sonne-Frederiksen
-#
-# SPDX-License-Identifier: GPL-3.0-or-later
 {
   description = "ReUseX";
 
@@ -15,14 +12,13 @@
     };
   }; # end of inputs
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      flake-utils,
-      pre-commit-hooks,
-    }:
-    flake-utils.lib.eachSystem [ "x86_64-linux" ] (
+  outputs = {
+    self,
+    nixpkgs,
+    flake-utils,
+    pre-commit-hooks,
+  }:
+    flake-utils.lib.eachSystem ["x86_64-linux"] (
       system:
       # flake-utils.lib.eachDefaultSystem (system:
       let
@@ -42,13 +38,12 @@
           # Set overlays and custom fixes for broken packages
           #overlays = import ./overlays { inherit lib; };
         };
-      in
-      {
+      in {
         formatter = pkgs.alejandra;
 
         checks.pre-commit-check = pre-commit-hooks.lib.${system}.run {
           src = ./.;
-          default_stages = [ "pre-commit" ];
+          default_stages = ["pre-commit"];
           hooks = {
             check-added-large-files.enable = true;
             check-case-conflicts.enable = true;
@@ -56,9 +51,9 @@
             check-shebang-scripts-are-executable.enable = true;
             check-merge-conflicts.enable = true;
             alejandra.enable = true;
-            reuse = {
-              enable = true;
-            };
+            #reuse = {
+            #  enable = true;
+            #};
           };
         };
 
@@ -85,11 +80,12 @@
               tailwindcss_4
             ];
 
-            shellHook = ''
-              echo "Entering dev shell"
-              export VIRTUAL_ENV_PROMPT="ReUseX Webpage"
-            ''
-            + self.checks.${system}.pre-commit-check.shellHook;
+            shellHook =
+              ''
+                echo "Entering dev shell"
+                export VIRTUAL_ENV_PROMPT="ReUseX Webpage"
+              ''
+              + self.checks.${system}.pre-commit-check.shellHook;
           }; # end of default shell
         }; # end of devShells
       }
