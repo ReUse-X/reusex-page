@@ -253,10 +253,65 @@ html {
 .mobile-menu {
   transform: translateX(-100%);
   transition: transform 0.3s ease-in-out;
+  visibility: hidden;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
 }
 
 .mobile-menu.open {
   transform: translateX(0);
+  visibility: visible;
+}
+
+/* Additional mobile menu utilities */
+.fixed {
+  position: fixed;
+}
+
+.z-50 {
+  z-index: 50;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+.block {
+  display: block;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.border-b {
+  border-bottom-width: 1px;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.mt-8 {
+  margin-top: 2rem;
 }
 
 /* Utility classes for modern design */

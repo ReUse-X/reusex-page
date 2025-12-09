@@ -4,11 +4,28 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
     const mobileMenuButton = document.querySelector('button[class*="md:hidden"]');
+    const closeMobileMenuButton = document.querySelector('.close-mobile-menu');
     const mobileMenu = document.querySelector('.mobile-menu');
     
     if (mobileMenuButton && mobileMenu) {
         mobileMenuButton.addEventListener('click', function() {
-            mobileMenu.classList.toggle('open');
+            mobileMenu.classList.add('open');
+        });
+    }
+    
+    if (closeMobileMenuButton && mobileMenu) {
+        closeMobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.remove('open');
+        });
+    }
+    
+    // Close mobile menu when clicking on menu links
+    if (mobileMenu) {
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('open');
+            });
         });
     }
 
