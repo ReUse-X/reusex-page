@@ -253,7 +253,7 @@ html {
 .mobile-menu {
   transform: translateX(-100%);
   transition: transform 0.3s ease-in-out;
-  visibility: hidden;
+  pointer-events: none;
   width: 100%;
   height: 100%;
   left: 0;
@@ -262,7 +262,7 @@ html {
 
 .mobile-menu.open {
   transform: translateX(0);
-  visibility: visible;
+  pointer-events: auto;
 }
 
 /* Additional mobile menu utilities */

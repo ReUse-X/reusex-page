@@ -3,7 +3,7 @@
 // Smooth scrolling for anchor links
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
-    const mobileMenuButton = document.querySelector('button[class*="md:hidden"]');
+    const mobileMenuButton = document.querySelector('.open-mobile-menu');
     const closeMobileMenuButton = document.querySelector('.close-mobile-menu');
     const mobileMenu = document.querySelector('.mobile-menu');
     
