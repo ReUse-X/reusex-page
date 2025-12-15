@@ -1,5 +1,5 @@
 ---
-title: "ReUseX"
+title: "ReUseY"
 subtitle: "Revolutionizing resource reuse for a sustainable future"
 cta_primary:
   text: "Get Started Today"
