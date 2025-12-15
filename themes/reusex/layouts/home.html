@@ -1,4 +1,5 @@
 {{ define "main" }}
+{{- $hero := site.GetPage "sections/hero" -}}
 <!-- Enhanced Hero Section -->
 <section class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center section-padding">
   <div class="container-custom">
@@ -6,13 +7,13 @@
       <!-- Main Hero Content -->
       <div class="text-center lg:text-left">
         <h1 class="font-display text-5xl font-extrabold text-slate-900 sm:text-6xl lg:text-7xl leading-tight mb-6">
-          {{ .Params.hero.title | default site.Title }}
+          {{ $hero.Params.title | default site.Title }}
         </h1>
         <p class="text-xl lg:text-2xl text-slate-600 leading-relaxed mb-8">
-          {{ .Params.hero.subtitle | default .Params.description | default site.Params.description }}
+          {{ $hero.Params.subtitle | default .Params.description | default site.Params.description }}
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-          {{ with .Params.hero.cta_primary }}
+          {{ with $hero.Params.cta_primary }}
           {{- $url := .url | default "#demo" -}}
           {{- if hasPrefix $url "#" -}}
             <a href="{{ $url }}" class="btn-solid btn-primary text-lg px-8 py-4">
@@ -28,7 +29,7 @@
             Get Started Today
           </a>
           {{ end }}
-          {{ with .Params.hero.cta_secondary }}
+          {{ with $hero.Params.cta_secondary }}
           {{- $url := .url | default "#about" -}}
           {{- if hasPrefix $url "#" -}}
             <a href="{{ $url }}" class="btn-outline btn-secondary text-lg px-8 py-4">
@@ -47,7 +48,8 @@
         </div>
         
         <!-- Testimonial/Quote -->
-        {{ with .Params.testimonial }}
+        {{- $testimonial := site.GetPage "sections/testimonial" -}}
+        {{ with $testimonial.Params }}
         <div class="mt-16 pt-8 border-t border-slate-200">
           <figure class="text-center lg:text-left">
             <div class="flex justify-center lg:justify-start text-blue-600 mb-4">
@@ -98,7 +100,8 @@
 </section>
 
 <!-- Enhanced Problem Section -->
-{{ with .Params.challenges }}
+{{- $challenges := site.GetPage "sections/challenges" -}}
+{{ with $challenges.Params }}
 <section id="about" class="section-padding bg-white">
   <div class="container-custom">
     <div class="text-center mb-20">
@@ -137,7 +140,8 @@
 {{ end }}
 
 <!-- Enhanced Solution Section -->
-{{ with .Params.solution }}
+{{- $solution := site.GetPage "sections/solution" -}}
+{{ with $solution.Params }}
 <section class="section-padding bg-white">
   <div class="container-custom">
     <div class="text-center mb-16">
@@ -191,7 +195,8 @@
 {{ end }}
 
 <!-- Enhanced Stats Section -->
-{{ with .Params.stats }}
+{{- $stats := site.GetPage "sections/stats" -}}
+{{ with $stats.Params }}
 <section class="section-padding bg-slate-900">
   <div class="container-custom">
     <div class="text-center mb-16">
@@ -213,7 +218,8 @@
 {{ end }}
 
 <!-- Enhanced CTA Section -->
-{{ with .Params.cta }}
+{{- $cta := site.GetPage "sections/cta" -}}
+{{ with $cta.Params }}
 <section id="demo" class="section-padding bg-gradient-to-br from-blue-50 to-indigo-100">
   <div class="container-custom text-center">
     <div class="max-w-4xl mx-auto">
@@ -286,7 +292,8 @@
 {{ end }}
 
 <!-- Enhanced Recent Posts -->
-{{ with .Params.blog }}
+{{- $blog := site.GetPage "sections/blog" -}}
+{{ with $blog.Params }}
 {{ if .show_posts }}
 {{ $posts := (where site.RegularPages "Type" "post") }}
 {{ $posts = (where $posts "Draft" false) }}
