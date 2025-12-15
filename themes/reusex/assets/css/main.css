@@ -128,14 +128,14 @@ html {
   text-decoration: none;
 }
 
-/* Hero button size reduction (25% smaller) */
+/* Hero button size reduction (25% smaller than default hero buttons) */
+/* Original hero buttons: text-lg (1.125rem), px-8 (2rem), py-4 (1rem) */
+/* Reduced by 25%: font-size (0.84375rem), px-6 (1.5rem), py-3 (0.75rem) */
 .hero-btn-solid {
-  padding: 0.75rem 1.5rem;
   font-size: 0.84375rem;
 }
 
 .hero-btn-outline {
-  padding: 0.703125rem 1.40625rem;
   font-size: 0.84375rem;
 }
 
