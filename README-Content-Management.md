@@ -4,92 +4,127 @@ This guide explains how to customize the content on your ReUseX landing page and
 
 ## Quick Start
 
-1. **Homepage Content**: Edit `content/_index.md` to customize all landing page sections
-2. **Blog Posts**: Create `.md` files in `content/` with `type: "post"`  
-3. **Static Pages**: Create `.md` files in `content/` with `type: "page"`
+1. **Homepage Sections**: Edit individual files in `content/sections/` to customize each landing page section
+2. **Homepage Content**: Edit `content/_index.md` for basic page metadata and content
+3. **Blog Posts**: Create `.md` files in `content/` with `type: "post"`  
+4. **Static Pages**: Create `.md` files in `content/` with `type: "page"`
+
+## Section Files
+
+Each section of the homepage is now managed in its own file under `content/sections/`:
+
+- `hero.md` - Hero section with title, subtitle, and call-to-action buttons
+- `testimonial.md` - Customer testimonial/quote
+- `challenges.md` - Problem statement section
+- `solution.md` - Solution features section
+- `stats.md` - Impact metrics and statistics
+- `cta.md` - Call-to-action section
+- `blog.md` - Blog posts display configuration
+
+### Benefits of Separate Section Files
+
+- **Better Organization**: Each section is in its own file, making it easier to find and edit specific content
+- **Reduced Complexity**: No more scrolling through a large metadata block in `_index.md`
+- **Version Control**: Changes to individual sections are easier to track in git
+- **Team Collaboration**: Multiple team members can work on different sections without merge conflicts
+- **Maintainability**: Cleaner structure makes it easier to add, remove, or modify sections
 
 ## Editable Sections
 
-### 1. Hero Section
+### 1. Hero Section (`content/sections/hero.md`)
 ```yaml
-hero:
-  title: "ReUseX"
-  subtitle: "Revolutionizing resource reuse for a sustainable future"
-  cta_primary:
-    text: "Get Started Today"
-    url: "https://app.reusex.com/signup"
-  cta_secondary:
-    text: "Learn More"
-    url: "#about"
+---
+title: "ReUseX"
+subtitle: "Revolutionizing resource reuse for a sustainable future"
+cta_primary:
+  text: "Get Started Today"
+  url: "https://app.reusex.com/signup"
+cta_secondary:
+  text: "Learn More"
+  url: "#about"
+headless: true
+---
 ```
 
-### 2. Testimonial/Quote
+### 2. Testimonial/Quote (`content/sections/testimonial.md`)
 ```yaml
-testimonial:
-  quote: "This platform revolutionizes how we think about resource reuse."
-  author: "Dr. Sarah Chen"
-  title: "Environmental Expert"
-  rating: 5
+---
+quote: "This platform revolutionizes how we think about resource reuse."
+author: "Dr. Sarah Chen"
+title: "Environmental Expert"
+rating: 5
+headless: true
+---
 ```
 
-### 3. Current Challenges Section
+### 3. Current Challenges Section (`content/sections/challenges.md`)
 ```yaml
-challenges:
-  title: "Current Challenges"
-  subtitle: "The waste crisis demands urgent action..."
-  items:
-    - icon: "warning"           # Options: warning, puzzle, currency
-      title: "Resource Waste"
-      description: "Billions of tons of materials..."
-      color: "red"             # Options: red, amber, rose
+---
+title: "Current Challenges"
+subtitle: "The waste crisis demands urgent action..."
+items:
+  - icon: "warning"           # Options: warning, puzzle, currency
+    title: "Resource Waste"
+    description: "Billions of tons of materials..."
+    color: "red"             # Options: red, amber, rose
+headless: true
+---
 ```
 
-### 4. Solution Features
+### 4. Solution Features (`content/sections/solution.md`)
 ```yaml
-solution:
-  title: "The ReUseX Solution"
-  subtitle: "Our intelligent platform transforms..."
-  features:
-    - icon: "lightning"        # Options: lightning, network, analytics
-      title: "AI-Powered Matching"
-      description: "Our advanced algorithms..."
-      color: "blue"           # Options: blue, emerald, purple
+---
+title: "The ReUseX Solution"
+subtitle: "Our intelligent platform transforms..."
+features:
+  - icon: "lightning"        # Options: lightning, network, analytics
+    title: "AI-Powered Matching"
+    description: "Our advanced algorithms..."
+    color: "blue"           # Options: blue, emerald, purple
+headless: true
+---
 ```
 
-### 5. Statistics
+### 5. Statistics (`content/sections/stats.md`)
 ```yaml
-stats:
-  title: "Impact at Scale"
-  subtitle: "Real results from organizations..."
-  metrics:
-    - value: "85%"
-      label: "Waste Reduction"
+---
+title: "Impact at Scale"
+subtitle: "Real results from organizations..."
+metrics:
+  - value: "85%"
+    label: "Waste Reduction"
+headless: true
+---
 ```
 
-### 6. Call-to-Action Section
+### 6. Call-to-Action Section (`content/sections/cta.md`)
 ```yaml
-cta:
-  title: "Ready to Transform Your Resource Management?"
-  subtitle: "Join the circular economy revolution..."
-  primary_button:
-    text: "Start Free Trial"
-    url: "https://app.reusex.com/signup"
-  secondary_button:
-    text: "Schedule Demo"
-    url: "https://calendly.com/reusex/demo"
-  features:
-    - "No credit card required"
-    - "30-day free trial"
-    - "Cancel anytime"
+---
+title: "Ready to Transform Your Resource Management?"
+subtitle: "Join the circular economy revolution..."
+primary_button:
+  text: "Start Free Trial"
+  url: "https://app.reusex.com/signup"
+secondary_button:
+  text: "Schedule Demo"
+  url: "https://calendly.com/reusex/demo"
+features:
+  - "No credit card required"
+  - "30-day free trial"
+  - "Cancel anytime"
+headless: true
+---
 ```
 
-### 7. Blog Posts Section
+### 7. Blog Posts Section (`content/sections/blog.md`)
 ```yaml
-blog:
-  title: "Latest Updates"
-  subtitle: "Stay informed about the latest developments..."
-  show_posts: true
-  posts_count: 6
+---
+title: "Latest Updates"
+subtitle: "Stay informed about the latest developments..."
+show_posts: true
+posts_count: 6
+headless: true
+---
 ```
 
 ## Available Icons
@@ -135,9 +170,10 @@ The most recent posts will automatically appear on the homepage if `blog.show_po
 
 ## Content Organization
 
+**Homepage Sections**: Individual files in `content/sections/` directory, each marked as `headless: true`
+**Homepage Content**: Basic metadata and content in `content/_index.md`
 **Blog Posts**: Set `type: "post"` in front matter - these appear on homepage
 **Static Pages**: Set `type: "page"` in front matter - these don't appear in blog listings
-**Homepage**: Uses `content/_index.md` for all section content
 
 ## Button Links
 
