@@ -4,6 +4,9 @@
 :root {
   --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   --font-display: ui-sans-serif, system-ui, sans-serif;
+  --teal-500: #14B8A6;
+  --slate-200: #E2E8F0;
+  --slate-800: #1E293B;
 }
 
 /* Smooth scrolling for anchor links */
@@ -475,6 +478,31 @@ html {
 
 .text-emerald-500 {
   color: #10b981;
+}
+
+/* Custom hero color utilities */
+.bg-teal-500 {
+  background-color: var(--teal-500);
+}
+
+.text-slate-200 {
+  color: var(--slate-200);
+}
+
+.bg-slate-800 {
+  background-color: var(--slate-800);
+}
+
+.border-slate-200 {
+  border-color: var(--slate-200);
+}
+
+.text-slate-800 {
+  color: var(--slate-800);
+}
+
+.border-slate-800 {
+  border-color: var(--slate-800);
 }
 
 .w-20 {

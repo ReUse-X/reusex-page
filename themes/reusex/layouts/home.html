@@ -1,47 +1,47 @@
 {{ define "main" }}
 {{- $hero := site.GetPage "sections/hero" -}}
 <!-- Enhanced Hero Section -->
-<section class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center section-padding">
+<section class="bg-teal-500 min-h-screen flex items-center section-padding">
   <div class="container-custom">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <!-- Main Hero Content -->
       <div class="text-center lg:text-left">
-        <h1 class="font-display text-5xl font-extrabold text-slate-900 sm:text-6xl lg:text-7xl leading-tight mb-6">
+        <h1 class="font-display text-5xl font-extrabold text-slate-200 sm:text-6xl lg:text-7xl leading-tight mb-6">
           {{ $hero.Params.title | default site.Title }}
         </h1>
-        <p class="text-xl lg:text-2xl text-slate-600 leading-relaxed mb-8">
+        <p class="text-xl lg:text-2xl text-slate-200 leading-relaxed mb-8">
           {{ $hero.Params.subtitle | default .Params.description | default site.Params.description }}
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
           {{ with $hero.Params.cta_primary }}
           {{- $url := .url | default "#demo" -}}
           {{- if hasPrefix $url "#" -}}
-            <a href="{{ $url }}" class="btn-solid btn-primary text-lg px-8 py-4">
+            <a href="{{ $url }}" class="btn-solid bg-slate-800 text-slate-200 text-lg px-8 py-4">
           {{- else if or (hasPrefix $url "http") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") -}}
-            <a href="{{ $url }}" class="btn-solid btn-primary text-lg px-8 py-4">
+            <a href="{{ $url }}" class="btn-solid bg-slate-800 text-slate-200 text-lg px-8 py-4">
           {{- else -}}
-            <a href="{{ $url | relURL }}" class="btn-solid btn-primary text-lg px-8 py-4">
+            <a href="{{ $url | relURL }}" class="btn-solid bg-slate-800 text-slate-200 text-lg px-8 py-4">
           {{- end -}}
             {{ .text | default "Get Started Today" }}
           </a>
           {{ else }}
-          <a href="#demo" class="btn-solid btn-primary text-lg px-8 py-4">
+          <a href="#demo" class="btn-solid bg-slate-800 text-slate-200 text-lg px-8 py-4">
             Get Started Today
           </a>
           {{ end }}
           {{ with $hero.Params.cta_secondary }}
           {{- $url := .url | default "#about" -}}
           {{- if hasPrefix $url "#" -}}
-            <a href="{{ $url }}" class="btn-outline btn-secondary text-lg px-8 py-4">
+            <a href="{{ $url }}" class="btn-outline border-slate-800 text-slate-800 text-lg px-8 py-4">
           {{- else if or (hasPrefix $url "http") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") -}}
-            <a href="{{ $url }}" class="btn-outline btn-secondary text-lg px-8 py-4">
+            <a href="{{ $url }}" class="btn-outline border-slate-800 text-slate-800 text-lg px-8 py-4">
           {{- else -}}
-            <a href="{{ $url | relURL }}" class="btn-outline btn-secondary text-lg px-8 py-4">
+            <a href="{{ $url | relURL }}" class="btn-outline border-slate-800 text-slate-800 text-lg px-8 py-4">
           {{- end -}}
             {{ .text | default "Learn More" }}
           </a>
           {{ else }}
-          <a href="#about" class="btn-outline btn-secondary text-lg px-8 py-4">
+          <a href="#about" class="btn-outline border-slate-800 text-slate-800 text-lg px-8 py-4">
             Learn More
           </a>
           {{ end }}
@@ -52,21 +52,9 @@
         {{ with $testimonial.Params }}
         <div class="mt-16 pt-8 border-t border-slate-200">
           <figure class="text-center lg:text-left">
-            <div class="flex justify-center lg:justify-start text-blue-600 mb-4">
-              <div class="flex space-x-1">
-                {{ range seq (.rating | default 5) }}
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                </svg>
-                {{ end }}
-              </div>
-            </div>
-            <blockquote class="text-lg font-medium text-slate-700 italic">
-              "{{ .quote }}"
+            <blockquote class="text-lg font-medium text-slate-200 italic">
+              {{ .quote }}
             </blockquote>
-            <figcaption class="mt-2 text-sm text-slate-500">
-              <strong class="font-semibold text-blue-600">{{ .author }}</strong>{{ with .title }}, {{ . }}{{ end }}
-            </figcaption>
           </figure>
         </div>
         {{ end }}
