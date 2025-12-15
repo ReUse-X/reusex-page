@@ -65,7 +65,7 @@
         <div class="relative">
           {{ with $hero.Params.hero_image }}
           <div class="rounded-2xl overflow-hidden shadow-2xl">
-            <img src="{{ . | relURL }}" alt="Hero image" class="w-full h-auto object-cover rounded-xl" />
+            <img src="{{ . | relURL }}" alt="{{ $hero.Params.hero_image_alt | default $hero.Params.title }}" class="w-full h-auto object-cover" />
           </div>
           {{ else }}
           <div class="bg-white rounded-2xl p-8 shadow-2xl">

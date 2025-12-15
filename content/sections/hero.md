@@ -8,5 +8,6 @@ cta_secondary:
   text: "Learn More"
   url: "#about"
 hero_image: "/images/hero-image.jpg"
+hero_image_alt: "ReUseX platform visualization showing sustainable future with blue-purple gradient"
 headless: true
 ---
