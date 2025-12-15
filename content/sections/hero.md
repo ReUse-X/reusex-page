@@ -1,8 +1,8 @@
 ---
-title: "Circularity-ready building data with AI"
+title: "Turn existing buildings into circularity-ready data with AI"
 subtitle: ""
 cta_primary:
-  text: "Book a Pilot Project"
+  text: "Book a pilot projekt"
   url: "https://app.reusex.com/signup"
 cta_secondary:
   text: "Learn More"

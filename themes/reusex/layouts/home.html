@@ -5,43 +5,43 @@
   <div class="container-custom">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <!-- Main Hero Content -->
-      <div class="text-center lg:text-left">
+      <div class="text-center">
         <h1 class="font-display text-2xl font-extrabold text-slate-200 sm:text-3xl lg:text-4xl leading-tight mb-6">
           {{ $hero.Params.title | default site.Title }}
         </h1>
         <p class="text-xl lg:text-2xl text-slate-200 leading-relaxed mb-8">
           {{ $hero.Params.subtitle | default .Params.description | default site.Params.description }}
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
           {{ with $hero.Params.cta_primary }}
           {{- $url := .url | default "#demo" -}}
           {{- if hasPrefix $url "#" -}}
-            <a href="{{ $url }}" class="btn-solid bg-slate-800 text-slate-200 text-lg px-8 py-4">
+            <a href="{{ $url }}" class="btn-solid hero-btn-solid bg-slate-800 text-slate-200 px-6 py-3">
           {{- else if or (hasPrefix $url "http") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") -}}
-            <a href="{{ $url }}" class="btn-solid bg-slate-800 text-slate-200 text-lg px-8 py-4">
+            <a href="{{ $url }}" class="btn-solid hero-btn-solid bg-slate-800 text-slate-200 px-6 py-3">
           {{- else -}}
-            <a href="{{ $url | relURL }}" class="btn-solid bg-slate-800 text-slate-200 text-lg px-8 py-4">
+            <a href="{{ $url | relURL }}" class="btn-solid hero-btn-solid bg-slate-800 text-slate-200 px-6 py-3">
           {{- end -}}
             {{ .text | default "Get Started Today" }}
           </a>
           {{ else }}
-          <a href="#demo" class="btn-solid bg-slate-800 text-slate-200 text-lg px-8 py-4">
+          <a href="#demo" class="btn-solid hero-btn-solid bg-slate-800 text-slate-200 px-6 py-3">
             Get Started Today
           </a>
           {{ end }}
           {{ with $hero.Params.cta_secondary }}
           {{- $url := .url | default "#about" -}}
           {{- if hasPrefix $url "#" -}}
-            <a href="{{ $url }}" class="btn-outline border-slate-800 text-slate-800 text-lg px-8 py-4">
+            <a href="{{ $url }}" class="btn-outline hero-btn-outline border-slate-800 text-slate-800 px-6 py-3">
           {{- else if or (hasPrefix $url "http") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") -}}
-            <a href="{{ $url }}" class="btn-outline border-slate-800 text-slate-800 text-lg px-8 py-4">
+            <a href="{{ $url }}" class="btn-outline hero-btn-outline border-slate-800 text-slate-800 px-6 py-3">
           {{- else -}}
-            <a href="{{ $url | relURL }}" class="btn-outline border-slate-800 text-slate-800 text-lg px-8 py-4">
+            <a href="{{ $url | relURL }}" class="btn-outline hero-btn-outline border-slate-800 text-slate-800 px-6 py-3">
           {{- end -}}
             {{ .text | default "Learn More" }}
           </a>
           {{ else }}
-          <a href="#about" class="btn-outline border-slate-800 text-slate-800 text-lg px-8 py-4">
+          <a href="#about" class="btn-outline hero-btn-outline border-slate-800 text-slate-800 px-6 py-3">
             Learn More
           </a>
           {{ end }}
@@ -50,7 +50,7 @@
         <!-- Testimonial/Quote -->
         {{- $testimonial := site.GetPage "sections/testimonial" -}}
         {{ with $testimonial.Params }}
-        <div class="mt-16 pt-8 border-t border-slate-200">
+        <div class="mt-16 pt-8">
           <figure class="text-center lg:text-left">
             <blockquote class="text-lg font-medium text-slate-200 italic">
               {{ .quote }}
