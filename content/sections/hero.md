@@ -7,5 +7,6 @@ cta_primary:
 cta_secondary:
   text: "Learn More"
   url: "#about"
+hero_image: "/images/hero-image.jpg"
 headless: true
 ---
