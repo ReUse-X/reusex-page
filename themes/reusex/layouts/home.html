@@ -1,47 +1,47 @@
 {{ define "main" }}
 {{- $hero := site.GetPage "sections/hero" -}}
 <!-- Enhanced Hero Section -->
-<section style="background-color: #14B8A6;" class="min-h-screen flex items-center section-padding">
+<section class="bg-teal-500 min-h-screen flex items-center section-padding">
   <div class="container-custom">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <!-- Main Hero Content -->
       <div class="text-center lg:text-left">
-        <h1 class="font-display text-5xl font-extrabold sm:text-6xl lg:text-7xl leading-tight mb-6" style="color: #E2E8F0;">
+        <h1 class="font-display text-5xl font-extrabold text-slate-200 sm:text-6xl lg:text-7xl leading-tight mb-6">
           {{ $hero.Params.title | default site.Title }}
         </h1>
-        <p class="text-xl lg:text-2xl leading-relaxed mb-8" style="color: #E2E8F0;">
+        <p class="text-xl lg:text-2xl text-slate-200 leading-relaxed mb-8">
           {{ $hero.Params.subtitle | default .Params.description | default site.Params.description }}
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
           {{ with $hero.Params.cta_primary }}
           {{- $url := .url | default "#demo" -}}
           {{- if hasPrefix $url "#" -}}
-            <a href="{{ $url }}" class="btn-solid text-lg px-8 py-4" style="background-color: #1E293B; color: #E2E8F0;">
+            <a href="{{ $url }}" class="btn-solid bg-slate-800 text-slate-200 text-lg px-8 py-4">
           {{- else if or (hasPrefix $url "http") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") -}}
-            <a href="{{ $url }}" class="btn-solid text-lg px-8 py-4" style="background-color: #1E293B; color: #E2E8F0;">
+            <a href="{{ $url }}" class="btn-solid bg-slate-800 text-slate-200 text-lg px-8 py-4">
           {{- else -}}
-            <a href="{{ $url | relURL }}" class="btn-solid text-lg px-8 py-4" style="background-color: #1E293B; color: #E2E8F0;">
+            <a href="{{ $url | relURL }}" class="btn-solid bg-slate-800 text-slate-200 text-lg px-8 py-4">
           {{- end -}}
             {{ .text | default "Get Started Today" }}
           </a>
           {{ else }}
-          <a href="#demo" class="btn-solid text-lg px-8 py-4" style="background-color: #1E293B; color: #E2E8F0;">
+          <a href="#demo" class="btn-solid bg-slate-800 text-slate-200 text-lg px-8 py-4">
             Get Started Today
           </a>
           {{ end }}
           {{ with $hero.Params.cta_secondary }}
           {{- $url := .url | default "#about" -}}
           {{- if hasPrefix $url "#" -}}
-            <a href="{{ $url }}" class="btn-outline text-lg px-8 py-4" style="border-color: #1E293B; color: #1E293B;">
+            <a href="{{ $url }}" class="btn-outline border-slate-800 text-slate-800 text-lg px-8 py-4">
           {{- else if or (hasPrefix $url "http") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") -}}
-            <a href="{{ $url }}" class="btn-outline text-lg px-8 py-4" style="border-color: #1E293B; color: #1E293B;">
+            <a href="{{ $url }}" class="btn-outline border-slate-800 text-slate-800 text-lg px-8 py-4">
           {{- else -}}
-            <a href="{{ $url | relURL }}" class="btn-outline text-lg px-8 py-4" style="border-color: #1E293B; color: #1E293B;">
+            <a href="{{ $url | relURL }}" class="btn-outline border-slate-800 text-slate-800 text-lg px-8 py-4">
           {{- end -}}
             {{ .text | default "Learn More" }}
           </a>
           {{ else }}
-          <a href="#about" class="btn-outline text-lg px-8 py-4" style="border-color: #1E293B; color: #1E293B;">
+          <a href="#about" class="btn-outline border-slate-800 text-slate-800 text-lg px-8 py-4">
             Learn More
           </a>
           {{ end }}
@@ -50,9 +50,9 @@
         <!-- Testimonial/Quote -->
         {{- $testimonial := site.GetPage "sections/testimonial" -}}
         {{ with $testimonial.Params }}
-        <div class="mt-16 pt-8" style="border-top: 1px solid #E2E8F0;">
+        <div class="mt-16 pt-8 border-t border-slate-200">
           <figure class="text-center lg:text-left">
-            <blockquote class="text-lg font-medium italic" style="color: #E2E8F0;">
+            <blockquote class="text-lg font-medium text-slate-200 italic">
               {{ .quote }}
             </blockquote>
           </figure>
