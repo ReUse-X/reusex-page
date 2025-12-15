@@ -1,8 +1,7 @@
 ---
-title: "ReUseX"
-subtitle: "Revolutionizing resource reuse for a sustainable future"
+title: "Turn existing buildings into circularity-ready data with AI"
 cta_primary:
-  text: "Get Started Today"
+  text: "Book a Pilot Project"
   url: "https://app.reusex.com/signup"
 cta_secondary:
   text: "Learn More"
