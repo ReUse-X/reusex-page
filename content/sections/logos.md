@@ -3,11 +3,11 @@ title: "Built with and for the AEC industry"
 logos:
   - image: "images/Logo LINK.png"
     alt: "AEC Industry Partner Logo 1"
-  - image: "images/logo2.png"
+  - image: "images/Logo-Multiconsult.png"
     alt: "AEC Industry Partner Logo 2"
-  - image: "images/logo3.png"
+  - image: "images/Logo Aarhus Kommune.png"
     alt: "AEC Industry Partner Logo 3"
-  - image: "images/logo4.png"
+  - image: "images/Logo-Contechlab.png"
     alt: "AEC Industry Partner Logo 4"
 headless: true
 ---
