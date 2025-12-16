@@ -1,6 +1,6 @@
 ---
 title: "Current Challenges"
-subtitle: "The waste crisis demands urgent action. Traditional approaches to resource management create significant environmental and economic challenges."
+subtitle: "The transformation and reuse of existing buildings is held back by the lack of reliable data."
 items:
   - icon: "warning"
     title: "Resource Waste"
