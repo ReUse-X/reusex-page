@@ -1,6 +1,6 @@
 ---
-title: "Ready to Transform Your Resource Management?"
-subtitle: "We’re onboarding a limited number of pilot projects with municipalities, building owners and consultants working with existing buildings and adaptive reuse."
+title: "Selected Pilots"
+subtitle: "Real results from pilot projects already using ReUseX for ressource mapping."
 primary_button: 
   text: "Start Free Trial"
   url: "https://app.reusex.com/signup"
