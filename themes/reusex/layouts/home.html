@@ -6,10 +6,10 @@
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <!-- Main Hero Content -->
       <div class="text-center">
-        <h1 class="font-display text-4xl font-extrabold text-slate-200 sm:text-5xl leading-tight mb-6">
+        <h1 class="font-display text-4xl font-extrabold text-hero-custom sm:text-5xl leading-tight mb-6">
           {{ $hero.Params.title | default site.Title }}
         </h1>
-        <p class="text-xl lg:text-2xl text-slate-200 leading-relaxed mb-12">
+        <p class="text-xl lg:text-2xl text-hero-custom leading-relaxed mb-12">
           {{ $hero.Params.subtitle | default .Params.description | default site.Params.description }}
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -52,7 +52,7 @@
         {{ with $testimonial.Params }}
         <div class="mt-12 pt-8">
           <figure class="text-center lg:text-left">
-            <blockquote class="text-lg font-medium text-slate-200 italic">
+            <blockquote class="text-lg font-medium text-hero-custom italic">
               {{ .quote }}
             </blockquote>
           </figure>

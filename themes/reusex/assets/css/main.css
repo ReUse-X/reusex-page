@@ -7,6 +7,7 @@
   --teal-500: #14B8A6;
   --slate-200: #E2E8F0;
   --slate-800: #1E293B;
+  --hero-text-color: #0B1220;
 }
 
 /* Smooth scrolling for anchor links */
@@ -514,6 +515,11 @@ html {
 
 .border-slate-800 {
   border-color: var(--slate-800);
+}
+
+/* Custom hero text color */
+.text-hero-custom {
+  color: var(--hero-text-color);
 }
 
 .w-20 {
