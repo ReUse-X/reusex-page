@@ -1,6 +1,6 @@
 ---
 title: "The ReUseX Solution"
-subtitle: "Our intelligent platform transforms how organizations manage resources, creating a circular economy that benefits everyone."
+subtitle: "ReUseX turns raw LiDAR scans of existing buildings into reuse-ready models and data packages."
 features:
   - icon: "lightning"
     title: "AI-Powered Matching"
