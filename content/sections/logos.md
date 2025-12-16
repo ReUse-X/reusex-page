@@ -1,7 +1,7 @@
 ---
 title: "Built with and for the AEC industry"
 logos:
-  - image: "images/logo1.png"
+  - image: "images/Logo LINK.png"
     alt: "AEC Industry Partner Logo 1"
   - image: "images/logo2.png"
     alt: "AEC Industry Partner Logo 2"
