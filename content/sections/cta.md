@@ -1,6 +1,6 @@
 ---
 title: "Ready to Transform Your Resource Management?"
-subtitle: "Join the circular economy revolution. Start reducing waste, saving costs, and making a positive environmental impact today."
+subtitle: "We’re onboarding a limited number of pilot projects with municipalities, building owners and consultants working with existing buildings and adaptive reuse."
 primary_button: 
   text: "Start Free Trial"
   url: "https://app.reusex.com/signup"
