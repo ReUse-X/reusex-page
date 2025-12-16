@@ -3,14 +3,14 @@
 <head>
   {{ partial "head.html" . }}
 </head>
-<body class="bg-slate-50 font-sans antialiased text-slate-900">
-  <header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-lg border-b border-slate-200/60 shadow-sm">
+<body class="font-sans antialiased" style="background-color: var(--section3-bg); color: var(--body-text);">
+  <header class="fixed top-0 w-full z-50 backdrop-blur-lg border-b shadow-sm" style="background-color: rgba(11, 18, 32, 0.9); border-color: var(--border);">
     {{ partial "header.html" . }}
   </header>
   <main class="pt-16">
     {{ block "main" . }}{{ end }}
   </main>
-  <footer class="bg-slate-900 text-white">
+  <footer style="background-color: var(--section3-bg); color: var(--section3-body);">
     {{ partial "footer.html" . }}
   </footer>
 </body>

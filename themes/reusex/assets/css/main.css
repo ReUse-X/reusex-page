@@ -4,6 +4,69 @@
 :root {
   --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   --font-display: ui-sans-serif, system-ui, sans-serif;
+  
+  /* GLOBAL TOKENS */
+  --surface-bg: #0F172A;
+  --border: #1E293B;
+  --border-subtle: #22314A;
+  --heading-text: #E2E8F0;
+  --body-text: #CBD5E1;
+  --muted-text: #94A3B8;
+  --disabled-text: #64748B;
+  --link: #38BDF8;
+  --link-hover: #0EA5E9;
+  --highlight: #FBBF24;
+  --highlight-soft-bg: #2A2010;
+  --primary-teal: #14B8A6;
+  --primary-hover: #0D9488;
+  --primary-active: #0F766E;
+  --card-hover: #111E36;
+  --button-text-dark: #071018;
+  
+  /* SECTION 1 THEME (Teal band) */
+  --section1-bg: #14B8A6;
+  --section1-text: #0B1220;
+  --section1-text-muted: rgba(11, 18, 32, 0.7);
+  --section1-link: #0B1220;
+  --section1-link-hover: #0F172A;
+  --section1-card-bg: #0F172A;
+  --section1-card-border: #1E293B;
+  --section1-card-heading: #E2E8F0;
+  --section1-card-body: #CBD5E1;
+  --section1-card-muted: #94A3B8;
+  --section1-btn-primary-bg: #0F172A;
+  --section1-btn-primary-text: #E2E8F0;
+  --section1-btn-primary-hover: #111E36;
+  --section1-btn-secondary-bg: transparent;
+  --section1-btn-secondary-border: #0B1220;
+  --section1-btn-secondary-text: #0B1220;
+  --section1-btn-secondary-hover: rgba(11, 18, 32, 0.08);
+  
+  /* SECTION 2 THEME (Navy Alt) */
+  --section2-bg: #0D1628;
+  --section2-heading: #E2E8F0;
+  --section2-body: #CBD5E1;
+  --section2-muted: #94A3B8;
+  --section2-link: #38BDF8;
+  --section2-link-hover: #0EA5E9;
+  --section2-card-bg: #0F172A;
+  --section2-card-border: #1E293B;
+  --section2-card-hover: #111E36;
+  --section2-callout-bg: #2A2010;
+  --section2-callout-title: #FBBF24;
+  
+  /* SECTION 3 THEME (Dark Base) */
+  --section3-bg: #0B1220;
+  --section3-heading: #E2E8F0;
+  --section3-body: #CBD5E1;
+  --section3-muted: #94A3B8;
+  --section3-link: #38BDF8;
+  --section3-link-hover: #0EA5E9;
+  --section3-card-bg: #0F172A;
+  --section3-card-border: #1E293B;
+  --section3-divider: #1E293B;
+  
+  /* Legacy tokens for compatibility */
   --teal-500: #14B8A6;
   --slate-200: #E2E8F0;
   --slate-800: #1E293B;
@@ -17,12 +80,12 @@ html {
 
 /* Custom prose styles to work with Tailwind */
 .prose {
-  color: #374151;
+  color: var(--body-text);
   max-width: none;
 }
 
 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
-  color: #111827;
+  color: var(--heading-text);
   font-weight: 700;
 }
 
@@ -52,13 +115,13 @@ html {
 }
 
 .prose a {
-  color: #3B82F6;
+  color: var(--link);
   text-decoration: underline;
   font-weight: 500;
 }
 
 .prose a:hover {
-  color: #1E40AF;
+  color: var(--link-hover);
 }
 
 .prose ul, .prose ol {
@@ -141,33 +204,36 @@ html {
 }
 
 .btn-primary {
-  background-color: #2563eb;
-  color: white;
+  background-color: var(--primary-teal);
+  color: var(--button-text-dark);
 }
 
 .btn-primary:hover {
-  background-color: #3b82f6;
+  background-color: var(--primary-hover);
+}
+
+.btn-primary:active {
+  background-color: var(--primary-active);
 }
 
 .btn-secondary {
-  border-color: #93c5fd;
-  color: #2563eb;
+  border-color: var(--border);
+  color: var(--heading-text);
   background-color: transparent;
 }
 
 .btn-secondary:hover {
-  border-color: #60a5fa;
-  background-color: #eff6ff;
+  border-color: var(--border-subtle);
 }
 
 .btn-white {
   background-color: white;
-  color: #2563eb;
+  color: var(--primary-teal);
 }
 
 .btn-white:hover {
-  color: #1d4ed8;
-  background-color: #eff6ff;
+  color: var(--primary-hover);
+  background-color: #f8fafc;
 }
 
 /* Enhanced typography */
