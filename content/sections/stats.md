@@ -1,14 +1,14 @@
 ---
 title: "Impact at Scale"
-subtitle: "Real results from organizations already using ReUseX to transform their operations"
+subtitle: "Real results from pilot projects already using ReUseX for ressource mapping. Pilot results to date."
 metrics:
-  - value: "85%"
-    label: "Waste Reduction"
-  - value: "2.5M"
-    label: "Resources Shared"
-  - value: "500+"
-    label: "Organizations"
-  - value: "$12M"
+  - value: "8"
+    label: "Buildings analysed in pilots"
+  - value: "250"
+    label: "Avg. hours saved per project"
+  - value: "10x"
+    label: "Faster resource mapping"
+  - value: "75%"
     label: "Cost Savings"
 headless: true
 ---
