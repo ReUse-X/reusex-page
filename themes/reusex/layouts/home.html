@@ -211,6 +211,25 @@
 </section>
 {{ end }}
 
+<!-- Logo Section (Section 2 - Navy Alt) -->
+{{- $logos := site.GetPage "sections/logos" -}}
+{{ with $logos.Params }}
+<section class="section-padding" style="background-color: var(--section2-bg);">
+  <div class="container-custom">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl font-extrabold sm:text-4xl mb-4" style="color: var(--section2-heading);">{{ .title }}</h2>
+    </div>
+    <div class="grid md:grid-cols-4 gap-8 items-center justify-items-center">
+      {{ range .logos }}
+      <div class="flex items-center justify-center p-4">
+        <img src="{{ .image | relURL }}" alt="{{ .alt }}" class="max-w-full h-auto" style="max-height: 100px;">
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
 <!-- Enhanced CTA Section (Section 1 - Teal variant) -->
 {{- $cta := site.GetPage "sections/cta" -}}
 {{ with $cta.Params }}
