@@ -34,7 +34,7 @@ Renders a menu for the given menu ID.
       {{- end }}
     {{- end }}
     <li>
-      <a class="text-slate-700 hover:text-blue-600 transition-colors duration-200 font-semibold text-sm {{ if eq (index $attrs "class") "active" }}text-blue-600 bg-blue-50 px-3 py-2 rounded-lg{{ else }}px-3 py-2 rounded-lg hover:bg-slate-50{{ end }}"
+      <a class="transition-colors duration-200 font-semibold text-sm px-3 py-2 rounded-lg {{ if eq (index $attrs "class") "active" }}{{ else }}{{ end }}" style="color: {{ if eq (index $attrs "class") "active" }}var(--link){{ else }}var(--heading-text){{ end }};"
         {{- range $k, $v := $attrs }}
           {{- if ne $k "class" }}
             {{- with $v }}
@@ -44,7 +44,7 @@ Renders a menu for the given menu ID.
         {{- end -}}
       >{{ $name }}</a>
       {{- with .Children }}
-        <ul class="absolute top-full left-0 bg-white shadow-lg rounded-md py-2 hidden group-hover:block">
+        <ul class="absolute top-full left-0 shadow-lg rounded-md py-2 hidden group-hover:block" style="background-color: var(--surface-bg);">
           {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
         </ul>
       {{- end }}
