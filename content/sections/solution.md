@@ -1,18 +1,18 @@
 ---
 title: "The ReUseX Solution"
-subtitle: "ReUseX turns raw LiDAR scans of existing buildings into reuse-ready models and data packages."
+subtitle: "AI-powered resource mapping from LiDAR — circularity-ready 3D models and inventories for faster transformation decisions."
 features:
   - icon: "lightning"
-    title: "AI-Powered Matching"
-    description: "Our advanced algorithms instantly connect resource suppliers with those who need them, reducing waste by up to 80%"
+    title: "From scan to 3D model"
+    description: "onvert LiDAR scans into simplified, analysis-ready 3D models of existing buildings."
     color: "blue"
   - icon: "network"
-    title: "Unified Network"
-    description: "Connect with a growing ecosystem of organizations committed to sustainable resource sharing"
+    title: "AI-powered resource mapping"
+    description: "Automatically detect structural elements and building components in the point cloud using AI segmentation."
     color: "emerald"
   - icon: "analytics"
-    title: "Impact Tracking"
-    description: "Real-time analytics show your environmental impact and cost savings"
+    title: "Reuse inventories & exports"
+    description: "Generate component inventories and exports that plug into simple 3D, spreadsheets, and analysis workflows."
     color: "purple"
 headless: true
 ---
