@@ -14,5 +14,10 @@ features:
     title: "Reuse inventories & exports"
     description: "Generate component inventories and exports that plug into simple 3D, spreadsheets, and analysis workflows."
     color: "purple"
+platform_section:
+  subtitle: "Explore everything in the ReUseX platform"
+  text: "Explore the building in an interactive 3D dashboard. The model, documents, inventories, and analysis results are connected in one place — so municipalities, owners, and consultants work from the same dataset."
+  image: "images/ReUseX_Platform.jpg"
+  image_alt: "ReUseX Platform Dashboard"
 headless: true
 ---
