@@ -4,7 +4,7 @@ subtitle: "AI-powered resource mapping from LiDAR — circularity-ready 3D model
 features:
   - icon: "lightning"
     title: "From scan to 3D model"
-    description: "onvert LiDAR scans into simplified, analysis-ready 3D models of existing buildings."
+    description: "Convert LiDAR scans into simplified, analysis-ready 3D models of existing buildings."
     color: "blue"
   - icon: "network"
     title: "AI-powered resource mapping"
