@@ -99,6 +99,15 @@ function initBeforeAfterSliders() {
         
         let isDragging = false;
         
+        // Create AbortController for proper cleanup of event listeners
+        const abortController = new AbortController();
+        const signal = abortController.signal;
+        
+        // Store cleanup function on the slider element for potential later cleanup
+        slider._cleanupSlider = () => {
+            abortController.abort();
+        };
+        
         /**
          * Update the position of the divider and clip the before image
          * @param {number} percentage - Position as percentage (0-100)
@@ -125,6 +134,10 @@ function initBeforeAfterSliders() {
             
             // Handle both mouse and touch events
             if (event.type.startsWith('touch')) {
+                // Safety check for touch events
+                if (!event.touches || event.touches.length === 0) {
+                    return 50; // Default to center if no touch data
+                }
                 clientX = event.touches[0].clientX;
             } else {
                 clientX = event.clientX;
@@ -163,7 +176,7 @@ function initBeforeAfterSliders() {
         }
         
         // Mouse events
-        handle.addEventListener('mousedown', startDragging);
+        handle.addEventListener('mousedown', startDragging, { signal });
         slider.addEventListener('mousedown', function(event) {
             // Allow clicking anywhere on the slider to move the divider
             if (event.target === slider || event.target === beforeImage || 
@@ -172,13 +185,13 @@ function initBeforeAfterSliders() {
                 const percentage = getPositionPercentage(event);
                 updateSliderPosition(percentage);
             }
-        });
+        }, { signal });
         
-        document.addEventListener('mousemove', onDrag);
-        document.addEventListener('mouseup', stopDragging);
+        document.addEventListener('mousemove', onDrag, { signal });
+        document.addEventListener('mouseup', stopDragging, { signal });
         
         // Touch events for mobile
-        handle.addEventListener('touchstart', startDragging, { passive: false });
+        handle.addEventListener('touchstart', startDragging, { passive: false, signal });
         slider.addEventListener('touchstart', function(event) {
             if (event.target === slider || event.target === beforeImage || 
                 event.target === slider.querySelector('.after-image')) {
@@ -186,10 +199,10 @@ function initBeforeAfterSliders() {
                 const percentage = getPositionPercentage(event);
                 updateSliderPosition(percentage);
             }
-        }, { passive: false });
+        }, { passive: false, signal });
         
-        document.addEventListener('touchmove', onDrag, { passive: false });
-        document.addEventListener('touchend', stopDragging);
+        document.addEventListener('touchmove', onDrag, { passive: false, signal });
+        document.addEventListener('touchend', stopDragging, { signal });
         
         // Keyboard accessibility
         handle.setAttribute('tabindex', '0');
@@ -222,7 +235,7 @@ function initBeforeAfterSliders() {
                 updateSliderPosition(newPercentage);
                 handle.setAttribute('aria-valuenow', Math.round(newPercentage));
             }
-        });
+        }, { signal });
         
         // Initialize at 50%
         updateSliderPosition(50);
