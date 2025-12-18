@@ -12,6 +12,37 @@
         <p class="text-xl lg:text-2xl leading-relaxed mb-12" style="color: var(--section1-text);">
           {{ $hero.Params.subtitle | default .Params.description | default site.Params.description }}
         </p>
+        
+        <!-- Hero Visual (Mobile - between title and buttons) -->
+        <div class="lg:hidden mb-8">
+          <div class="relative">
+            {{ with $hero.Params.hero_image }}
+            <div class="rounded-2xl overflow-hidden shadow-2xl">
+              <img src="{{ . | relURL }}" alt="{{ $hero.Params.hero_image_alt | default $hero.Params.title }}" class="w-full h-auto object-cover" />
+            </div>
+            {{ else }}
+            <div class="bg-white rounded-2xl p-8 shadow-2xl">
+              <div class="h-96 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white relative overflow-hidden">
+                <div class="absolute inset-0 opacity-20">
+                  <svg width="100%" height="100%" viewBox="0 0 100 100">
+                    <defs>
+                      <pattern id="hero-grid-mobile" width="10" height="10" patternUnits="userSpaceOnUse">
+                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                      </pattern>
+                    </defs>
+                    <rect width="100" height="100" fill="url(#hero-grid-mobile)" />
+                  </svg>
+                </div>
+                <div class="text-center relative z-10">
+                  <div class="text-4xl font-bold mb-2">{{ site.Title }}</div>
+                  <div class="text-lg opacity-90">Sustainable Future</div>
+                </div>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+        
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           {{ with $hero.Params.cta_primary }}
           {{- $url := .url | default "#demo" -}}
