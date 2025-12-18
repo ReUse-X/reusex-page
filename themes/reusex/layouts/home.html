@@ -217,6 +217,20 @@
         </p>
       </div>
     </div>
+    <!-- Platform Section -->
+    {{ with .platform_section }}
+    <div class="grid lg:grid-cols-2 gap-12 items-center mt-16">
+      <div class="space-y-4">
+        <h3 class="text-2xl font-bold" style="color: var(--section3-heading);">{{ .subtitle }}</h3>
+        <p class="text-lg leading-relaxed" style="color: var(--section3-body);">{{ .text }}</p>
+      </div>
+      <div>
+        <div class="rounded-2xl overflow-hidden shadow-2xl">
+          <img src="{{ .image | relURL }}" alt="{{ .image_alt }}" class="w-full h-auto object-cover">
+        </div>
+      </div>
+    </div>
+    {{ end }}
   </div>
 </section>
 {{ end }}
