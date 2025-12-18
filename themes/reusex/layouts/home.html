@@ -205,12 +205,14 @@
       <div>
         <div class="before-after-slider">
           <div class="before-after-wrapper">
-            <img src="/images/after.jpg" alt="After: Building with reused materials" class="after-image">
-            <img src="/images/before.jpg" alt="Before: Old building" class="before-image">
+            <img src="{{ "images/after.jpg" | relURL }}" alt="After: Building with reused materials" class="after-image">
+            <img src="{{ "images/before.jpg" | relURL }}" alt="Before: Old building" class="before-image">
           </div>
           <div class="before-after-divider">
             <div class="before-after-handle" tabindex="0"></div>
           </div>
+          <span class="before-after-label before" aria-hidden="true">Before</span>
+          <span class="before-after-label after" aria-hidden="true">After</span>
         </div>
         <p class="text-center mt-4 text-sm" style="color: var(--section3-muted);">
           Raw scan / point cloud → AI segmented components + simple 3D model
