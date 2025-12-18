@@ -1,6 +1,6 @@
 ---
-title: "Ready to pilot AI-based resource mapping?"
-subtitle: "We’re onboarding a limited number of pilot projects with municipalities, building owners and consultants working with existing buildings and adaptive reuse."
+title: "Selected Pilots"
+subtitle: "Real results from pilot projects already using ReUseX for ressource mapping."
 show_posts: true
 posts_count: 6
 headless: true
