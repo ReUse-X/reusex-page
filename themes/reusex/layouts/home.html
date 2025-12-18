@@ -201,18 +201,22 @@
         </div>
         {{ end }}
       </div>
-      <div class="rounded-2xl p-8" style="background-color: var(--section3-card-bg); border: 1px solid var(--section3-card-border);">
-        <div class="h-80 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--section3-card-bg) 0%, var(--card-hover) 100%);">
-          <div class="text-center">
-            <div class="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg" style="background-color: var(--primary-teal);">
-              <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--button-text-dark);">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-            </div>
-            <h4 class="text-xl font-bold mb-2" style="color: var(--section3-heading);">Dashboard Preview</h4>
-            <p style="color: var(--section3-body);">Track your impact in real-time</p>
+      <!-- Before-and-After Image Slider -->
+      <div>
+        <div class="before-after-slider">
+          <div class="before-after-wrapper">
+            <img src="/images/after.jpg" alt="After: Building with reused materials" class="after-image">
+            <img src="/images/before.jpg" alt="Before: Old building" class="before-image">
           </div>
+          <div class="before-after-divider">
+            <div class="before-after-handle" tabindex="0"></div>
+          </div>
+          <span class="before-after-label before" aria-hidden="true">Before</span>
+          <span class="before-after-label after" aria-hidden="true">After</span>
         </div>
+        <p class="text-center mt-4 text-sm" style="color: var(--section3-muted);">
+          Slide to see the transformation from old buildings to sustainable reuse
+        </p>
       </div>
     </div>
   </div>
