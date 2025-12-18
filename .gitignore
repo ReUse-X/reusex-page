@@ -21,3 +21,6 @@ go.sum
 yarn.lock
 .envrc
 .pre-commit-config.yaml
+
+# Hugo binary (should not be committed)
+hugo
