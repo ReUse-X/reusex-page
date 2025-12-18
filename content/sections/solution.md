@@ -1,6 +1,6 @@
 ---
 title: "The ReUseX Solution"
-subtitle: "AI-powered resource mapping from LiDAR — circularity-ready 3D models and inventories for faster transformation decisions."
+subtitle: "AI-powered resource mapping from LiDAR → circularity-ready 3D models and inventories for faster transformation decisions."
 features:
   - icon: "lightning"
     title: "From scan to 3D model"
