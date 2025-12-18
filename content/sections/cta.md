@@ -1,6 +1,6 @@
 ---
-title: "Selected Pilots"
-subtitle: "Real results from pilot projects already using ReUseX for ressource mapping."
+title: "Ready to pilot AI-based resource mapping?"
+subtitle: "We’re onboarding a limited number of pilot projects with municipalities, building owners and consultants working with existing buildings and adaptive reuse."
 primary_button: 
   text: "Book a pilot project"
   url: "https://app.reusex.com/signup"
