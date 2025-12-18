@@ -19,5 +19,6 @@ platform_section:
   text: "Explore the building in an interactive 3D dashboard. The model, documents, inventories, and analysis results are connected in one place — so municipalities, owners, and consultants work from the same dataset."
   image: "images/ReUseX_Platform.jpg"
   image_alt: "ReUseX Platform Dashboard"
+  image_caption: "ReUseX platform — interactive 3D dashboard with linked inventories and documentation."
 headless: true
 ---
