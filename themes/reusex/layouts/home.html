@@ -219,15 +219,25 @@
     </div>
     <!-- Platform Section -->
     {{ with .platform_section }}
-    <div class="grid lg:grid-cols-2 gap-12 items-center mt-16">
+    <div class="grid lg:grid-cols-2 gap-12 items-center mt-24">
       <div class="space-y-4">
-        <h3 class="text-2xl font-bold" style="color: var(--section3-heading);">{{ .subtitle }}</h3>
+        <h3 class="text-2xl font-bold flex items-center" style="color: var(--section3-heading);">
+          <svg class="w-7 h-7 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--primary-teal);" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z"/>
+          </svg>
+          {{ .subtitle }}
+        </h3>
         <p class="text-lg leading-relaxed" style="color: var(--section3-body);">{{ .text }}</p>
       </div>
       <div>
         <div class="rounded-2xl overflow-hidden shadow-2xl">
           <img src="{{ .image | relURL }}" alt="{{ .image_alt }}" class="w-full h-auto object-cover">
         </div>
+        {{ with .image_caption }}
+        <p class="text-center mt-4 text-sm italic" style="color: var(--section3-muted);">
+          {{ . }}
+        </p>
+        {{ end }}
       </div>
     </div>
     {{ end }}
