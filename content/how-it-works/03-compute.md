@@ -2,7 +2,7 @@
 title: "Compute"
 order: 3
 icon: "cloud"
-colorScheme: 3
+colorScheme: 2
 ---
 
 **4) Point cloud is generated**

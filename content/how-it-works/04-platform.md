@@ -2,7 +2,7 @@
 title: "Platform"
 order: 4
 icon: "computer"
-colorScheme: 2
+colorScheme: 3
 ---
 
 **6) Data accessible on the platform**
