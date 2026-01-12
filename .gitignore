@@ -26,3 +26,4 @@ yarn.lock
 hugo
 *.tar.gz
 hugo.log
+hugo-server.log
