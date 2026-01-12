@@ -25,3 +25,4 @@ yarn.lock
 # Hugo binary (should not be committed)
 hugo
 *.tar.gz
+hugo.log
