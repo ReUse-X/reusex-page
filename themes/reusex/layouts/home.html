@@ -221,13 +221,13 @@
     {{ with .platform_section }}
     <div class="grid lg:grid-cols-2 gap-12 items-center mt-24">
       <div class="space-y-4">
-        <h3 class="text-2xl font-bold flex items-center" style="color: var(--section3-heading);">
-          <svg class="w-7 h-7 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--primary-teal);" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z"/>
+        <h3 class="text-xl font-bold flex items-center" style="color: var(--section3-heading);">
+          <svg class="w-7 h-7 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" style="color: var(--primary-teal);" aria-hidden="true">
+            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12ZM12 8.25a.75.75 0 0 1 .75.75v.75h.75a.75.75 0 0 1 0 1.5h-.75v.75a.75.75 0 0 1-1.5 0v-.75h-.75a.75.75 0 0 1 0-1.5h.75V9a.75.75 0 0 1 .75-.75ZM12 14.25a.75.75 0 0 1 .75.75v.75h.75a.75.75 0 0 1 0 1.5h-.75v.75a.75.75 0 0 1-1.5 0v-.75h-.75a.75.75 0 0 1 0-1.5h.75v-.75a.75.75 0 0 1 .75-.75ZM6 12a.75.75 0 0 1 .75-.75h.75V10.5a.75.75 0 0 1 1.5 0v.75H10.5a.75.75 0 0 1 0 1.5H9v.75a.75.75 0 0 1-1.5 0v-.75h-.75A.75.75 0 0 1 6 12Zm9 0a.75.75 0 0 1 .75-.75h.75V10.5a.75.75 0 0 1 1.5 0v.75H19.5a.75.75 0 0 1 0 1.5H18v.75a.75.75 0 0 1-1.5 0v-.75h-.75A.75.75 0 0 1 15 12Z" clip-rule="evenodd"/>
           </svg>
           {{ .subtitle }}
         </h3>
-        <p class="text-lg leading-relaxed" style="color: var(--section3-body);">{{ .text }}</p>
+        <p class="leading-relaxed" style="color: var(--section3-body);">{{ .text }}</p>
       </div>
       <div>
         <div class="rounded-2xl overflow-hidden shadow-2xl">
