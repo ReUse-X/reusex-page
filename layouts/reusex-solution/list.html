@@ -24,9 +24,9 @@
     
     <!-- Multiple Two-Column Blocks -->
     {{- range $section.Params.blocks -}}
-    <div class="grid lg:grid-cols-5 gap-10 items-start mb-20">
-      <!-- Left Column: Heading + Body Text (2 columns) -->
-      <div class="lg:col-span-2 space-y-4">
+    <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
+      <!-- Left Column: Heading + Body Text -->
+      <div class="space-y-4">
         <h3 class="text-2xl font-bold" style="color: var(--section2-heading);">
           {{ .heading }}
         </h3>
@@ -35,8 +35,8 @@
         </p>
       </div>
       
-      <!-- Right Column: Before-After Slider (3 columns) -->
-      <div class="lg:col-span-3">
+      <!-- Right Column: Before-After Slider -->
+      <div>
         <div class="before-after-slider">
           <div class="before-after-wrapper">
             <img src="{{ .image2 | relURL }}" alt="{{ .alt2 | default "After" }}" class="after-image">
