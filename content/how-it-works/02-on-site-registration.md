@@ -18,4 +18,5 @@ steps:
     title: "Upload of scan data"
     body: "Scan + imagery are uploaded to the ReUseX workflow (or transferred via an agreed secure method). The dataset is checked for completeness before processing."
 output: "a verified input dataset ready for computation."
+colorScheme: 2
 ---

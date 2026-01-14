@@ -1,7 +1,7 @@
 ---
 title: "Cloudbased Platform"
 order: 4
-colorScheme: 3
+colorScheme: 2
 layout: "platform"
 intro: "All outputs are connected in one place. ReUseX provides a shared 3D workspace where geometry, inventories, documents, and analysis results stay aligned— so stakeholders collaborate on the same dataset."
 heroImage: "images/ReUseX_Platform.jpg"
