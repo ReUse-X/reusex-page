@@ -1,7 +1,7 @@
 ---
 title: "3D Scanning"
 order: 2
-colorScheme: 3
+colorScheme: 2
 layout: "split"
 intro: "Reliable decisions start with reliable capture. ReUseX combines LiDAR scanning and 360° imagery to create a consistent digital record of the existing building—fast, repeatable, and suitable for early-phase analysis."
 leftHeading: "AI-powered resource mapping"
