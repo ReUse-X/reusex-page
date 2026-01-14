@@ -8,17 +8,9 @@
 {{- $headingColor := "text-gray-100" -}}
 {{- $borderColor := "border-gray-700" -}}
 
-{{- if eq $colorScheme 1 -}}
-  {{- $nodeColor = "bg-teal-400" -}}
-  {{- $lineColor = "bg-teal-400/30" -}}
-  {{- $textColor = "text-gray-300" -}}
-  {{- $headingColor = "text-gray-100" -}}
-  {{- $borderColor = "border-gray-600" -}}
-{{- else if eq $colorScheme 2 -}}
+{{- if eq $colorScheme 2 -}}
   {{- $nodeColor = "bg-blue-400" -}}
   {{- $lineColor = "bg-blue-400/30" -}}
-  {{- $textColor = "text-gray-300" -}}
-  {{- $headingColor = "text-gray-100" -}}
   {{- $borderColor = "border-gray-600" -}}
 {{- end -}}
 
