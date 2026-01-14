@@ -4,8 +4,73 @@
 {{- range $index, $section := $subsections -}}
 {{- $colorScheme := $section.Params.colorScheme | default 2 -}}
 {{- $icon := $section.Params.icon | default "" -}}
+{{- $layout := $section.Params.layout | default "" -}}
 
-{{- if eq $colorScheme 1 -}}
+{{- if eq $layout "multi-slider" -}}
+<!-- Multi-Slider Layout with Multiple Two-Column Blocks -->
+<section class="section-padding" style="background-color: var(--section2-bg);">
+  <div class="container-custom">
+    <!-- Centered Title and Intro -->
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: var(--section2-heading);">
+        {{ $section.Title }}
+      </h2>
+      {{- with $section.Params.intro -}}
+      <p class="text-lg leading-relaxed" style="color: var(--section2-body);">
+        {{ . }}
+      </p>
+      {{- end -}}
+    </div>
+    
+    <!-- Multiple Two-Column Blocks -->
+    {{- range $section.Params.blocks -}}
+    <div class="grid lg:grid-cols-5 gap-10 items-start mb-20">
+      <!-- Left Column: Heading + Body Text (2 columns) -->
+      <div class="lg:col-span-2 space-y-4">
+        <h3 class="text-2xl font-bold" style="color: var(--section2-heading);">
+          {{ .heading }}
+        </h3>
+        <p class="text-lg leading-relaxed" style="color: var(--section2-body);">
+          {{ .text }}
+        </p>
+      </div>
+      
+      <!-- Right Column: Before-After Slider (3 columns) -->
+      <div class="lg:col-span-3">
+        <div class="before-after-slider">
+          <div class="before-after-wrapper">
+            <img src="{{ .image2 | relURL }}" alt="{{ .alt2 | default "After" }}" class="after-image">
+            <img src="{{ .image1 | relURL }}" alt="{{ .alt1 | default "Before" }}" class="before-image">
+          </div>
+          <div class="before-after-divider">
+            <div class="before-after-handle" tabindex="0"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{- end -}}
+    
+    <!-- Centered Bullet List -->
+    {{- with $section.Params.bullets -}}
+    <div class="max-w-2xl mx-auto text-center mt-16">
+      {{- with $section.Params.bulletsHeading -}}
+      <h3 class="text-2xl font-bold mb-6" style="color: var(--section2-heading);">{{ . }}</h3>
+      {{- end -}}
+      <ul class="space-y-3 inline-block text-left">
+        {{- range $section.Params.bullets -}}
+        <li class="flex items-start text-lg" style="color: var(--section2-body);">
+          <svg class="w-6 h-6 flex-shrink-0 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--section2-heading);">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span>{{ . }}</span>
+        </li>
+        {{- end -}}
+      </ul>
+    </div>
+    {{- end -}}
+  </div>
+</section>
+{{- else if eq $colorScheme 1 -}}
 <!-- Section {{ add $index 1 }} - {{ $section.Title }} (Section 1 - Teal Band) -->
 <section class="section-padding" style="background-color: var(--section1-bg);">
   <div class="container-custom">
