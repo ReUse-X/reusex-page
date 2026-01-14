@@ -16,9 +16,8 @@ rightBullets:
   - "Track updates and maintain traceability from input data to deliverables"
 bulletsHeading: "What you get"
 bullets:
-  - "Interactive 3D dashboard with the building model and segmented components"
-  - "Linked inventories and documents accessible directly from the model"
-  - "Export-ready datasets for BIM, spreadsheets, and analysis workflows"
-  - "Shareable stakeholder view"
+  - "A structured building dataset ready to use across teams"
+  - "Consistent documentation that supports handover and approvals"
+  - "Decision-ready deliverables for early transformation and reuse screening"
 ---
 
