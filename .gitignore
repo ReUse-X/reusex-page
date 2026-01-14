@@ -27,3 +27,6 @@ hugo
 *.tar.gz
 hugo.log
 hugo-server.log
+
+# Temporary files
+tmp/
