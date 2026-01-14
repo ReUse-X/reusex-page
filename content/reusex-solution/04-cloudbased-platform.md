@@ -4,7 +4,7 @@ order: 4
 colorScheme: 3
 layout: "platform"
 intro: "All outputs are connected in one place. ReUseX provides a shared 3D workspace where geometry, inventories, documents, and analysis results stay aligned— so stakeholders collaborate on the same dataset."
-heroImage: "/images/ReUseX_Platform.jpg"
+heroImage: "images/ReUseX_Platform.jpg"
 heroImageAlt: "ReUseX Platform Interface"
 leftHeading: "Explore reuse potential in an interactive 3D dashboard"
 leftBody: "The ReUseX platform links the building's 3D view with structured component data and supporting documentation. Users can navigate by location and component type, inspect key elements, and use the platform as a common reference during early-stage workshops and decision gates."
