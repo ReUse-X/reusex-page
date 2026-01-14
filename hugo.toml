@@ -28,6 +28,12 @@ description = 'Revolutionizing resource reuse for a sustainable future'
     [[params.footer.menus.links]]
       name = "Pricing" 
       url = "#demo"
+    [[params.footer.menus.links]]
+      name = "Vision"
+      url = "vision-journey#vision"
+    [[params.footer.menus.links]]
+      name = "Journey"
+      url = "vision-journey#journey"
     #[[params.footer.menus.links]]
     #  name = "Documentation"
     #  url = "/docs"
@@ -52,6 +58,11 @@ description = 'Revolutionizing resource reuse for a sustainable future'
     name = 'Home'
     pageRef = '/'
     weight = 10
+
+  [[menus.main]]
+    name = 'Vision'
+    pageRef = '/vision-journey'
+    weight = 30
 
   [[menus.main]]
     name = 'How it Works'
