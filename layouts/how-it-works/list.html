@@ -41,6 +41,112 @@
 <!-- Section {{ add $index 1 }} - {{ $section.Title }} (Section 2 - Navy Alt) -->
 <section class="section-padding" style="background-color: var(--section2-bg);">
   <div class="container-custom">
+    {{- $steps := $section.Params.steps -}}
+    {{- $output := $section.Params.output -}}
+    {{- if $steps -}}
+    <!-- Timeline layout -->
+    <div class="max-w-5xl mx-auto">
+      <!-- Header with icon and title (centered) -->
+      <div class="text-center mb-12">
+        {{- if $icon -}}
+        <div class="flex justify-center mb-6">
+          {{- if eq $icon "phone" -}}
+          <svg class="w-12 h-12 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M10.5 18.75a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" />
+            <path fill-rule="evenodd" d="M8.625.75A3.375 3.375 0 005.25 4.125v15.75a3.375 3.375 0 003.375 3.375h6.75a3.375 3.375 0 003.375-3.375V4.125A3.375 3.375 0 0015.375.75h-6.75zM7.5 4.125C7.5 3.504 8.004 3 8.625 3H9.75v.375c0 .621.504 1.125 1.125 1.125h2.25c.621 0 1.125-.504 1.125-1.125V3h1.125c.621 0 1.125.504 1.125 1.125v15.75c0 .621-.504 1.125-1.125 1.125h-6.75A1.125 1.125 0 017.5 19.875V4.125z" clip-rule="evenodd" />
+          </svg>
+          {{- else if eq $icon "cloud" -}}
+          <svg class="w-12 h-12 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4.5 9.75a6 6 0 0111.573-2.226 3.75 3.75 0 014.133 4.303A4.5 4.5 0 0118 20.25H6.75a5.25 5.25 0 01-2.23-10.004 6.072 6.072 0 01-.02-.496z" clip-rule="evenodd" />
+          </svg>
+          {{- else if eq $icon "computer" -}}
+          <svg class="w-12 h-12 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill-rule="evenodd" d="M2.25 5.25a3 3 0 013-3h13.5a3 3 0 013 3V15a3 3 0 01-3 3h-3v.257c0 .597.237 1.17.659 1.591l.621.622a.75.75 0 01-.53 1.28h-9a.75.75 0 01-.53-1.28l.621-.622a2.25 2.25 0 00.659-1.59V18h-3a3 3 0 01-3-3V5.25zm1.5 0v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5z" clip-rule="evenodd" />
+          </svg>
+          {{- end -}}
+        </div>
+        {{- end -}}
+        <h2 class="font-display text-4xl font-extrabold sm:text-5xl" style="color: var(--section2-heading);">
+          {{ $section.Title }}
+        </h2>
+      </div>
+
+      <!-- Timeline grid: left column (timeline), right column (content) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12">
+        <!-- Left: Timeline rail -->
+        <div class="lg:col-span-4">
+          <div class="relative">
+            {{- range $stepIndex, $step := $steps -}}
+            <div class="flex items-start mb-8 last:mb-0">
+              <!-- Timeline node and line container -->
+              <div class="flex-shrink-0 relative">
+                <!-- Vertical line (not on last item) -->
+                {{- if ne $stepIndex (sub (len $steps) 1) -}}
+                <div class="absolute left-4 top-10 w-0.5 h-full" style="background-color: var(--section2-heading); opacity: 0.3;"></div>
+                {{- end -}}
+                
+                <!-- Node circle -->
+                <div class="relative z-10 w-8 h-8 rounded-full border-2 flex items-center justify-center" style="background-color: var(--section2-bg); border-color: var(--section2-heading);">
+                  <div class="w-3 h-3 rounded-full" style="background-color: var(--section2-heading);"></div>
+                </div>
+              </div>
+
+              <!-- Icon + Label -->
+              <div class="ml-4 flex items-center">
+                <!-- Icon -->
+                <div class="flex-shrink-0">
+                  {{- if eq $step.icon "DevicePhoneMobile" -}}
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--section2-heading);">
+                    <path d="M10.5 18.75a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" />
+                    <path fill-rule="evenodd" d="M8.625.75A3.375 3.375 0 005.25 4.125v15.75a3.375 3.375 0 003.375 3.375h6.75a3.375 3.375 0 003.375-3.375V4.125A3.375 3.375 0 0015.375.75h-6.75zM7.5 4.125C7.5 3.504 8.004 3 8.625 3H9.75v.375c0 .621.504 1.125 1.125 1.125h2.25c.621 0 1.125-.504 1.125-1.125V3h1.125c.621 0 1.125.504 1.125 1.125v15.75c0 .621-.504 1.125-1.125 1.125h-6.75A1.125 1.125 0 017.5 19.875V4.125z" clip-rule="evenodd" />
+                  </svg>
+                  {{- else if eq $step.icon "TableCells" -}}
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--section2-heading);">
+                    <path fill-rule="evenodd" d="M1.5 5.625c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v12.75c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 011.5 18.375V5.625zM21 9.375A.375.375 0 0020.625 9H3.375A.375.375 0 003 9.375v1.5c0 .207.168.375.375.375h17.25a.375.375 0 00.375-.375v-1.5zm0 3.75a.375.375 0 00-.375-.375H3.375a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h17.25a.375.375 0 00.375-.375v-1.5zm0 3.75a.375.375 0 00-.375-.375H3.375a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h17.25a.375.375 0 00.375-.375v-1.5zM10.875 18.75a.375.375 0 00.375-.375v-1.5a.375.375 0 00-.375-.375h-7.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375h7.5zM3.375 15h7.5a.375.375 0 00.375-.375v-1.5a.375.375 0 00-.375-.375h-7.5a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375zm0-3.75h7.5a.375.375 0 00.375-.375v-1.5A.375.375 0 0010.875 9h-7.5A.375.375 0 003 9.375v1.5c0 .207.168.375.375.375z" clip-rule="evenodd" />
+                  </svg>
+                  {{- else if eq $step.icon "ArrowUpOnSquare" -}}
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--section2-heading);">
+                    <path fill-rule="evenodd" d="M11.47 2.47a.75.75 0 011.06 0l3.75 3.75a.75.75 0 01-1.06 1.06l-2.47-2.47V21a.75.75 0 01-1.5 0V4.81L8.78 7.28a.75.75 0 01-1.06-1.06l3.75-3.75z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M3 15.75c0-.414.336-.75.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H3.75a.75.75 0 01-.75-.75v-.008zM6.75 15a.75.75 0 000 1.5h.008a.75.75 0 000-1.5h-.008zM9.75 15a.75.75 0 000 1.5h.008a.75.75 0 000-1.5h-.008zm3 0a.75.75 0 000 1.5h.008a.75.75 0 000-1.5h-.008zm3 0a.75.75 0 000 1.5h.008a.75.75 0 000-1.5h-.008zm3 0a.75.75 0 000 1.5h.008a.75.75 0 000-1.5h-.008zm3 0a.75.75 0 000 1.5h.008a.75.75 0 000-1.5h-.008zm-16.5 3a.75.75 0 000 1.5h.008a.75.75 0 000-1.5H3.75zm3 0a.75.75 0 000 1.5h.008a.75.75 0 000-1.5h-.008zm3 0a.75.75 0 000 1.5h.008a.75.75 0 000-1.5h-.008zm3 0a.75.75 0 000 1.5h.008a.75.75 0 000-1.5h-.008zm3 0a.75.75 0 000 1.5h.008a.75.75 0 000-1.5h-.008zm3 0a.75.75 0 000 1.5h.008a.75.75 0 000-1.5h-.008zm3 0a.75.75 0 000 1.5h.008a.75.75 0 000-1.5h-.008z" clip-rule="evenodd" />
+                  </svg>
+                  {{- end -}}
+                </div>
+                <!-- Label -->
+                <div class="ml-3 font-semibold text-lg" style="color: var(--section2-heading);">
+                  {{ $step.label }}
+                </div>
+              </div>
+            </div>
+            {{- end -}}
+          </div>
+        </div>
+
+        <!-- Right: Step content -->
+        <div class="lg:col-span-8 space-y-8">
+          {{- range $step := $steps -}}
+          <div>
+            <h3 class="font-bold text-xl mb-2" style="color: var(--section2-heading);">
+              {{ $step.heading }}
+            </h3>
+            <p class="text-base leading-relaxed" style="color: var(--section2-body);">
+              {{ $step.body }}
+            </p>
+          </div>
+          {{- end -}}
+        </div>
+      </div>
+
+      <!-- Output line (centered) -->
+      {{- if $output -}}
+      <div class="text-center mt-8">
+        <p class="font-semibold text-base" style="color: var(--section2-body);">
+          {{ $output }}
+        </p>
+      </div>
+      {{- end -}}
+    </div>
+    {{- else -}}
+    <!-- Default centered layout (no steps defined) -->
     <div class="max-w-4xl mx-auto text-center">
       {{- if $icon -}}
       <div class="flex justify-center mb-6">
@@ -67,6 +173,7 @@
         {{ $section.Content }}
       </div>
     </div>
+    {{- end -}}
   </div>
 </section>
 {{- else if eq $colorScheme 3 -}}
