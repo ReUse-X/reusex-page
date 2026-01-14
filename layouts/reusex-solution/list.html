@@ -20,15 +20,15 @@
   {{- $sectionHeading = "var(--section3-heading)" -}}
   {{- $sectionBody = "var(--section3-body)" -}}
 {{- end -}}
-<section class="section-padding" style="background-color: {{ $sectionBg }};">
+<section class="section-padding" style="background-color: {{ $sectionBg | safeCSS }};">
   <div class="container-custom">
     <!-- Centered Title and Intro -->
     <div class="max-w-3xl mx-auto text-center mb-16">
-      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: {{ $sectionHeading }};">
+      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: {{ $sectionHeading | safeCSS }};">
         {{ $section.Title }}
       </h2>
       {{- with $section.Params.intro -}}
-      <p class="text-lg leading-relaxed" style="color: {{ $sectionBody }};">
+      <p class="text-lg leading-relaxed" style="color: {{ $sectionBody | safeCSS }};">
         {{ . }}
       </p>
       {{- end -}}
@@ -39,10 +39,10 @@
     <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
       <!-- Left Column: Heading + Body Text -->
       <div class="space-y-4">
-        <h3 class="text-2xl font-bold" style="color: {{ $sectionHeading }};">
+        <h3 class="text-2xl font-bold" style="color: {{ $sectionHeading | safeCSS }};">
           {{ .heading }}
         </h3>
-        <p class="text-lg leading-relaxed" style="color: {{ $sectionBody }};">
+        <p class="text-lg leading-relaxed" style="color: {{ $sectionBody | safeCSS }};">
           {{ .text }}
         </p>
       </div>
@@ -66,12 +66,12 @@
     {{- with $section.Params.bullets -}}
     <div class="max-w-2xl mx-auto text-center mt-16">
       {{- with $section.Params.bulletsHeading -}}
-      <h3 class="text-2xl font-bold mb-6" style="color: {{ $sectionHeading }};">{{ . }}</h3>
+      <h3 class="text-2xl font-bold mb-6" style="color: {{ $sectionHeading | safeCSS }};">{{ . }}</h3>
       {{- end -}}
       <ul class="space-y-3 text-center inline-block">
         {{- range $section.Params.bullets -}}
-        <li class="flex items-center justify-center text-lg" style="color: {{ $sectionBody }};">
-          <svg class="w-6 h-6 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: {{ $sectionHeading }};">
+        <li class="flex items-center justify-center text-lg" style="color: {{ $sectionBody | safeCSS }};">
+          <svg class="w-6 h-6 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: {{ $sectionHeading | safeCSS }};">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
           </svg>
           <span>{{ . }}</span>
@@ -96,15 +96,15 @@
   {{- $sectionHeading = "var(--section3-heading)" -}}
   {{- $sectionBody = "var(--section3-body)" -}}
 {{- end -}}
-<section class="section-padding" style="background-color: {{ $sectionBg }};">
+<section class="section-padding" style="background-color: {{ $sectionBg | safeCSS }};">
   <div class="container-custom">
     <!-- Centered Title and Intro -->
     <div class="max-w-3xl mx-auto text-center mb-16">
-      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: {{ $sectionHeading }};">
+      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: {{ $sectionHeading | safeCSS }};">
         {{ $section.Title }}
       </h2>
       {{- with $section.Params.intro -}}
-      <p class="text-lg leading-relaxed" style="color: {{ $sectionBody }};">
+      <p class="text-lg leading-relaxed" style="color: {{ $sectionBody | safeCSS }};">
         {{ . }}
       </p>
       {{- end -}}
@@ -115,12 +115,12 @@
       <!-- Left Column: Heading + Body Text -->
       <div class="space-y-4">
         {{- with $section.Params.leftHeading -}}
-        <h3 class="text-2xl font-bold" style="color: {{ $sectionHeading }};">
+        <h3 class="text-2xl font-bold" style="color: {{ $sectionHeading | safeCSS }};">
           {{ . }}
         </h3>
         {{- end -}}
         {{- with $section.Params.leftBody -}}
-        <p class="text-lg leading-relaxed" style="color: {{ $sectionBody }};">
+        <p class="text-lg leading-relaxed" style="color: {{ $sectionBody | safeCSS }};">
           {{ . }}
         </p>
         {{- end -}}
@@ -140,12 +140,12 @@
     {{- with $section.Params.bullets -}}
     <div class="max-w-2xl mx-auto text-center">
       {{- with $section.Params.bulletsHeading -}}
-      <h3 class="text-2xl font-bold mb-6" style="color: {{ $sectionHeading }};">{{ . }}</h3>
+      <h3 class="text-2xl font-bold mb-6" style="color: {{ $sectionHeading | safeCSS }};">{{ . }}</h3>
       {{- end -}}
       <ul class="space-y-3 text-center inline-block">
         {{- range $section.Params.bullets -}}
-        <li class="flex items-center justify-center text-lg" style="color: {{ $sectionBody }};">
-          <svg class="w-6 h-6 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: {{ $sectionHeading }};">
+        <li class="flex items-center justify-center text-lg" style="color: {{ $sectionBody | safeCSS }};">
+          <svg class="w-6 h-6 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: {{ $sectionHeading | safeCSS }};">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
           </svg>
           <span>{{ . }}</span>
@@ -170,15 +170,15 @@
   {{- $sectionHeading = "var(--section3-heading)" -}}
   {{- $sectionBody = "var(--section3-body)" -}}
 {{- end -}}
-<section class="section-padding" style="background-color: {{ $sectionBg }};">
+<section class="section-padding" style="background-color: {{ $sectionBg | safeCSS }};">
   <div class="container-custom">
     <!-- Centered Title and Intro -->
     <div class="max-w-3xl mx-auto text-center mb-12">
-      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: {{ $sectionHeading }};">
+      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: {{ $sectionHeading | safeCSS }};">
         {{ $section.Title }}
       </h2>
       {{- with $section.Params.intro -}}
-      <p class="text-lg leading-relaxed" style="color: {{ $sectionBody }};">
+      <p class="text-lg leading-relaxed" style="color: {{ $sectionBody | safeCSS }};">
         {{ . }}
       </p>
       {{- end -}}
@@ -187,7 +187,7 @@
     <!-- Large Centered Hero Image -->
     {{- with $section.Params.heroImage -}}
     <div class="max-w-5xl mx-auto mb-16">
-      <div class="rounded-xl overflow-hidden shadow-lg border-2" style="border-color: {{ $sectionHeading }};">
+      <div class="rounded-xl overflow-hidden shadow-lg border-2" style="border-color: {{ $sectionHeading | safeCSS }};">
         <img src="{{ . | relURL }}" 
              alt="{{ $section.Params.heroImageAlt | default $section.Title }}" 
              class="w-full h-auto object-cover" />
@@ -200,12 +200,12 @@
       <!-- Left Column: Explore Heading + Body -->
       <div class="space-y-4">
         {{- with $section.Params.leftHeading -}}
-        <h3 class="text-2xl font-bold" style="color: {{ $sectionHeading }};">
+        <h3 class="text-2xl font-bold" style="color: {{ $sectionHeading | safeCSS }};">
           {{ . }}
         </h3>
         {{- end -}}
         {{- with $section.Params.leftBody -}}
-        <p class="text-lg leading-relaxed" style="color: {{ $sectionBody }};">
+        <p class="text-lg leading-relaxed" style="color: {{ $sectionBody | safeCSS }};">
           {{ . }}
         </p>
         {{- end -}}
@@ -214,15 +214,15 @@
       <!-- Right Column: Platform Capabilities -->
       <div class="space-y-4">
         {{- with $section.Params.rightHeading -}}
-        <h3 class="text-2xl font-bold" style="color: {{ $sectionHeading }};">
+        <h3 class="text-2xl font-bold" style="color: {{ $sectionHeading | safeCSS }};">
           {{ . }}
         </h3>
         {{- end -}}
         {{- with $section.Params.rightBullets -}}
         <ul class="space-y-3">
           {{- range . -}}
-          <li class="flex items-start text-lg" style="color: {{ $sectionBody }};">
-            <svg class="w-6 h-6 flex-shrink-0 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: {{ $sectionHeading }};" aria-hidden="true">
+          <li class="flex items-start text-lg" style="color: {{ $sectionBody | safeCSS }};">
+            <svg class="w-6 h-6 flex-shrink-0 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: {{ $sectionHeading | safeCSS }};" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>{{ . }}</span>
@@ -237,12 +237,12 @@
     {{- with $section.Params.bullets -}}
     <div class="max-w-3xl mx-auto text-center">
       {{- with $section.Params.bulletsHeading -}}
-      <h3 class="text-2xl font-bold mb-8" style="color: {{ $sectionHeading }};">{{ . }}</h3>
+      <h3 class="text-2xl font-bold mb-8" style="color: {{ $sectionHeading | safeCSS }};">{{ . }}</h3>
       {{- end -}}
       <ul class="space-y-3 text-center inline-block">
         {{- range . -}}
-        <li class="flex items-center justify-center text-lg" style="color: {{ $sectionBody }};">
-          <svg class="w-6 h-6 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: {{ $sectionHeading }};" aria-hidden="true">
+        <li class="flex items-center justify-center text-lg" style="color: {{ $sectionBody | safeCSS }};">
+          <svg class="w-6 h-6 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: {{ $sectionHeading | safeCSS }};" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
           </svg>
           <span>{{ . }}</span>
