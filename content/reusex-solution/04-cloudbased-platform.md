@@ -17,6 +17,9 @@ The ReUseX platform links the building's 3D view with structured component data 
 - Share one consistent view across owners, architects, engineers, and consultants
 - Track updates and maintain traceability from input data to deliverables
 
-**Reuse inventories & exports**
+**What you get**
+- Interactive 3D dashboard with the building model and segmented components
+- Linked inventories and documents accessible directly from the model
+- Export-ready datasets for BIM, spreadsheets, and analysis workflows
+- Shareable stakeholder view
 
-From the segmented dataset, ReUseX produces structured inventories and geometry exports. These outputs are designed to integrate with common AEC workflows—BIM coordination, spreadsheets, LCA/circularity assessments, and feasibility studies—so your team can move faster from "capture" to "decision".
