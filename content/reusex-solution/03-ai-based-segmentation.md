@@ -14,6 +14,10 @@ After upload, ReUseX generates a unified point cloud and produces a simplified 3
 
 ReUseX segments the point cloud into building elements and systems (for example structural and envelope components). The segmentation is designed to support reuse evaluation: locating components, understanding extent, and preparing structured datasets that can be reviewed and refined.
 
+**Reuse inventories & exports**
+
+From the segmented dataset, ReUseX produces structured inventories and geometry exports. These outputs are designed to integrate with common AEC workflows—BIM coordination, spreadsheets, LCA/circularity assessments, and feasibility studies—so your team can move faster from “capture” to “decision”.
+
 **What you get**
 
 - Segmented point cloud organised by component categories
