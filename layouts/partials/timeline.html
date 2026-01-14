@@ -1,0 +1,74 @@
+{{- $steps := .steps -}}
+{{- $colorScheme := .colorScheme -}}
+{{- $output := .output -}}
+
+{{- $nodeColor := "bg-teal-400" -}}
+{{- $lineColor := "bg-teal-400/30" -}}
+{{- $textColor := "text-gray-300" -}}
+{{- $headingColor := "text-gray-100" -}}
+{{- $borderColor := "border-gray-700" -}}
+
+{{- if eq $colorScheme 2 -}}
+  {{- $nodeColor = "bg-blue-400" -}}
+  {{- $lineColor = "bg-blue-400/30" -}}
+  {{- $borderColor = "border-gray-600" -}}
+{{- end -}}
+
+{{- if $steps -}}
+<!-- Timeline Layout -->
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="flex flex-col lg:flex-row lg:gap-12">
+    <!-- Left Column: Timeline Rail -->
+    <div class="hidden lg:flex flex-col items-center lg:w-1/4">
+      {{- range $index, $step := $steps -}}
+      <div class="flex items-start gap-3 mb-8">
+        <!-- Node circle and line -->
+        <div class="flex flex-col items-center">
+          <div class="w-3 h-3 rounded-full {{ $nodeColor }} flex-shrink-0"></div>
+          {{- if ne (add $index 1) (len $steps) -}}
+          <div class="w-0.5 h-16 {{ $lineColor }} my-1"></div>
+          {{- end -}}
+        </div>
+        <!-- Icon and label -->
+        <div class="flex items-center gap-2 -mt-1">
+          {{ partial "icon.html" (dict "icon" $step.icon "class" "w-5 h-5") }}
+          <span class="text-sm font-semibold {{ $textColor }}">{{ $step.label }}</span>
+        </div>
+      </div>
+      {{- end -}}
+    </div>
+
+    <!-- Right Column: Content -->
+    <div class="flex-1 lg:w-3/4">
+      {{- range $index, $step := $steps -}}
+      <div class="mb-12 {{ if eq $index 0 }}lg:mt-0{{ end }}">
+        <!-- Mobile timeline node -->
+        <div class="lg:hidden flex items-center gap-3 mb-3">
+          <div class="w-3 h-3 rounded-full {{ $nodeColor }} flex-shrink-0"></div>
+          <div class="flex items-center gap-2">
+            {{ partial "icon.html" (dict "icon" $step.icon "class" "w-5 h-5") }}
+            <span class="text-sm font-semibold {{ $textColor }}">{{ $step.label }}</span>
+          </div>
+        </div>
+        
+        <h3 class="text-xl font-bold mb-3 {{ $headingColor }}">
+          {{ $step.title }}
+        </h3>
+        <p class="text-base leading-relaxed {{ $textColor }}">
+          {{ $step.body }}
+        </p>
+      </div>
+      {{- end -}}
+    </div>
+  </div>
+</div>
+
+{{- if $output -}}
+<!-- Output line -->
+<div class="max-w-4xl mx-auto text-center mt-12 pt-8 border-t {{ $borderColor }}">
+  <p class="text-base font-medium text-gray-200">
+    <strong>Output from this section:</strong> {{ $output }}.
+  </p>
+</div>
+{{- end -}}
+{{- end -}}
