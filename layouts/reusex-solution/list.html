@@ -118,9 +118,11 @@
     <!-- Centered Bullet List -->
     {{- with $section.Params.bullets -}}
     <div class="max-w-2xl mx-auto text-center">
-      <h3 class="text-2xl font-bold mb-6" style="color: var(--section3-heading);">What you get</h3>
+      {{- with $section.Params.bulletsHeading -}}
+      <h3 class="text-2xl font-bold mb-6" style="color: var(--section3-heading);">{{ . }}</h3>
+      {{- end -}}
       <ul class="space-y-3 text-left inline-block">
-        {{- range . -}}
+        {{- range $section.Params.bullets -}}
         <li class="flex items-start text-lg" style="color: var(--section3-body);">
           <svg class="w-6 h-6 flex-shrink-0 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--section3-heading);">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>

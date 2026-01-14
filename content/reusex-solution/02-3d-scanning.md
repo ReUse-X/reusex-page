@@ -8,6 +8,7 @@ leftHeading: "AI-powered resource mapping"
 leftBody: "We capture the building geometry as a scan-based dataset that represents what is actually on site—not what an outdated drawing says. 360° imagery adds visual context that supports interpretation, review, and quality control. The result is a robust input for downstream processing: registration, point cloud generation, segmentation, and model creation."
 image: "images/hero-image-reusex.jpg"
 imageAlt: "ReUseX 3D scanning and processing visualization"
+bulletsHeading: "What you get"
 bullets:
   - "A capture workflow that works on real existing buildings"
   - "Scan + imagery packaged for processing and traceability"
