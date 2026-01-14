@@ -37,7 +37,7 @@
           <div class="h-4 w-4 rounded-full {{ $nodeColor }} z-10"></div>
           <!-- Vertical Line (for all except last step) -->
           {{- if ne (add $index 1) (len $steps) -}}
-          <div class="absolute top-4 left-1/2 -translate-x-1/2 w-px h-16 {{ $lineColor }}"></div>
+          <div class="absolute top-4 left-1/2 -translate-x-1/2 w-px h-24 {{ $lineColor }}"></div>
           {{- end -}}
         </div>
         
