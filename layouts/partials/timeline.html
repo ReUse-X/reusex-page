@@ -20,30 +20,30 @@
 <!-- Timeline Layout -->
 <div class="max-w-5xl mx-auto px-6 mt-12">
   <!-- Two-column grid on desktop, stacked on mobile -->
-  <div class="grid grid-cols-1 md:grid-cols-[260px_1fr] gap-10 md:gap-16 items-start">
+  <div class="grid grid-cols-1 md:grid-cols-[360px_1fr] gap-10 md:gap-16 items-start">
     
     <!-- Left Column: Timeline Rail with Icons and Labels -->
     <div class="relative flex flex-col gap-12">
       {{- range $index, $step := $steps -}}
-      <div class="flex items-start gap-3">
+      <div class="flex items-center gap-3">
         <!-- Step Icon -->
-        <div class="w-10 flex justify-center">
-          {{ partial "icon.html" (dict "icon" $step.icon "class" "h-6 w-6 text-white/90") }}
+        <div class="w-20 flex justify-center">
+          {{ partial "icon.html" (dict "icon" $step.icon "class" "h-12 w-12 text-white/90") }}
         </div>
         
         <!-- Rail Column with Node and Vertical Line -->
-        <div class="relative w-6 flex justify-center">
+        <div class="relative w-12 flex justify-center">
           <!-- Node -->
-          <div class="h-2 w-2 rounded-full {{ $nodeColor }} z-10"></div>
+          <div class="h-4 w-4 rounded-full {{ $nodeColor }} z-10"></div>
           <!-- Vertical Line (for all except last step) -->
           {{- if ne (add $index 1) (len $steps) -}}
-          <div class="absolute top-2 left-1/2 -translate-x-1/2 w-px h-16 {{ $lineColor }}"></div>
+          <div class="absolute top-4 left-1/2 -translate-x-1/2 w-px h-16 {{ $lineColor }}"></div>
           {{- end -}}
         </div>
         
         <!-- Step Label -->
         <div class="flex-1 pl-2">
-          <span class="text-sm font-semibold {{ $labelColor }} leading-none">{{ $step.label }}</span>
+          <span class="text-base font-semibold {{ $labelColor }} leading-none">{{ $step.label }}</span>
         </div>
       </div>
       {{- end -}}
