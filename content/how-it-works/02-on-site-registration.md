@@ -2,7 +2,7 @@
 title: "On-site registration"
 order: 2
 icon: "phone"
-colorScheme: 3
+colorScheme: 2
 ---
 
 **1) Scan + 360° images**

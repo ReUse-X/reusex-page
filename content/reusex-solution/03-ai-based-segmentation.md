@@ -1,7 +1,7 @@
 ---
 title: "AI based Segmentation"
 order: 3
-colorScheme: 2
+colorScheme: 3
 layout: "multi-slider"
 intro: "ReUseX uses AI to turn raw point clouds into structured building information—identifying components and organising them into a simple, analysis-ready 3D model and inventory."
 blocks:
