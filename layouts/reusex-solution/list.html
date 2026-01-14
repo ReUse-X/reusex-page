@@ -264,19 +264,22 @@
       </div>
     </div>
     
-    <!-- Centered "What you get" section with individually centered lines -->
+    <!-- Centered "What you get" section with checkmarks -->
     {{- with $section.Params.bullets -}}
     <div class="max-w-3xl mx-auto text-center">
       {{- with $section.Params.bulletsHeading -}}
       <h3 class="text-2xl font-bold mb-8" style="color: var(--section3-heading);">{{ . }}</h3>
       {{- end -}}
-      <div class="space-y-3">
+      <ul class="space-y-3 text-center inline-block">
         {{- range . -}}
-        <p class="text-lg text-center" style="color: var(--section3-body);">
-          {{ . }}
-        </p>
+        <li class="flex items-center justify-center text-lg" style="color: var(--section3-body);">
+          <svg class="w-6 h-6 flex-shrink-0 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--section3-heading);" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span>{{ . }}</span>
+        </li>
         {{- end -}}
-      </div>
+      </ul>
     </div>
     {{- end -}}
   </div>
