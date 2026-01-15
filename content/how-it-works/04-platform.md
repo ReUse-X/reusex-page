@@ -13,5 +13,9 @@ steps:
     icon: "DocumentChartBar"
     heading: "Report generated"
     body: "A report package is produced based on the model and inventories, documenting inputs, outputs, and key findings to support transformation and reuse decisions."
+  - label: ""
+    icon: "Share"
+    heading: "Collaborative decision-making"
+    body: "Stakeholders can share insights, annotate components, and collaborate on reuse strategies—ensuring all parties align on material recovery priorities and next steps."
 output: "platform access + exports + report package for stakeholders."
 ---
