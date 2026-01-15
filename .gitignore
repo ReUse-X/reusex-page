@@ -30,3 +30,4 @@ hugo-server.log
 
 # Temporary files
 tmp/
+.screenshots/
