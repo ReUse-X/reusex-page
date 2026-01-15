@@ -1130,3 +1130,158 @@ a[href^="tel:"] {
   font-size: 1rem;
   z-index: 10;
 }
+
+/* ========================================
+   Timeline Component Utilities
+   ======================================== */
+
+/* Timeline dot and line utilities */
+.h-3 {
+  height: 0.75rem;
+}
+
+.w-3 {
+  width: 0.75rem;
+}
+
+.h-2\.5 {
+  height: 0.625rem;
+}
+
+.w-2\.5 {
+  width: 0.625rem;
+}
+
+.w-px {
+  width: 1px;
+}
+
+.bg-white\/90 {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.bg-white\/25 {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.bg-teal-400 {
+  background-color: #2dd4bf;
+}
+
+.bg-teal-400\/30 {
+  background-color: rgba(45, 212, 191, 0.3);
+}
+
+.bg-blue-400 {
+  background-color: #60a5fa;
+}
+
+.bg-blue-400\/30 {
+  background-color: rgba(96, 165, 250, 0.3);
+}
+
+.text-white\/70 {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.text-white\/80 {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.text-white\/90 {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.text-right {
+  text-align: right;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.leading-6 {
+  line-height: 1.5rem;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
+.mt-14 {
+  margin-top: 3.5rem;
+}
+
+.pt-0\.5 {
+  padding-top: 0.125rem;
+}
+
+.max-w-md {
+  max-width: 28rem;
+}
+
+.max-w-4xl {
+  max-width: 56rem;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.-translate-x-1\/2 {
+  transform: translateX(-50%);
+}
+
+/* Responsive timeline utilities */
+@media (min-width: 768px) {
+  .md\\:h-3 {
+    height: 0.75rem;
+  }
+  
+  .md\\:w-3 {
+    width: 0.75rem;
+  }
+  
+  .md\\:h-11 {
+    height: 2.75rem;
+  }
+  
+  .md\\:w-11 {
+    width: 2.75rem;
+  }
+  
+  .md\\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  
+  .md\\:mt-16 {
+    margin-top: 4rem;
+  }
+  
+  .md\\:hidden {
+    display: none;
+  }
+  
+  .md\\:block {
+    display: block;
+  }
+}
+
+.hidden {
+  display: none;
+}
