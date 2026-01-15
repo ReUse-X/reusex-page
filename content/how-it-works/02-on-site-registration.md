@@ -1,5 +1,5 @@
 ---
-title: "Step 1 - On-site registration"
+title: "On-site registration"
 subtitle: "Step 1"
 order: 2
 icon: ""
