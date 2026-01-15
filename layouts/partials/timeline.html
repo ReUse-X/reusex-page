@@ -23,10 +23,10 @@
     <!-- Container with relative positioning for the continuous line -->
     <div class="relative">
       <!-- Continuous vertical line spanning all steps (positioned absolutely) -->
-      <div class="absolute left-[68px] md:left-[88px] top-[0.5rem] w-px {{ $lineColor }}" style="height: calc(100% - 3.5rem);"></div>
+      <div class="absolute w-px {{ $lineColor }}" style="left: 68px; top: 0.5rem; height: calc(100% - 3.5rem);"></div>
       
-      <!-- Grid for steps -->
-      <div class="grid grid-cols-[56px_24px_1fr] md:grid-cols-[72px_32px_1fr] gap-x-6 md:gap-x-10 gap-y-14 md:gap-y-16">
+      <!-- Grid for steps - using inline styles for precise control -->
+      <div class="grid" style="grid-template-columns: 56px 24px 1fr; column-gap: 1.5rem; row-gap: 3.5rem;">
         {{- range $index, $step := $steps -}}
         
         <!-- Icon Column -->
