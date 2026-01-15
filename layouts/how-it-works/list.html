@@ -17,6 +17,11 @@
         {{ partial "icon.html" (dict "icon" $icon "class" "w-12 h-12") }}
       </div>
       {{- end -}}
+      {{- with $section.Params.subtitle -}}
+      <p class="text-lg md:text-xl font-light mb-2" style="color: var(--section1-text);">
+        {{ . }}
+      </p>
+      {{- end -}}
       <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white/90" style="color: var(--section1-text);">
         {{ $section.Title }}
       </h2>
@@ -52,6 +57,11 @@
         {{ partial "icon.html" (dict "icon" $icon "class" "w-12 h-12") }}
       </div>
       {{- end -}}
+      {{- with $section.Params.subtitle -}}
+      <p class="text-lg md:text-xl font-light mb-2" style="color: var(--section2-heading);">
+        {{ . }}
+      </p>
+      {{- end -}}
       <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white/90" style="color: var(--section2-heading);">
         {{ $section.Title }}
       </h2>
@@ -86,6 +96,11 @@
       <div class="flex justify-center mb-6">
         {{ partial "icon.html" (dict "icon" $icon "class" "w-12 h-12") }}
       </div>
+      {{- end -}}
+      {{- with $section.Params.subtitle -}}
+      <p class="text-lg md:text-xl font-light mb-2" style="color: var(--section3-heading);">
+        {{ . }}
+      </p>
       {{- end -}}
       <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white/90" style="color: var(--section3-heading);">
         {{ $section.Title }}
