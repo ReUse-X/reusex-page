@@ -1,5 +1,5 @@
 ---
-title: "Compute"
+title: "2 - Compute"
 order: 3
 icon: "cloud"
 colorScheme: 3
