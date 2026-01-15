@@ -3,7 +3,7 @@ title: "Compute"
 subtitle: "Step 2"
 order: 3
 icon: ""
-colorScheme: 3
+colorScheme: 2
 steps:
   - label: ""
     icon: "cube-transparent"
