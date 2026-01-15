@@ -1,5 +1,5 @@
 ---
-title: "On-site registration"
+title: "1 - On-site registration"
 order: 2
 icon: ""
 showHeadlineIcon: false
