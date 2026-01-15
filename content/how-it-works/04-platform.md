@@ -1,5 +1,5 @@
 ---
-title: "Step 3 - Platform"
+title: "Platform"
 subtitle: "Step 3"
 order: 4
 icon: ""
