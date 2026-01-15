@@ -73,3 +73,8 @@ description = 'Revolutionizing resource reuse for a sustainable future'
     name = 'ReUseX Solution'
     pageRef = '/reusex-solution'
     weight = 36
+
+  [[menus.main]]
+    name = 'Contact'
+    pageRef = '/contact'
+    weight = 40
