@@ -22,13 +22,20 @@
 {{- /* Rail line offset calculation: dot margin-top (mt-2 = 8px) + dot radius */ -}}
 {{- /* Mobile: h-2.5 w-2.5 (10px) -> radius 5px -> top offset = 8px + 5px = 13px */ -}}
 {{- /* Desktop: h-3 w-3 (12px) -> radius 6px -> top offset = 8px + 6px = 14px */ -}}
+{{- /* Bottom offset: same as top (8px + radius) from the bottom node center */ -}}
 <!-- Timeline Layout - Centered midsection block -->
 <div class="mt-12 flex justify-center">
   <div class="w-full max-w-4xl px-6">
-    <!-- Grid wrapper with relative positioning -->
+    <!-- Grid wrapper with relative positioning for absolute rail -->
     <div class="relative">
+      <!-- Vertical rail spanning from first node center to last node center -->
+      <!-- Mobile: top offset 13px, bottom offset 13px (height spans full container minus offsets) -->
+      <div class="absolute w-px {{ $lineColor }} md:hidden" style="left: calc(72px + 0.625rem + 16px); top: 13px; bottom: calc(13px);"></div>
+      <!-- Desktop: top offset 14px, bottom offset 14px -->
+      <div class="absolute w-px {{ $lineColor }} hidden md:block" style="left: calc(72px + 0.625rem + 16px); top: 14px; bottom: calc(14px);"></div>
+      
       <!-- Grid for steps -->
-      <div class="grid" style="grid-template-columns: 72px 32px 1fr; column-gap: 1.25rem; row-gap: 3.5rem;">
+      <div class="grid" style="grid-template-columns: 72px 32px 1fr; column-gap: 0.625rem; row-gap: 3.5rem;">
         {{- range $index, $step := $steps -}}
         
         <!-- Icon Column -->
@@ -36,15 +43,8 @@
           {{ partial "icon.html" (dict "icon" $step.icon "class" "h-10 w-10 md:h-11 md:w-11 text-white/90") }}
         </div>
         
-        <!-- Rail Column with Node and Line -->
+        <!-- Rail Column with Node -->
         <div class="relative flex justify-center">
-          {{- if eq $index 0 -}}
-          <!-- Vertical line from first dot center to last dot center -->
-          <!-- Mobile: top offset 13px, height = number of gaps * gap size -->
-          <div class="absolute left-1/2 -translate-x-1/2 w-px {{ $lineColor }} md:hidden" style="top: 13px; height: calc({{ $numGaps }} * 3.5rem);"></div>
-          <!-- Desktop: top offset 14px, height = number of gaps * gap size -->
-          <div class="absolute left-1/2 -translate-x-1/2 w-px {{ $lineColor }} hidden md:block" style="top: 14px; height: calc({{ $numGaps }} * 3.5rem);"></div>
-          {{- end -}}
           <!-- Node (dot) - centered horizontally, with mt-2 to align with text -->
           <div class="h-2.5 w-2.5 md:h-3 md:w-3 rounded-full {{ $nodeColor }} relative z-10 mt-2"></div>
         </div>
