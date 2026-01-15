@@ -1,7 +1,7 @@
 ---
 title: "2 - Compute"
 order: 3
-icon: "cloud"
+icon: ""
 colorScheme: 3
 steps:
   - label: "Pointcloud"
