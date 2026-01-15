@@ -1,7 +1,7 @@
 ---
 title: "Contact"
 order: 1
-colorScheme: 3
+colorScheme: 2
 ---
 
 For all enquiries, please contact us by email.
