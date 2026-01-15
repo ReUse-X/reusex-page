@@ -3,7 +3,7 @@
 /* Enhanced design tokens */
 :root {
   --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  --font-display: ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
   
   /* GLOBAL TOKENS */
   --surface-bg: #0F172A;
