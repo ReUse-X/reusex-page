@@ -11,13 +11,13 @@
   <div class="container-custom">
     {{- if $section.Params.steps -}}
     <!-- Timeline layout for sections with steps -->
-    <div class="max-w-4xl mx-auto text-center mb-12">
-      {{- if $icon -}}
+    <div class="max-w-4xl mx-auto text-center mb-10 md:mb-12">
+      {{- if and $icon (ne $section.Params.showHeadlineIcon false) -}}
       <div class="flex justify-center mb-6">
         {{ partial "icon.html" (dict "icon" $icon "class" "w-12 h-12") }}
       </div>
       {{- end -}}
-      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: var(--section1-text);">
+      <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white/90" style="color: var(--section1-text);">
         {{ $section.Title }}
       </h2>
     </div>
@@ -46,13 +46,13 @@
   <div class="container-custom">
     {{- if $section.Params.steps -}}
     <!-- Timeline layout for sections with steps -->
-    <div class="max-w-4xl mx-auto text-center mb-12">
-      {{- if $icon -}}
+    <div class="max-w-4xl mx-auto text-center mb-10 md:mb-12">
+      {{- if and $icon (ne $section.Params.showHeadlineIcon false) -}}
       <div class="flex justify-center mb-6">
         {{ partial "icon.html" (dict "icon" $icon "class" "w-12 h-12") }}
       </div>
       {{- end -}}
-      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: var(--section2-heading);">
+      <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white/90" style="color: var(--section2-heading);">
         {{ $section.Title }}
       </h2>
     </div>
@@ -81,13 +81,13 @@
   <div class="container-custom">
     {{- if $section.Params.steps -}}
     <!-- Timeline layout for sections with steps -->
-    <div class="max-w-4xl mx-auto text-center mb-12">
-      {{- if $icon -}}
+    <div class="max-w-4xl mx-auto text-center mb-10 md:mb-12">
+      {{- if and $icon (ne $section.Params.showHeadlineIcon false) -}}
       <div class="flex justify-center mb-6">
         {{ partial "icon.html" (dict "icon" $icon "class" "w-12 h-12") }}
       </div>
       {{- end -}}
-      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: var(--section3-heading);">
+      <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white/90" style="color: var(--section3-heading);">
         {{ $section.Title }}
       </h2>
     </div>
