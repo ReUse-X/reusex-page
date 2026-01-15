@@ -23,8 +23,8 @@
 {{- /* Mobile: h-2.5 w-2.5 (10px) -> radius 5px -> top offset = 8px + 5px = 13px */ -}}
 {{- /* Desktop: h-3 w-3 (12px) -> radius 6px -> top offset = 8px + 6px = 14px */ -}}
 {{- /* Bottom offset: accounts for content below last node center */ -}}
-{{- /* Mobile: 84px from container bottom to last node center (content wraps taller on mobile) */ -}}
-{{- /* Desktop: 39px from container bottom to last node center (content fits in one line) */ -}}
+{{- /* Mobile: 84px from container bottom (content wraps taller on mobile) */ -}}
+{{- /* Desktop: 30px from container bottom (balanced for 2-3 item timelines) */ -}}
 <!-- Timeline Layout - Centered midsection block -->
 <div class="mt-12 flex justify-center">
   <div class="w-full max-w-4xl px-6">
@@ -33,8 +33,8 @@
       <!-- Vertical rail spanning from first node center to last node center -->
       <!-- Mobile: top offset 13px (mt-2 + 5px radius), bottom offset 84px (accounts for content below last node) -->
       <div class="absolute w-px {{ $lineColor }} md:hidden" style="left: calc(72px + 0.625rem + 16px); top: 13px; bottom: 84px;"></div>
-      <!-- Desktop: top offset 14px (mt-2 + 6px radius), bottom offset 39px (accounts for content below last node) -->
-      <div class="absolute w-px {{ $lineColor }} hidden md:block" style="left: calc(72px + 0.625rem + 16px); top: 14px; bottom: 39px;"></div>
+      <!-- Desktop: top offset 14px (mt-2 + 6px radius), bottom offset 30px (balanced for varying content heights) -->
+      <div class="absolute w-px {{ $lineColor }} hidden md:block" style="left: calc(72px + 0.625rem + 16px); top: 14px; bottom: 30px;"></div>
       
       <!-- Grid for steps -->
       <div class="grid" style="grid-template-columns: 72px 32px 1fr; column-gap: 0.625rem; row-gap: 3.5rem;">
