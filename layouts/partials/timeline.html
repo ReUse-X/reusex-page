@@ -23,9 +23,11 @@
     <!-- Container with relative positioning for the continuous line -->
     <div class="relative">
       <!-- Continuous vertical line spanning all steps (positioned absolutely) -->
+      <!-- Note: 68px = 56px (icon column) + 12px (half of 24px rail column to center the line) -->
       <div class="absolute w-px {{ $lineColor }}" style="left: 68px; top: 0.5rem; height: calc(100% - 3.5rem);"></div>
       
       <!-- Grid for steps - using inline styles for precise control -->
+      <!-- Note: Inline styles used because Tailwind CDN doesn't process arbitrary bracket values like grid-cols-[56px_24px_1fr] -->
       <div class="grid" style="grid-template-columns: 56px 24px 1fr; column-gap: 1.5rem; row-gap: 3.5rem;">
         {{- range $index, $step := $steps -}}
         
