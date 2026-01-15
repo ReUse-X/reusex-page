@@ -62,19 +62,24 @@ description = 'Revolutionizing resource reuse for a sustainable future'
   [[menus.main]]
     name = 'Vision'
     pageRef = '/vision-journey'
+    weight = 20
+
+  [[menus.main]]
+    name = 'Solution'
+    pageRef = '/reusex-solution'
     weight = 30
 
   [[menus.main]]
     name = 'How it Works'
     pageRef = '/how-it-works'
-    weight = 35
+    weight = 40
 
   [[menus.main]]
-    name = 'ReUseX Solution'
-    pageRef = '/reusex-solution'
-    weight = 36
+    name = 'People'
+    pageRef = '/people'
+    weight = 50
 
   [[menus.main]]
     name = 'Contact'
     pageRef = '/contact'
-    weight = 40
+    weight = 60
