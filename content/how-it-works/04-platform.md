@@ -1,7 +1,7 @@
 ---
 title: "3 - Platform"
 order: 4
-icon: "computer"
+icon: ""
 colorScheme: 2
 ---
 
