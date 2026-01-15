@@ -1,8 +1,5 @@
 /* Custom CSS for ReUseX Theme - Enhanced with modern patterns */
 
-/* Import Inter font from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
 /* Enhanced design tokens */
 :root {
   --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
