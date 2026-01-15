@@ -1,5 +1,5 @@
 ---
-title: "3 - Platform"
+title: "3. Platform"
 order: 4
 icon: ""
 colorScheme: 2
