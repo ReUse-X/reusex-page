@@ -2,7 +2,7 @@
 title: "Step 2 - Compute"
 order: 3
 icon: ""
-colorScheme: 2
+colorScheme: 3
 steps:
   - label: ""
     icon: "cube-transparent"
