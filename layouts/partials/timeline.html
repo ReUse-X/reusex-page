@@ -17,27 +17,23 @@
 {{- end -}}
 
 {{- if $steps -}}
-{{- $numSteps := len $steps -}}
-{{- $numGaps := sub $numSteps 1 -}}
-{{- /* Rail line offset calculation: dot margin-top (mt-2 = 8px) + dot radius */ -}}
-{{- /* Mobile: h-2.5 w-2.5 (10px) -> radius 5px -> top offset = 8px + 5px = 13px */ -}}
-{{- /* Desktop: h-3 w-3 (12px) -> radius 6px -> top offset = 8px + 6px = 14px */ -}}
-{{- /* Bottom offset: accounts for content below last node center */ -}}
-{{- /* Mobile: 84px from container bottom (content wraps taller on mobile) */ -}}
-{{- /* Desktop: 30px from container bottom (balanced for 2-3 item timelines) */ -}}
 <!-- Timeline Layout - Centered midsection block -->
 <div class="mt-12 flex justify-center">
   <div class="w-full max-w-4xl px-6">
     <!-- Grid wrapper with relative positioning for absolute rail -->
-    <div class="relative">
-      <!-- Vertical rail spanning from first node center to last node center -->
-      <!-- Mobile: top offset 13px (mt-2 + 5px radius), bottom offset 84px (accounts for content below last node) -->
-      <div class="absolute w-px {{ $lineColor }} md:hidden" style="left: calc(72px + 0.625rem + 16px); top: 13px; bottom: 84px;"></div>
-      <!-- Desktop: top offset 14px (mt-2 + 6px radius), bottom offset 30px (balanced for varying content heights) -->
-      <div class="absolute w-px {{ $lineColor }} hidden md:block" style="left: calc(72px + 0.625rem + 16px); top: 14px; bottom: 30px;"></div>
+    <div class="relative max-w-3xl mx-auto" style="
+      --icon-col: 72px;
+      --rail-col: 32px;
+      --gap: 0.625rem;
+      --row-gap: 3.5rem;
+      --rail-left: calc(var(--icon-col) + var(--gap) + (var(--rail-col) / 2));
+    ">
+      <!-- Vertical rail: anchored to node centers; derived from the same column sizes/gaps so it's centered between icon and text -->
+      <div class="absolute w-px {{ $lineColor }} md:hidden" style="left: var(--rail-left); top: 13px; bottom: 84px;"></div>
+      <div class="absolute w-px {{ $lineColor }} hidden md:block" style="left: var(--rail-left); top: 14px; bottom: 30px;"></div>
       
       <!-- Grid for steps -->
-      <div class="grid" style="grid-template-columns: 72px 32px 1fr; column-gap: 0.625rem; row-gap: 3.5rem;">
+      <div class="grid" style="grid-template-columns: var(--icon-col) var(--rail-col) 1fr; column-gap: var(--gap); row-gap: var(--row-gap);">
         {{- range $index, $step := $steps -}}
         
         <!-- Icon Column -->
@@ -47,7 +43,6 @@
         
         <!-- Rail Column with Node -->
         <div class="relative flex justify-center">
-          <!-- Node (dot) - centered horizontally, with mt-2 to align with text -->
           <div class="h-2.5 w-2.5 md:h-3 md:w-3 rounded-full {{ $nodeColor }} relative z-10 mt-2"></div>
         </div>
         
