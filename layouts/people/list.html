@@ -1,4 +1,5 @@
 {{ define "main" }}
+{{- $peopleSection := . -}}
 {{- $subsections := .Pages.ByParam "order" -}}
 
 {{- range $index, $section := $subsections -}}
@@ -36,18 +37,33 @@
     <!-- 4-Column Grid of Cards -->
     {{- with $section.Params.cards -}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
-      {{- range . -}}
+      {{- range $cardIndex, $card := . -}}
       <div class="space-y-3">
-        {{- with .role -}}
+        {{- with $card.image -}}
+        {{- $imagePath := . -}}
+        {{- $imageResource := $peopleSection.Resources.GetMatch $imagePath -}}
+        {{- if $imageResource -}}
+        {{- $altText := $card.name -}}
+        {{- if eq $card.name "?" -}}
+          {{- $altText = "Board member" -}}
+        {{- end -}}
+        <div class="mb-4">
+          <img src="{{ $imageResource.RelPermalink }}" 
+               alt="{{ $altText }}"
+               class="w-full h-48 object-cover rounded-xl" />
+        </div>
+        {{- end -}}
+        {{- end -}}
+        {{- with $card.role -}}
         <h3 class="text-sm font-bold uppercase tracking-wider" style="color: {{ $sectionHeading | safeCSS }};">
           {{ . }}
         </h3>
         {{- end -}}
         <h4 class="text-xl font-bold" style="color: {{ $sectionHeading | safeCSS }};">
-          {{ .name }}
+          {{ $card.name }}
         </h4>
         <p class="text-base leading-relaxed" style="color: {{ $sectionBody | safeCSS }};">
-          {{ .text }}
+          {{ $card.text }}
         </p>
       </div>
       {{- end -}}
