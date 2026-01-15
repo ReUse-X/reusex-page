@@ -1,0 +1,102 @@
+{{ define "main" }}
+{{- $subsections := .Pages.ByParam "order" -}}
+
+{{- range $index, $section := $subsections -}}
+{{- $colorScheme := $section.Params.colorScheme | default 2 -}}
+{{- $layout := $section.Params.layout | default "" -}}
+
+{{- if eq $layout "cards" -}}
+<!-- Cards Layout for Team/Board -->
+{{- $sectionBg := "var(--section2-bg)" -}}
+{{- $sectionHeading := "var(--section2-heading)" -}}
+{{- $sectionBody := "var(--section2-body)" -}}
+{{- if eq $colorScheme 1 -}}
+  {{- $sectionBg = "var(--section1-bg)" -}}
+  {{- $sectionHeading = "var(--section1-text)" -}}
+  {{- $sectionBody = "var(--section1-text)" -}}
+{{- else if eq $colorScheme 3 -}}
+  {{- $sectionBg = "var(--section3-bg)" -}}
+  {{- $sectionHeading = "var(--section3-heading)" -}}
+  {{- $sectionBody = "var(--section3-body)" -}}
+{{- end -}}
+<section class="section-padding" style="background-color: {{ $sectionBg | safeCSS }};">
+  <div class="container-custom">
+    <!-- Centered Title and Intro -->
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: {{ $sectionHeading | safeCSS }};">
+        {{ $section.Title }}
+      </h2>
+      {{- with $section.Params.intro -}}
+      <p class="text-lg leading-relaxed" style="color: {{ $sectionBody | safeCSS }};">
+        {{ . }}
+      </p>
+      {{- end -}}
+    </div>
+    
+    <!-- 4-Column Grid of Cards -->
+    {{- with $section.Params.cards -}}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
+      {{- range . -}}
+      <div class="space-y-3">
+        {{- with .role -}}
+        <h3 class="text-sm font-bold uppercase tracking-wider" style="color: {{ $sectionHeading | safeCSS }};">
+          {{ . }}
+        </h3>
+        {{- end -}}
+        <h4 class="text-xl font-bold" style="color: {{ $sectionHeading | safeCSS }};">
+          {{ .name }}
+        </h4>
+        <p class="text-base leading-relaxed" style="color: {{ $sectionBody | safeCSS }};">
+          {{ .text }}
+        </p>
+      </div>
+      {{- end -}}
+    </div>
+    {{- end -}}
+  </div>
+</section>
+{{- else if eq $colorScheme 1 -}}
+<!-- Section {{ add $index 1 }} - {{ $section.Title }} (Section 1 - Teal Band) -->
+<section class="section-padding" style="background-color: var(--section1-bg);">
+  <div class="container-custom">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: var(--section1-text);">
+        {{ $section.Title }}
+      </h2>
+      <div class="prose prose-lg max-w-none mx-auto" style="color: var(--section1-text);">
+        {{ $section.Content }}
+      </div>
+    </div>
+  </div>
+</section>
+{{- else if eq $colorScheme 2 -}}
+<!-- Section {{ add $index 1 }} - {{ $section.Title }} (Section 2 - Navy Alt) -->
+<section class="section-padding" style="background-color: var(--section2-bg);">
+  <div class="container-custom">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: var(--section2-heading);">
+        {{ $section.Title }}
+      </h2>
+      <div class="prose prose-lg max-w-none mx-auto" style="color: var(--section2-body);">
+        {{ $section.Content }}
+      </div>
+    </div>
+  </div>
+</section>
+{{- else if eq $colorScheme 3 -}}
+<!-- Section {{ add $index 1 }} - {{ $section.Title }} (Section 3 - Dark Base) -->
+<section class="section-padding" style="background-color: var(--section3-bg);">
+  <div class="container-custom">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: var(--section3-heading);">
+        {{ $section.Title }}
+      </h2>
+      <div class="prose prose-lg max-w-none mx-auto" style="color: var(--section3-body);">
+        {{ $section.Content }}
+      </div>
+    </div>
+  </div>
+</section>
+{{- end -}}
+{{- end -}}
+{{ end }}
