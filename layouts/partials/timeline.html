@@ -19,9 +19,9 @@
 {{- if $steps -}}
 <!-- Timeline Layout - Centered midsection block -->
 <div class="mt-12 flex justify-center">
-  <div class="w-full max-w-4xl px-6">
+  <div class="w-full max-w-4xl px-6 mx-auto">
     <!-- Grid wrapper with relative positioning for absolute rail -->
-    <div class="relative max-w-3xl mx-auto" style="
+    <div class="relative mx-auto max-w-3xl" style="
       --icon-col: 72px;
       --rail-col: 32px;
       --gap: 0.625rem;
@@ -42,7 +42,7 @@
         </div>
         
         <!-- Rail Column with Node -->
-        <div class="relative flex justify-center">
+        <div class="relative flex justify-center items-start pt-0.5">
           <div class="h-2.5 w-2.5 md:h-3 md:w-3 rounded-full {{ $nodeColor }} relative z-10 mt-2"></div>
         </div>
         
