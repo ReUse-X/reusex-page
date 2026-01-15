@@ -1,5 +1,6 @@
 ---
 title: "Step 2 - Compute"
+subtitle: "Step 2"
 order: 3
 icon: ""
 colorScheme: 3

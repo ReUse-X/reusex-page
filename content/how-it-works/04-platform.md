@@ -1,5 +1,6 @@
 ---
 title: "Step 3 - Platform"
+subtitle: "Step 3"
 order: 4
 icon: ""
 showHeadlineIcon: false
