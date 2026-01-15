@@ -19,6 +19,9 @@
 {{- if $steps -}}
 {{- $numSteps := len $steps -}}
 {{- $numGaps := sub $numSteps 1 -}}
+{{- /* Rail line offset calculation: dot margin-top (mt-2 = 8px) + dot radius */ -}}
+{{- /* Mobile: h-2.5 w-2.5 (10px) -> radius 5px -> top offset = 8px + 5px = 13px */ -}}
+{{- /* Desktop: h-3 w-3 (12px) -> radius 6px -> top offset = 8px + 6px = 14px */ -}}
 <!-- Timeline Layout - Centered midsection block -->
 <div class="mt-12 flex justify-center">
   <div class="w-full max-w-4xl px-6">
@@ -36,12 +39,10 @@
         <!-- Rail Column with Node and Line -->
         <div class="relative flex justify-center">
           {{- if eq $index 0 -}}
-          <!-- Continuous vertical line from first dot center to last dot center -->
-          <!-- Line height = (number of gaps between steps) * (gap size) -->
-          <!-- For 3 steps: 2 gaps * 3.5rem = 7rem -->
-          <!-- Dots: h-2.5 w-2.5 (10px) on mobile -> center at 5px + mt-2 (8px) = 13px -->
+          <!-- Vertical line from first dot center to last dot center -->
+          <!-- Mobile: top offset 13px, height = number of gaps * gap size -->
           <div class="absolute left-1/2 -translate-x-1/2 w-px {{ $lineColor }} md:hidden" style="top: 13px; height: calc({{ $numGaps }} * 3.5rem);"></div>
-          <!-- Dots: h-3 w-3 (12px) on md+ -> center at 6px + mt-2 (8px) = 14px -->
+          <!-- Desktop: top offset 14px, height = number of gaps * gap size -->
           <div class="absolute left-1/2 -translate-x-1/2 w-px {{ $lineColor }} hidden md:block" style="top: 14px; height: calc({{ $numGaps }} * 3.5rem);"></div>
           {{- end -}}
           <!-- Node (dot) - centered horizontally, with mt-2 to align with text -->
