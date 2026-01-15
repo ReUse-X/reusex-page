@@ -7,26 +7,18 @@
 
 {{- if eq $layout "research-card" -}}
 <!-- Research Section with Card Layout -->
-{{- $sectionBg := "var(--section1-bg)" -}}
-{{- $sectionHeading := "var(--section1-text)" -}}
-{{- $sectionBody := "var(--section1-text)" -}}
-{{- $cardBg := "var(--section2-surface)" -}}
-{{- $cardHeading := "var(--section2-heading)" -}}
-{{- $cardBody := "var(--section2-body)" -}}
-{{- $cardMuted := "var(--section2-muted)" -}}
-
-<section class="section-padding" style="background-color: {{ $sectionBg | safeCSS }};">
+<section class="section-padding" style="background-color: var(--section1-bg);">
   <div class="container-custom">
     <!-- Centered Page Title -->
     <div class="max-w-3xl mx-auto text-center mb-8">
-      <h1 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: {{ $sectionHeading | safeCSS }};">
+      <h1 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: var(--section1-text);">
         {{ $section.Title }}
       </h1>
     </div>
     
     <!-- Centered Intro Text -->
     <div class="max-w-3xl mx-auto text-center mb-10 md:mb-12">
-      <div class="prose prose-lg max-w-none" style="color: {{ $sectionBody | safeCSS }};">
+      <div class="prose prose-lg max-w-none" style="color: var(--section1-text);">
         {{ $section.Content }}
       </div>
     </div>
