@@ -1,5 +1,5 @@
 ---
-title: "Step 2 - Compute"
+title: "Compute"
 subtitle: "Step 2"
 order: 3
 icon: ""
