@@ -1,0 +1,117 @@
+{{ define "main" }}
+{{- $subsections := .Pages.ByParam "order" -}}
+
+{{- range $index, $section := $subsections -}}
+{{- $colorScheme := $section.Params.colorScheme | default 2 -}}
+{{- $layout := $section.Params.layout | default "" -}}
+
+{{- if eq $layout "research-card" -}}
+<!-- Research Section with Card Layout -->
+<section class="section-padding" style="background-color: var(--section1-bg);">
+  <div class="container-custom">
+    <!-- Centered Page Title -->
+    <div class="max-w-3xl mx-auto text-center mb-8">
+      <h1 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: var(--section1-text);">
+        {{ $section.Title }}
+      </h1>
+    </div>
+    
+    <!-- Centered Intro Text -->
+    <div class="max-w-3xl mx-auto text-center mb-10 md:mb-12">
+      <div class="prose prose-lg max-w-none" style="color: var(--section1-text);">
+        {{ $section.Content }}
+      </div>
+    </div>
+    
+    <!-- White Card with Dissertation Content -->
+    <div class="max-w-3xl mx-auto">
+      <div class="bg-white rounded-2xl shadow-xl p-8 md:p-10">
+        <!-- Card Title -->
+        <h2 class="text-2xl md:text-3xl font-bold mb-4" style="color: #0B1220;">
+          3D Mapping of Vacant Buildings for Reuse
+        </h2>
+        
+        <!-- Author Line -->
+        <p class="text-lg font-semibold mb-6" style="color: #0B1220;">
+          Povl Filip Sonne-Frederiksen
+        </p>
+        
+        <!-- Card Body -->
+        <div class="mb-6 space-y-4">
+          <p class="text-base leading-relaxed" style="color: #0B1220;">
+            The dissertation explores innovative computational methods for mapping and reusing vacant buildings, a critical step in advancing sustainability within the architecture, engineering, and construction (AEC) industry. With vacant structures contributing significantly to environmental challenges, this research addresses the pressing need for efficient tools to document and assess building components for reuse, which aligns with circular economy principles. The study introduces a robust pipeline for automated 3D mapping, leveraging LiDAR and RGB data captured via consumer-grade devices like the iPad Pro. The methodology combines advanced geometric processing and machine learning techniques to segment point clouds and generate simplified solid surface models for early-phase architectural analysis.
+          </p>
+          <p class="text-base leading-relaxed" style="color: #0B1220;">
+            The proposed tool, ReUseExplorer, was developed as an open and flexible platform, facilitating interoperability across industry-standard software. Rigorous field studies, conducted in collaboration with Link Arkitektur and municipal stakeholders, validated its feasibility for diverse applications, including resource inventory creation, environmental impact assessments, and historical documentation. Challenges such as data drift, device limitations, and computational efficiency were addressed through iterative refinements. By providing architects and practitioners with accessible tools for building reuse, this research contributes to reducing carbon footprints in the built environment and aligns with emerging regulatory frameworks. Future directions include enhancing the precision of segmentation models and expanding their integration with industry workflows.
+          </p>
+        </div>
+        
+        <!-- Metadata Line -->
+        <p class="text-sm mb-4" style="color: #64748B;">
+          Original language: English Number of pages112 Publication status: Published - 11 Mar 2025
+        </p>
+        
+        <!-- Link Line -->
+        <p class="mb-4">
+          <a href="https://adk.elsevierpure.com/files/85372081/Dissertation.pdf" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline break-all">
+            https://adk.elsevierpure.com/files/85372081/Dissertation.pdf
+          </a>
+        </p>
+        
+        <!-- Additional Lines -->
+        <p class="text-base mb-2" style="color: #0B1220;">
+          Povl Filip Sonne-Frederiksen
+        </p>
+        <p class="text-base font-semibold" style="color: #0B1220;">
+          Access to Document
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{- else if eq $colorScheme 1 -}}
+<!-- Section {{ add $index 1 }} - {{ $section.Title }} (Section 1 - Teal Band) -->
+<section id="{{ $section.Title | urlize }}" class="section-padding" style="background-color: var(--section1-bg);">
+  <div class="container-custom">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: var(--section1-text);">
+        {{ $section.Title }}
+      </h2>
+      <div class="prose prose-lg max-w-none mx-auto" style="color: var(--section1-text);">
+        {{ $section.Content }}
+      </div>
+    </div>
+  </div>
+</section>
+{{- else if eq $colorScheme 2 -}}
+<!-- Section {{ add $index 1 }} - {{ $section.Title }} (Section 2 - Navy Alt) -->
+<section id="{{ $section.Title | urlize }}" class="section-padding" style="background-color: var(--section2-bg);">
+  <div class="container-custom">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: var(--section2-heading);">
+        {{ $section.Title }}
+      </h2>
+      <div class="prose prose-lg max-w-none mx-auto" style="color: var(--section2-body);">
+        {{ $section.Content }}
+      </div>
+    </div>
+  </div>
+</section>
+{{- else if eq $colorScheme 3 -}}
+<!-- Section {{ add $index 1 }} - {{ $section.Title }} (Section 3 - Dark Base) -->
+<section id="{{ $section.Title | urlize }}" class="section-padding" style="background-color: var(--section3-bg);">
+  <div class="container-custom">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: var(--section3-heading);">
+        {{ $section.Title }}
+      </h2>
+      <div class="prose prose-lg max-w-none mx-auto" style="color: var(--section3-body);">
+        {{ $section.Content }}
+      </div>
+    </div>
+  </div>
+</section>
+{{- end -}}
+{{- end -}}
+{{ end }}
