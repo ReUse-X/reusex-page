@@ -40,18 +40,15 @@
       {{- range $cardIndex, $card := . -}}
       <div class="space-y-3">
         {{- with $card.image -}}
-        {{- $imagePath := . -}}
-        {{- $imageResource := $peopleSection.Resources.GetMatch $imagePath -}}
+        {{- $imageResource := $peopleSection.Resources.GetMatch . -}}
         {{- if $imageResource -}}
         {{- $altText := $card.name -}}
         {{- if eq $card.name "?" -}}
           {{- $altText = "Board member" -}}
         {{- end -}}
-        <div class="mb-4">
           <img src="{{ $imageResource.RelPermalink }}" 
                alt="{{ $altText }}"
                class="w-full h-48 object-cover rounded-xl" />
-        </div>
         {{- end -}}
         {{- end -}}
         {{- with $card.role -}}
