@@ -23,6 +23,21 @@
 <!-- Section {{ add $index 1 }} - {{ $section.Title }} (Section 2 - Navy Alt) -->
 <section id="{{ $section.Title | urlize }}" class="section-padding" style="background-color: var(--section2-bg);">
   <div class="container-custom">
+    {{- if $section.Params.steps -}}
+    <!-- Timeline layout for sections with steps -->
+    <div class="max-w-4xl mx-auto text-center mb-10 md:mb-12">
+      {{- if and $icon (ne $section.Params.showHeadlineIcon false) -}}
+      <div class="flex justify-center mb-6">
+        {{ partial "icon.html" (dict "icon" $icon "class" "w-12 h-12") }}
+      </div>
+      {{- end -}}
+      <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white/90" style="color: var(--section2-heading);">
+        {{ $section.Title }}
+      </h2>
+    </div>
+    {{ partial "timeline.html" (dict "steps" $section.Params.steps "colorScheme" $colorScheme "output" $section.Params.output) }}
+    {{- else -}}
+    <!-- Traditional centered layout for sections without steps -->
     <div class="max-w-4xl mx-auto text-center">
       <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: var(--section2-heading);">
         {{ $section.Title }}
@@ -31,6 +46,7 @@
         {{ $section.Content }}
       </div>
     </div>
+    {{- end -}}
   </div>
 </section>
 {{- else if eq $colorScheme 3 -}}

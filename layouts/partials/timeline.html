@@ -21,43 +21,87 @@
 <div class="mt-12 flex justify-center">
   <div class="w-full max-w-4xl px-6 mx-auto">
     <!-- Grid wrapper with relative positioning for absolute rail -->
-    <div class="relative mx-auto max-w-3xl" style="
-      --icon-col: 72px;
-      --rail-col: 32px;
-      --gap: 0.625rem;
-      --row-gap: 3.5rem;
-      --rail-left: calc(var(--icon-col) + var(--gap) + (var(--rail-col) / 2));
-    ">
-      <!-- Vertical rail: anchored to node centers; derived from the same column sizes/gaps so it's centered between icon and text -->
-      <div class="absolute w-px {{ $lineColor }} md:hidden" style="left: var(--rail-left); top: 13px; bottom: 84px;"></div>
-      <div class="absolute w-px {{ $lineColor }} hidden md:block" style="left: var(--rail-left); top: 14px; bottom: 30px;"></div>
-      
-      <!-- Grid for steps -->
-      <div class="grid" style="grid-template-columns: var(--icon-col) var(--rail-col) 1fr; column-gap: var(--gap); row-gap: var(--row-gap);">
-        {{- range $index, $step := $steps -}}
+    <div class="relative mx-auto max-w-3xl">
+      {{- if (index $steps 0).icon -}}
+      <!-- Icon-based timeline (original) -->
+      <div style="
+        --icon-col: 72px;
+        --rail-col: 32px;
+        --gap: 0.625rem;
+        --row-gap: 3.5rem;
+        --rail-left: calc(var(--icon-col) + var(--gap) + (var(--rail-col) / 2));
+      ">
+        <!-- Vertical rail: anchored to node centers -->
+        <div class="absolute w-px {{ $lineColor }} md:hidden" style="left: var(--rail-left); top: 13px; bottom: 84px;"></div>
+        <div class="absolute w-px {{ $lineColor }} hidden md:block" style="left: var(--rail-left); top: 14px; bottom: 30px;"></div>
         
-        <!-- Icon Column -->
-        <div class="flex justify-center items-start pt-0.5">
-          {{ partial "icon.html" (dict "icon" $step.icon "class" "h-10 w-10 md:h-11 md:w-11 text-white/90") }}
+        <!-- Grid for steps -->
+        <div class="grid" style="grid-template-columns: var(--icon-col) var(--rail-col) 1fr; column-gap: var(--gap); row-gap: var(--row-gap);">
+          {{- range $index, $step := $steps -}}
+          
+          <!-- Icon Column -->
+          <div class="flex justify-center items-start pt-0.5">
+            {{ partial "icon.html" (dict "icon" $step.icon "class" "h-10 w-10 md:h-11 md:w-11 text-white/90") }}
+          </div>
+          
+          <!-- Rail Column with Node -->
+          <div class="relative flex justify-center items-start pt-0.5">
+            <div class="h-2.5 w-2.5 md:h-3 md:w-3 rounded-full {{ $nodeColor }} relative z-10 mt-2"></div>
+          </div>
+          
+          <!-- Content Column -->
+          <div>
+            <h3 class="text-sm md:text-base font-semibold {{ $headingColor }} leading-6">
+              {{ $step.heading }}
+            </h3>
+            <p class="mt-3 text-sm leading-relaxed {{ $textColor }} max-w-md">
+              {{ $step.body }}
+            </p>
+          </div>
+          
+          {{- end -}}
         </div>
-        
-        <!-- Rail Column with Node -->
-        <div class="relative flex justify-center items-start pt-0.5">
-          <div class="h-2.5 w-2.5 md:h-3 md:w-3 rounded-full {{ $nodeColor }} relative z-10 mt-2"></div>
-        </div>
-        
-        <!-- Content Column -->
-        <div>
-          <h3 class="text-sm md:text-base font-semibold {{ $headingColor }} leading-6">
-            {{ $step.heading }}
-          </h3>
-          <p class="mt-3 text-sm leading-relaxed {{ $textColor }} max-w-md">
-            {{ $step.body }}
-          </p>
-        </div>
-        
-        {{- end -}}
       </div>
+      {{- else -}}
+      <!-- Year-based timeline -->
+      <div class="relative" style="
+        --year-col: 72px;
+        --rail-col: 32px;
+        --gap: 2.5rem;
+        --row-gap: 3.5rem;
+        --rail-left: calc(var(--year-col) + var(--gap) + (var(--rail-col) / 2));
+      ">
+        <!-- Vertical rail: centered line from top dot to bottom dot -->
+        <div class="absolute w-px {{ $lineColor }}" style="left: var(--rail-left); top: 6px; bottom: 6px;"></div>
+        
+        <!-- Grid for year-based timeline entries -->
+        <div class="grid" style="grid-template-columns: var(--year-col) var(--rail-col) 1fr; column-gap: var(--gap); row-gap: var(--row-gap);">
+          {{- range $index, $step := $steps -}}
+          
+          <!-- Year Column -->
+          <div class="text-sm md:text-base font-semibold {{ $headingColor }} text-right leading-6">
+            {{ $step.year }}
+          </div>
+          
+          <!-- Rail Column with Node -->
+          <div class="relative flex justify-center items-start">
+            <div class="h-3 w-3 rounded-full {{ $nodeColor }} relative z-10"></div>
+          </div>
+          
+          <!-- Content Column -->
+          <div>
+            <h3 class="text-sm md:text-base font-semibold {{ $headingColor }} leading-6">
+              {{ $step.heading }}
+            </h3>
+            <p class="mt-3 text-sm leading-relaxed {{ $textColor }} max-w-md">
+              {{ $step.body }}
+            </p>
+          </div>
+          
+          {{- end -}}
+        </div>
+      </div>
+      {{- end -}}
     </div>
   </div>
 </div>
