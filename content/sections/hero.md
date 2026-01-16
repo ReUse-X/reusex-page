@@ -3,7 +3,7 @@ title: "Turn existing buildings into circularity-ready data with AI"
 subtitle: " "
 cta_primary:
   text: "Book a pilot projekt"
-  url: "https://app.reusex.com/signup"
+  url: "https://linkarkitektur.github.io/reusex-page/contact/"
 cta_secondary:
   text: "Learn More"
   url: "#about"
