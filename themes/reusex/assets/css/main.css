@@ -1338,7 +1338,6 @@ a[href^="tel:"] {
 }
 
 .social-icon-disabled {
-  color: rgba(255, 255, 255, 0.4);
-  opacity: 0.4;
+  color: rgba(255, 255, 255, 0.25);
   pointer-events: none;
 }
