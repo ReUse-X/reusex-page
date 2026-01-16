@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}" class="scroll-smooth">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body class="antialiased" style="background-color: var(--section3-bg); color: var(--body-text); font-family: var(--font-display);">
+  <header class="fixed top-0 w-full z-50 backdrop-blur-lg border-b shadow-sm" style="background-color: rgba(11, 18, 32, 0.9); border-color: var(--border);">
+    {{ partial "header.html" . }}
+  </header>
+  <main class="pt-16">
+    <div class="bg-gray-50 py-16">
+      <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto">
+          <!-- Header -->
+          <header class="text-center mb-12">
+            <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">{{ .Title }}</h1>
+            {{ if .Params.summary }}
+              <p class="text-xl text-gray-600 max-w-2xl mx-auto">{{ .Params.summary }}</p>
+            {{ end }}
+            {{ if not .Date.IsZero }}
+              {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+              {{ $dateHuman := .Date | time.Format "January 2, 2006" }}
+              <time datetime="{{ $dateMachine }}" class="text-gray-500 text-sm block mt-4">{{ $dateHuman }}</time>
+            {{ end }}
+          </header>
+
+          <!-- Content -->
+          <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
+            <div class="prose prose-lg prose-primary max-w-none">
+              {{ .Content }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer style="background-color: var(--section3-bg); color: var(--section3-body);">
+    {{ partial "footer.html" . }}
+  </footer>
+</body>
+</html>
