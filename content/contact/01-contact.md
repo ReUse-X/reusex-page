@@ -1,5 +1,5 @@
 ---
-title: "Contact"
+title: ""
 order: 1
 colorScheme: 3
 ---
