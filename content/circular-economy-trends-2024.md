@@ -1,7 +1,10 @@
 ---
-title: "Circular Economy Trends 2024: What Businesses Need to Know"
+title: "Pilot 1
+Vacant office building
+- reuse scanning"
 date: 2024-12-01
-summary: "Explore the latest trends in circular economy practices and how forward-thinking businesses are transforming their operations to reduce waste and maximize resource value."
+summary: "Assess reuse potential before choosing between demolition and transformation. 
+LiDAR scan → AI segmentation → 3D model and reuse inventory to support the feasibility study."
 type: "post"
 ---
 
