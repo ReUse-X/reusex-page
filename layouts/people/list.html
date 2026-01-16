@@ -58,7 +58,7 @@
             {{ . }}
           </p>
           {{- end -}}
-          <p class="mt-4 text-sm leading-relaxed line-clamp-4" style="color: {{ $sectionBody | safeCSS }}; opacity: 0.7;">
+          <p class="mt-4 text-sm leading-relaxed" style="color: {{ $sectionBody | safeCSS }}; opacity: 0.7; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;">
             {{ $card.text }}
           </p>
           <div class="mt-6 flex items-center gap-4">
@@ -76,13 +76,11 @@
             {{- if $hasX -}}
             <a href="{{ $card.social.x }}" target="_blank" rel="noopener noreferrer" 
                aria-label="X – {{ $card.name }}"
-               class="transition" style="color: rgba(255, 255, 255, 0.4);"
-               onmouseover="this.style.color='rgba(255, 255, 255, 0.7)'"
-               onmouseout="this.style.color='rgba(255, 255, 255, 0.4)'">
+               class="social-icon-link">
               {{- partial "icon.html" (dict "icon" "x" "class" "w-5 h-5") -}}
             </a>
             {{- else -}}
-            <span class="pointer-events-none" style="opacity: 0.4; color: rgba(255, 255, 255, 0.4);">
+            <span class="social-icon-disabled">
               {{- partial "icon.html" (dict "icon" "x" "class" "w-5 h-5") -}}
             </span>
             {{- end -}}
@@ -90,13 +88,11 @@
             {{- if $hasLinkedIn -}}
             <a href="{{ $card.social.linkedin }}" target="_blank" rel="noopener noreferrer" 
                aria-label="LinkedIn – {{ $card.name }}"
-               class="transition" style="color: rgba(255, 255, 255, 0.4);"
-               onmouseover="this.style.color='rgba(255, 255, 255, 0.7)'"
-               onmouseout="this.style.color='rgba(255, 255, 255, 0.4)'">
+               class="social-icon-link">
               {{- partial "icon.html" (dict "icon" "linkedin" "class" "w-5 h-5") -}}
             </a>
             {{- else -}}
-            <span class="pointer-events-none" style="opacity: 0.4; color: rgba(255, 255, 255, 0.4);">
+            <span class="social-icon-disabled">
               {{- partial "icon.html" (dict "icon" "linkedin" "class" "w-5 h-5") -}}
             </span>
             {{- end -}}
