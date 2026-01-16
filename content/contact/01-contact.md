@@ -1,14 +1,14 @@
 ---
 title: ""
 order: 1
-colorScheme: 3
+colorScheme: 2
 ---
 
-<div class="flex justify-center py-16 md:py-20">
+<div class="flex justify-start py-16 md:py-20">
 <div class="w-full max-w-3xl p-8 md:p-10 bg-white/5 border border-white/30 rounded-[48px]">
-<h2 class="text-3xl md:text-4xl font-semibold text-white/90">Get in touch</h2>
+<h2 class="text-3xl md:text-4xl font-semibold text-white/90 text-left">Get in touch</h2>
 
-<div class="mt-3 text-sm md:text-base text-white/70 leading-relaxed">
+<div class="mt-3 text-sm md:text-base text-white/70 leading-relaxed text-left">
 <p>For all enquiries, please contact us by email.</p>
 <p class="mt-4">If you're interested in a pilot project, tell us a bit about the building and your timeline. We'll respond as soon as possible.</p>
 </div>
