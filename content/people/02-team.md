@@ -7,7 +7,7 @@ intro: "ReUseX turns raw LiDAR scans of existing buildings into reuse-ready mode
 cards:
   - role: "CEO"
     name: "Jan Buthke"
-    image: "portraits/Jan Buthke.jpg"
+    image: "portraits/jan-buthke.svg"
     text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
     social:
       linkedin: "https://www.linkedin.com/in/jan-buthke/"
