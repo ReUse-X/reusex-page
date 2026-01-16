@@ -58,22 +58,10 @@
             {{ . }}
           </p>
           {{- end -}}
-          <p class="mt-4 text-sm leading-relaxed" style="color: {{ $sectionBody | safeCSS }}; opacity: 0.7; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; max-height: 5.6em;">
+          <p class="mt-4 text-sm leading-relaxed" style="color: {{ $sectionBody | safeCSS }}; opacity: 0.7;">
             {{ $card.text }}
           </p>
           <div class="mt-6 flex items-center gap-4">
-            <!-- X (Twitter) Icon -->
-            {{- if and $card.social $card.social.x -}}
-            <a href="{{ $card.social.x }}" target="_blank" rel="noopener noreferrer" 
-               aria-label="X – {{ $card.name }}"
-               class="social-icon-link">
-              {{- partial "icon.html" (dict "icon" "x" "class" "w-5 h-5") -}}
-            </a>
-            {{- else -}}
-            <span class="social-icon-disabled">
-              {{- partial "icon.html" (dict "icon" "x" "class" "w-5 h-5") -}}
-            </span>
-            {{- end -}}
             <!-- LinkedIn Icon -->
             {{- if and $card.social $card.social.linkedin -}}
             <a href="{{ $card.social.linkedin }}" target="_blank" rel="noopener noreferrer" 
