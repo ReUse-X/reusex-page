@@ -21,26 +21,25 @@
   {{- $sectionBody = "var(--section3-body)" -}}
 {{- end -}}
 <section class="section-padding" style="background-color: {{ $sectionBg | safeCSS }};">
-  <div class="container-custom">
-    <!-- Centered Title and Intro -->
-    <div class="max-w-3xl mx-auto text-center mb-16">
-      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: {{ $sectionHeading | safeCSS }};">
+  <div class="max-w-6xl mx-auto px-6">
+    <!-- Left-aligned Title and Intro -->
+    <div class="mb-8">
+      <h2 class="text-3xl md:text-4xl font-semibold" style="color: {{ $sectionHeading | safeCSS }}; opacity: 0.9;">
         {{ $section.Title }}
       </h2>
       {{- with $section.Params.intro -}}
-      <p class="text-lg leading-relaxed" style="color: {{ $sectionBody | safeCSS }};">
+      <p class="mt-2 max-w-2xl text-sm md:text-base" style="color: {{ $sectionBody | safeCSS }}; opacity: 0.7;">
         {{ . }}
       </p>
       {{- end -}}
     </div>
     
-    <!-- 3-Column Grid of Cards - Tailwind "With image and short paragraph" -->
+    <!-- 2-Column Grid of Profile Cards -->
     {{- with $section.Params.cards -}}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {{- range $cardIndex, $card := . -}}
-      <div class="text-center lg:text-left">
-        {{- with $card.image -}}
-        {{- $imageResource := $peopleSection.Resources.GetMatch . -}}
+      <div class="rounded-2xl overflow-hidden shadow-lg shadow-black/30" style="background-color: rgba(255, 255, 255, 0.05); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 10px 15px -3px rgba(0, 0, 0, 0.3);">
+        {{- $imageResource := $peopleSection.Resources.GetMatch ($card.image | default "portraits/placeholder.svg") -}}
         {{- if $imageResource -}}
         {{- $altText := $card.name -}}
         {{- if eq $card.name "?" -}}
@@ -48,21 +47,60 @@
         {{- end -}}
           <img src="{{ $imageResource.RelPermalink }}" 
                alt="{{ $altText }}"
-               class="mx-auto lg:mx-0 h-56 w-56 object-cover rounded-2xl" />
+               class="w-full h-56 md:h-60 object-cover" />
         {{- end -}}
-        {{- end -}}
-        <div class="mt-6 space-y-2">
-          <h3 class="text-xl font-bold" style="color: {{ $sectionHeading | safeCSS }};">
+        <div class="p-6">
+          <h3 class="text-lg font-semibold" style="color: {{ $sectionHeading | safeCSS }}; opacity: 0.9;">
             {{ $card.name }}
           </h3>
           {{- with $card.role -}}
-          <p class="text-sm font-semibold uppercase tracking-wider" style="color: {{ $sectionBody | safeCSS }}; opacity: 0.75;">
+          <p class="text-sm" style="color: {{ $sectionBody | safeCSS }}; opacity: 0.6;">
             {{ . }}
           </p>
           {{- end -}}
-          <p class="text-base leading-relaxed" style="color: {{ $sectionBody | safeCSS }};">
+          <p class="mt-4 text-sm leading-relaxed line-clamp-4" style="color: {{ $sectionBody | safeCSS }}; opacity: 0.7;">
             {{ $card.text }}
           </p>
+          <div class="mt-6 flex items-center gap-4">
+            {{- $hasLinkedIn := false -}}
+            {{- $hasX := false -}}
+            {{- with $card.social -}}
+              {{- if .linkedin -}}
+                {{- $hasLinkedIn = true -}}
+              {{- end -}}
+              {{- if .x -}}
+                {{- $hasX = true -}}
+              {{- end -}}
+            {{- end -}}
+            <!-- X (Twitter) Icon -->
+            {{- if $hasX -}}
+            <a href="{{ $card.social.x }}" target="_blank" rel="noopener noreferrer" 
+               aria-label="X – {{ $card.name }}"
+               class="transition" style="color: rgba(255, 255, 255, 0.4);"
+               onmouseover="this.style.color='rgba(255, 255, 255, 0.7)'"
+               onmouseout="this.style.color='rgba(255, 255, 255, 0.4)'">
+              {{- partial "icon.html" (dict "icon" "x" "class" "w-5 h-5") -}}
+            </a>
+            {{- else -}}
+            <span class="pointer-events-none" style="opacity: 0.4; color: rgba(255, 255, 255, 0.4);">
+              {{- partial "icon.html" (dict "icon" "x" "class" "w-5 h-5") -}}
+            </span>
+            {{- end -}}
+            <!-- LinkedIn Icon -->
+            {{- if $hasLinkedIn -}}
+            <a href="{{ $card.social.linkedin }}" target="_blank" rel="noopener noreferrer" 
+               aria-label="LinkedIn – {{ $card.name }}"
+               class="transition" style="color: rgba(255, 255, 255, 0.4);"
+               onmouseover="this.style.color='rgba(255, 255, 255, 0.7)'"
+               onmouseout="this.style.color='rgba(255, 255, 255, 0.4)'">
+              {{- partial "icon.html" (dict "icon" "linkedin" "class" "w-5 h-5") -}}
+            </a>
+            {{- else -}}
+            <span class="pointer-events-none" style="opacity: 0.4; color: rgba(255, 255, 255, 0.4);">
+              {{- partial "icon.html" (dict "icon" "linkedin" "class" "w-5 h-5") -}}
+            </span>
+            {{- end -}}
+          </div>
         </div>
       </div>
       {{- end -}}
