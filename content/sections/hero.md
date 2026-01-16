@@ -6,7 +6,7 @@ cta_primary:
   url: "https://linkarkitektur.github.io/reusex-page/contact/"
 cta_secondary:
   text: "Learn More"
-  url: "#about"
+  url: "https://linkarkitektur.github.io/reusex-page/reusex-solution/"
 hero_image: "images/hero-image-reusex.jpg"
 hero_image_alt: "ReUseX platform visualization showing sustainable future with blue-purple gradient"
 headless: true
