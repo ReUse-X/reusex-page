@@ -7,6 +7,11 @@ languageCode = 'en-us'
 title = 'ReUseX'
 theme = 'reusex'
 
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
 [params]
 description = 'Revolutionizing resource reuse for a sustainable future'
 
