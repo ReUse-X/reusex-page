@@ -1326,3 +1326,18 @@ a[href^="tel:"] {
 .hidden {
   display: none;
 }
+
+/* Social icon styles for profile cards */
+.social-icon-link {
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.2s ease-in-out;
+}
+
+.social-icon-link:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.social-icon-disabled {
+  color: rgba(255, 255, 255, 0.25);
+  pointer-events: none;
+}
