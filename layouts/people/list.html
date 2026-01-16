@@ -47,7 +47,7 @@
         {{- end -}}
           <img src="{{ $imageResource.RelPermalink }}" 
                alt="{{ $altText }}"
-               class="w-full h-56 md:h-60 object-cover" />
+               class="w-full aspect-[3/2] object-cover" />
         {{- end -}}
         <div class="p-6">
           <h3 class="text-lg font-semibold" style="color: {{ $sectionHeading | safeCSS }}; opacity: 0.9;">
