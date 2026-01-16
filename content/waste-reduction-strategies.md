@@ -1,11 +1,11 @@
 ---
-title: "5 Proven Waste Reduction Strategies for Modern Businesses"
+title: "Pilot 3: Educational building - transformation"
 date: 2024-11-25
-summary: "Practical strategies that businesses of all sizes can implement to dramatically reduce waste, cut costs, and improve their environmental footprint."
+summary: "Understand structural reuse options and material potential in an existing school. Detailed component inventory and models used as a basis for design and circularity strategy."
 type: "post"
 ---
 
-Waste reduction isn't just about environmental responsibility—it's a strategic business advantage. Here are five proven approaches that deliver measurable results.
+Understand structural reuse options and material potential in an existing school. Detailed component inventory and models used as a basis for design and circularity strategy.
 
 ## 1. Digital Waste Auditing
 
