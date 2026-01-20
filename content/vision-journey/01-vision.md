@@ -4,4 +4,6 @@ order: 1
 colorScheme: 1
 ---
 
-We envision a world where every building material has a digital passport, making circular construction the default rather than the exception. Through AI-powered resource mapping and collaborative networks, we're transforming how the built environment approaches reuse. Our goal is to eliminate construction waste by making existing materials as accessible and well-documented as new ones.
+Make adaptive reuse the default—by turning existing buildings into actionable, shareable data fast.
+
+ReUseX helps teams quickly map existing buildings using low-cost, mobile scanning, then automatically segment and structure the building into usable 3D data. This creates a solid basis for early design decisions, documentation, and sustainability analysis—reducing time, cost, and risk in reuse projects and enabling more circular outcomes.
