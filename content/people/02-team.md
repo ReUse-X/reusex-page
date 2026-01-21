@@ -3,7 +3,7 @@ title: "Team"
 order: 2
 colorScheme: 3
 layout: "cards"
-intro: "ReUseX turns raw LiDAR scans of existing buildings into reuse-ready models and data packages."
+intro: "A small, focused team building ReUseX as a product."
 cards:
   - role: "CEO"
     name: "Jan Buthke"
