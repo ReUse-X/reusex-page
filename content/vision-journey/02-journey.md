@@ -18,7 +18,4 @@ steps:
   - year: "2023"
     heading: "DLUP I: DigitalLead proof-of-concept for upcycling workflows"
     body: "DLUP I launched in early 2023 as a DigitalLead innovation project with the Alexandra Institute, LINK Arkitektur, Upcycling Forum, and Trifork. The team mapped existing upcycling workflows, identified the highest-impact municipal/industry use cases, and built a proof-of-concept combining new digital technologies (including computer vision and 3D capture) to support identification, measurement, search, and documentation of reusable building materials—validated through field testing and public dissemination."
-     - year: "2021"
-    heading: "Industrial PhD approved and project kickoff"
-    body: "Innovation Fund Denmark approved the Industrial PhD application, enabling the project to officially start. The research collaboration was launched with LINK Arkitektur (host company), Aarhus School of Architecture (host university), Multiconsult, the Alexandra Institute, and Industrial PhD candidate Povl Filip Sonne-Frederiksen."
 ---
