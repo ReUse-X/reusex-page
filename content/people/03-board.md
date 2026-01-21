@@ -3,7 +3,7 @@ title: "Board"
 order: 3
 colorScheme: 2
 layout: "cards"
-intro: "ReUseX turns raw LiDAR scans of existing buildings into reuse-ready models and data packages."
+intro: "ReUseX is backed by an engaged Board that contributes hands-on experience and critical sparring. The Board helps shape our long-term strategy and strengthens key decisions around sourcing, business model, financing, partnerships, product development, and growth. This support keeps us focused, accountable, and ready to scale—while maintaining a high standard in everything we deliver."
 cards:
   - name: "Jan Buthke"
     image: "portraits/jan-buthke.jpg"
