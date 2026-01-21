@@ -9,7 +9,7 @@
       {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
     </div>
     <div class="hidden md:flex items-center space-x-4">
-      <a href="#demo" class="btn-solid text-sm px-4 py-2" style="background-color: var(--primary-teal); color: var(--button-text-dark);">
+      <a href="{{ "contact" | relURL }}" class="btn-solid text-sm px-4 py-2" style="background-color: var(--primary-teal); color: var(--button-text-dark);">
         Get Started
       </a>
     </div>
@@ -47,7 +47,7 @@
         </nav>
       {{ end }}
       <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
-        <a href="#demo" class="btn-solid" style="display: block; padding: 0.75rem 1.5rem; text-align: center; background-color: var(--primary-teal); color: var(--button-text-dark); border-radius: 0.375rem; font-weight: 600; text-decoration: none;">
+        <a href="{{ "contact" | relURL }}" class="btn-solid" style="display: block; padding: 0.75rem 1.5rem; text-align: center; background-color: var(--primary-teal); color: var(--button-text-dark); border-radius: 0.375rem; font-weight: 600; text-decoration: none;">
           Get Started
         </a>
       </div>
