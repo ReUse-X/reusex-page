@@ -39,6 +39,9 @@ description = 'Revolutionizing resource reuse for a sustainable future'
     [[params.footer.menus.links]]
       name = "Journey"
       url = "vision-journey#journey"
+    [[params.footer.menus.links]]
+      name = "Research"
+      url = "/research"
     #[[params.footer.menus.links]]
     #  name = "Documentation"
     #  url = "/docs"
@@ -75,14 +78,14 @@ description = 'Revolutionizing resource reuse for a sustainable future'
     weight = 30
 
   [[menus.main]]
+    name = 'Roadmap'
+    pageRef = '/roadmap'
+    weight = 35
+
+  [[menus.main]]
     name = 'How it Works'
     pageRef = '/how-it-works'
     weight = 40
-
-  [[menus.main]]
-    name = 'Research'
-    pageRef = '/research'
-    weight = 45
 
   [[menus.main]]
     name = 'People'
