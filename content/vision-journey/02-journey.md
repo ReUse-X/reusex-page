@@ -3,9 +3,9 @@ title: "Journey"
 order: 2
 colorScheme: 2
 steps:
-  - year: "2022"
-    heading: "Scan + 360° images"
-    body: "Capture LiDAR scans of the building and 360° imagery for visual context. The imagery supports interpretation, review, and traceability during analysis."
+  - year: "2026"
+    heading: "ConTech Lab Pioneer Project: AI for resource mapping"
+    body: "ReUseX was highlighted as the foundation for ConTech Lab’s pioneer project “AI til ressourcekortlægning,” which explores how mobile scanning, point-cloud generation, and AI-based clustering/segmentation can streamline environmental and resource mapping in existing buildings. The initiative builds on ReUseX’s scanning and analysis backend, aiming to define user needs, develop a practical digital prototype, and improve data quality and scalability across the workflow."
   - year: "2023"
     heading: "Initial manual classification"
     body: "A light first-pass classification is added (quick tagging of key areas/components). This improves consistency and gives the AI a structured starting point."
