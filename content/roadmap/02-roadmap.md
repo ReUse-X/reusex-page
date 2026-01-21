@@ -19,6 +19,4 @@ steps:
     heading: "xxx"
     body: "Coming soon...""
   - year: "2028"
-    heading: "xxx"
-    body: "Coming soon..."
 ---
