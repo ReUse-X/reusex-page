@@ -80,7 +80,7 @@
    Light Theme Overrides
    ======================================== */
 [data-theme="light"] {
-  --header-bg: rgba(20, 184, 166, 0.95);
+  --header-bg: rgba(248, 250, 252, 0.95);
 
   /* GLOBAL TOKENS */
   --surface-bg: #F8FAFC;
