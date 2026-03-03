@@ -1,5 +1,55 @@
 // ReUseX Theme JavaScript
 
+// ========================================
+// Theme Toggle (light / dark)
+// ========================================
+
+/**
+ * Apply a theme by setting or removing the data-theme attribute and persisting
+ * the choice in localStorage.
+ * @param {'light'|'dark'} theme
+ */
+function applyTheme(theme) {
+    if (theme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+    }
+    localStorage.setItem('theme', theme);
+}
+
+/**
+ * Toggle between light and dark themes.
+ */
+function onThemeToggleClick() {
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    applyTheme(isLight ? 'dark' : 'light');
+}
+
+// Wire up all theme-toggle buttons (desktop + mobile)
+document.addEventListener('DOMContentLoaded', function () {
+    var desktopToggle = document.getElementById('theme-toggle');
+    if (desktopToggle) {
+        desktopToggle.addEventListener('click', onThemeToggleClick);
+    }
+
+    var mobileToggles = document.querySelectorAll('.mobile-theme-toggle');
+    mobileToggles.forEach(function (btn) {
+        btn.addEventListener('click', onThemeToggleClick);
+    });
+
+    // Keep in sync when the OS preference changes at runtime (and no stored choice)
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+        if (!localStorage.getItem('theme')) {
+            applyTheme(e.matches ? 'dark' : 'light');
+        }
+    });
+});
+
+// ========================================
+// Mobile menu + scroll + animations
+// ========================================
+
 // Smooth scrolling for anchor links
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
