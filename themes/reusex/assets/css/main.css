@@ -135,11 +135,6 @@
   --section3-divider: #E2E8F0;
 }
 
-/* Home page: match header background to the teal hero section in light mode */
-[data-theme="light"] body.page-home {
-  --header-bg: rgba(20, 184, 166, 0.95);
-}
-
 /* Theme toggle icon visibility */
 #theme-icon-sun { display: block; }
 #theme-icon-moon { display: none; }
