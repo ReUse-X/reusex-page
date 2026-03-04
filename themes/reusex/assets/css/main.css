@@ -6,6 +6,16 @@
 
   /* Header background (used in baseof.html) */
   --header-bg: rgba(11, 18, 32, 0.9);
+
+  /* Footer background */
+  --footer-bg: var(--section3-bg);
+
+  /* CTA button (Get Started) */
+  --cta-bg: var(--primary-teal);
+  --cta-text: var(--button-text-dark);
+
+  /* Nav active link color */
+  --nav-active-color: var(--link);
   
   /* GLOBAL TOKENS */
   --surface-bg: #0F172A;
@@ -88,6 +98,16 @@
    ======================================== */
 [data-theme="light"] {
   --header-bg: rgba(245, 244, 240, 0.95);
+
+  /* Footer background */
+  --footer-bg: #D2D2CD;
+
+  /* CTA button (Get Started) */
+  --cta-bg: #000000;
+  --cta-text: #FFFFFF;
+
+  /* Nav active link color */
+  --nav-active-color: var(--heading-text);
 
   /* GLOBAL TOKENS */
   --surface-bg: #F5F4F0;
