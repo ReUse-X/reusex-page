@@ -1,7 +1,7 @@
 {{ define "main" }}
 {{- $hero := site.GetPage "sections/hero" -}}
 <!-- Enhanced Hero Section (Section 1 - Teal Band) -->
-<section style="background-color: var(--section1-bg);" class="min-h-screen flex items-center section-padding">
+<section style="background-color: {{ with $hero.Params.heroBg }}{{ . }}{{ else }}var(--section1-bg){{ end }};" class="min-h-screen flex items-center section-padding">
   <div class="container-custom">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <!-- Main Hero Content -->
