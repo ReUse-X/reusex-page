@@ -69,6 +69,11 @@
   --section3-card-border: #1E293B;
   --section3-divider: #1E293B;
   
+  /* Icon & timeline color tokens (light-safe) */
+  --icon-color: rgba(255, 255, 255, 0.9);
+  --timeline-heading: rgba(255, 255, 255, 0.9);
+  --timeline-text: rgba(255, 255, 255, 0.7);
+
   /* Legacy tokens for compatibility */
   --teal-500: #14B8A6;
   --slate-200: #E2E8F0;
@@ -86,9 +91,9 @@
   --surface-bg: #F8FAFC;
   --border: #E2E8F0;
   --border-subtle: #CBD5E1;
-  --heading-text: #0F172A;
-  --body-text: #334155;
-  --muted-text: #64748B;
+  --heading-text: #000000;
+  --body-text: #000000;
+  --muted-text: #000000;
   --disabled-text: #94A3B8;
   --link: #0284C7;
   --link-hover: #0369A1;
@@ -101,20 +106,21 @@
   --button-text-dark: #FFFFFF;
 
   /* SECTION 1 THEME (Teal band) — keep the teal accent, adjust card internals */
+  --section1-text: #000000;
   --section1-card-bg: #FFFFFF;
   --section1-card-border: #E2E8F0;
-  --section1-card-heading: #0F172A;
-  --section1-card-body: #334155;
-  --section1-card-muted: #64748B;
+  --section1-card-heading: #000000;
+  --section1-card-body: #000000;
+  --section1-card-muted: #000000;
   --section1-btn-primary-bg: #0F172A;
   --section1-btn-primary-text: #F8FAFC;
   --section1-btn-primary-hover: #1E293B;
 
   /* SECTION 2 THEME */
   --section2-bg: #F1F5F9;
-  --section2-heading: #0F172A;
-  --section2-body: #334155;
-  --section2-muted: #64748B;
+  --section2-heading: #000000;
+  --section2-body: #000000;
+  --section2-muted: #000000;
   --section2-link: #0284C7;
   --section2-link-hover: #0369A1;
   --section2-card-bg: #FFFFFF;
@@ -125,14 +131,42 @@
 
   /* SECTION 3 THEME */
   --section3-bg: #F8FAFC;
-  --section3-heading: #0F172A;
-  --section3-body: #334155;
-  --section3-muted: #64748B;
+  --section3-heading: #000000;
+  --section3-body: #000000;
+  --section3-muted: #000000;
   --section3-link: #0284C7;
   --section3-link-hover: #0369A1;
   --section3-card-bg: #FFFFFF;
   --section3-card-border: #E2E8F0;
   --section3-divider: #E2E8F0;
+
+  /* Icon & timeline color tokens */
+  --icon-color: #000000;
+  --timeline-heading: #000000;
+  --timeline-text: #000000;
+}
+
+/* ========================================
+   Light Theme — enforce black text on
+   elements that use hardcoded Tailwind
+   colour utilities
+   ======================================== */
+[data-theme="light"] body {
+  color: var(--body-text);
+}
+
+/* Override white text utilities that appear on tinted/dark-bg sections */
+[data-theme="light"] .text-white,
+[data-theme="light"] .text-white\/90,
+[data-theme="light"] .text-white\/80,
+[data-theme="light"] .text-white\/70 {
+  color: var(--body-text);
+}
+
+/* Override medium-gray text utilities */
+[data-theme="light"] .text-gray-600,
+[data-theme="light"] .text-gray-500 {
+  color: var(--body-text);
 }
 
 /* Theme toggle icon visibility */
@@ -211,7 +245,7 @@ html {
   padding-left: 1rem;
   margin: 1.5rem 0;
   font-style: italic;
-  color: #6B7280;
+  color: var(--muted-text);
 }
 
 .prose code {
@@ -1413,4 +1447,16 @@ a[href^="tel:"] {
 .social-icon-disabled {
   color: rgba(255, 255, 255, 0.25);
   pointer-events: none;
+}
+
+[data-theme="light"] .social-icon-link {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="light"] .social-icon-link:hover {
+  color: #000000;
+}
+
+[data-theme="light"] .social-icon-disabled {
+  color: rgba(0, 0, 0, 0.2);
 }
