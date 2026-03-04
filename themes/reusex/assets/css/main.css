@@ -108,8 +108,8 @@
   --card-hover: #ECEAE4;
   --button-text-dark: #FFFFFF;
 
-  /* SECTION 1 THEME — off-white background in light mode */
-  --section1-bg: #F5F4F0;
+  /* SECTION 1 THEME — slightly darker off-white background in light mode */
+  --section1-bg: #D2D2CD;
   --section1-text: #000000;
   --section1-card-bg: #FFFFFF;
   --section1-card-border: #000000;
