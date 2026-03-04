@@ -189,6 +189,11 @@
   border-top: 1px solid #000;
 }
 
+/* Light theme — thin separator above footer */
+[data-theme="light"] footer {
+  border-top: 1px solid #000;
+}
+
 /* Smooth scrolling for anchor links */
 html {
   scroll-behavior: smooth;
