@@ -9,5 +9,6 @@ cta_secondary:
   url: "https://linkarkitektur.github.io/reusex-page/reusex-solution/"
 hero_image: "images/hero-image-reusex.jpg"
 hero_image_alt: "ReUseX platform visualization showing sustainable future with blue-purple gradient"
+heroBg: "#D2D2CD"
 headless: true
 ---
