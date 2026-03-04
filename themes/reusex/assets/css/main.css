@@ -74,6 +74,9 @@
   --timeline-heading: rgba(255, 255, 255, 0.9);
   --timeline-text: rgba(255, 255, 255, 0.7);
 
+  /* Graphic / border alias */
+  --graphic: var(--border);
+
   /* Legacy tokens for compatibility */
   --teal-500: #14B8A6;
   --slate-200: #E2E8F0;
@@ -85,12 +88,13 @@
    Light Theme Overrides
    ======================================== */
 [data-theme="light"] {
-  --header-bg: rgba(248, 250, 252, 0.95);
+  --header-bg: rgba(245, 244, 240, 0.95);
 
   /* GLOBAL TOKENS */
-  --surface-bg: #F8FAFC;
-  --border: #E2E8F0;
-  --border-subtle: #CBD5E1;
+  --surface-bg: #F5F4F0;
+  --border: #000000;
+  --border-subtle: #000000;
+  --graphic: #000000;
   --heading-text: #000000;
   --body-text: #000000;
   --muted-text: #000000;
@@ -102,43 +106,44 @@
   --primary-teal: #0D9488;
   --primary-hover: #0F766E;
   --primary-active: #115E59;
-  --card-hover: #F1F5F9;
+  --card-hover: #ECEAE4;
   --button-text-dark: #FFFFFF;
 
-  /* SECTION 1 THEME (Teal band) — keep the teal accent, adjust card internals */
+  /* SECTION 1 THEME — off-white background in light mode */
+  --section1-bg: #F5F4F0;
   --section1-text: #000000;
   --section1-card-bg: #FFFFFF;
-  --section1-card-border: #E2E8F0;
+  --section1-card-border: #000000;
   --section1-card-heading: #000000;
   --section1-card-body: #000000;
   --section1-card-muted: #000000;
   --section1-btn-primary-bg: #0F172A;
-  --section1-btn-primary-text: #F8FAFC;
+  --section1-btn-primary-text: #F5F4F0;
   --section1-btn-primary-hover: #1E293B;
 
   /* SECTION 2 THEME */
-  --section2-bg: #F1F5F9;
+  --section2-bg: #F5F4F0;
   --section2-heading: #000000;
   --section2-body: #000000;
   --section2-muted: #000000;
   --section2-link: #0284C7;
   --section2-link-hover: #0369A1;
   --section2-card-bg: #FFFFFF;
-  --section2-card-border: #E2E8F0;
-  --section2-card-hover: #F8FAFC;
+  --section2-card-border: #000000;
+  --section2-card-hover: #ECEAE4;
   --section2-callout-bg: #FEF3C7;
   --section2-callout-title: #D97706;
 
   /* SECTION 3 THEME */
-  --section3-bg: #F8FAFC;
+  --section3-bg: #F5F4F0;
   --section3-heading: #000000;
   --section3-body: #000000;
   --section3-muted: #000000;
   --section3-link: #0284C7;
   --section3-link-hover: #0369A1;
   --section3-card-bg: #FFFFFF;
-  --section3-card-border: #E2E8F0;
-  --section3-divider: #E2E8F0;
+  --section3-card-border: #000000;
+  --section3-divider: #000000;
 
   /* Icon & timeline color tokens */
   --icon-color: #000000;
@@ -1459,4 +1464,54 @@ a[href^="tel:"] {
 
 [data-theme="light"] .social-icon-disabled {
   color: rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   Timeline rail/node CSS variables
+   ======================================== */
+
+/* Default fallback (scheme 2 or unspecified): white tones for dark bg */
+.tl-cs-default {
+  --tl-line: rgba(255, 255, 255, 0.25);
+  --tl-node: rgba(255, 255, 255, 0.9);
+}
+
+/* Scheme 1 (teal) */
+.tl-cs-1 {
+  --tl-line: rgba(45, 212, 191, 0.3);
+  --tl-node: #2dd4bf;
+}
+
+/* Scheme 3 (blue) */
+.tl-cs-3 {
+  --tl-line: rgba(96, 165, 250, 0.3);
+  --tl-node: #60a5fa;
+}
+
+/* Light theme: all timeline rails/nodes become black */
+[data-theme="light"] .tl-cs-default,
+[data-theme="light"] .tl-cs-1,
+[data-theme="light"] .tl-cs-3 {
+  --tl-line: #000000;
+  --tl-node: #000000;
+}
+
+/* ========================================
+   People cards — theme-aware borders
+   ======================================== */
+
+/* Dark theme: semi-transparent surface with white-toned ring */
+:root {
+  --people-card-bg: rgba(255, 255, 255, 0.05);
+  --people-card-ring: rgba(255, 255, 255, 0.1);
+}
+
+.people-card {
+  background-color: var(--people-card-bg);
+  box-shadow: 0 0 0 1px var(--people-card-ring), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] .people-card {
+  background-color: var(--section2-card-bg);
+  box-shadow: 0 0 0 1px var(--graphic), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
