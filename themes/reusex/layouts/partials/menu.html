@@ -34,7 +34,7 @@ Renders a menu for the given menu ID.
       {{- end }}
     {{- end }}
     <li>
-      <a class="transition-colors duration-200 font-semibold text-sm px-3 py-2 rounded-lg {{ if eq (index $attrs "class") "active" }}font-bold{{ end }}" style="color: {{ if eq (index $attrs "class") "active" }}var(--nav-active-color){{ else }}var(--heading-text){{ end }};"
+      <a class="transition-colors duration-200 font-semibold text-sm px-3 py-2 rounded-lg {{ if eq (index $attrs "class") "active" }}font-bold nav-link--active{{ end }}" style="color: {{ if eq (index $attrs "class") "active" }}var(--nav-active-color){{ else }}var(--heading-text){{ end }};"
         {{- range $k, $v := $attrs }}
           {{- if ne $k "class" }}
             {{- with $v }}

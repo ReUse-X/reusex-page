@@ -1566,3 +1566,14 @@ a[href^="tel:"] {
 .people-card {
   border-radius: 0;
 }
+
+/* ========================================
+   Active nav link — light mode underline
+   ======================================== */
+
+html[data-theme="light"] .nav-link--active {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: var(--nav-active-color);
+}
