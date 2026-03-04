@@ -1127,7 +1127,7 @@ a[href^="tel:"] {
   max-width: 800px;
   margin: 0 auto;
   overflow: hidden;
-  border-radius: 0.75rem;
+  border-radius: 0;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
   user-select: none;
   -webkit-user-select: none;
@@ -1249,7 +1249,7 @@ a[href^="tel:"] {
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  border-radius: 0.25rem;
+  border-radius: 0;
   z-index: 5;
   pointer-events: none;
   backdrop-filter: blur(4px);
@@ -1528,4 +1528,21 @@ a[href^="tel:"] {
 [data-theme="light"] .people-card {
   background-color: var(--section2-card-bg);
   box-shadow: 0 0 0 1px var(--graphic), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================
+   Sharp image corners (no rounding)
+   ======================================== */
+
+/* Remove rounding from content images and slider images */
+.prose img,
+.before-after-slider img,
+.before-after-slider,
+.people-card img {
+  border-radius: 0;
+}
+
+/* Remove rounding from people card and solution image wrappers */
+.people-card {
+  border-radius: 0;
 }
