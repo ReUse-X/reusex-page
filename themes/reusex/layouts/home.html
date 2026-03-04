@@ -281,7 +281,8 @@
     <div class="grid md:grid-cols-4 gap-8 items-center justify-items-center">
       {{ range .logos }}
       <div class="flex items-center justify-center p-4">
-        <img src="{{ .image | relURL }}" alt="{{ .alt }}" class="max-w-full h-auto" style="max-height: 100px;">
+        <img src="{{ .image | relURL }}" alt="{{ .alt }}" class="max-w-full h-auto logo-default" style="max-height: 100px;">
+        {{ if .image_black }}<img src="{{ .image_black | relURL }}" alt="{{ .alt }}" class="max-w-full h-auto logo-light-only" style="max-height: 100px;">{{ end }}
       </div>
       {{ end }}
     </div>
