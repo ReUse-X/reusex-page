@@ -38,7 +38,7 @@
     {{- with $section.Params.cards -}}
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {{- range $cardIndex, $card := . -}}
-      <div class="rounded-2xl overflow-hidden shadow-lg shadow-black/30" style="background-color: rgba(255, 255, 255, 0.05); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 10px 15px -3px rgba(0, 0, 0, 0.3);">
+      <div class="rounded-2xl overflow-hidden shadow-lg shadow-black/30 people-card">
         {{- $imageResource := $peopleSection.Resources.GetMatch ($card.image | default "portraits/placeholder.svg") -}}
         {{- if $imageResource -}}
         {{- $altText := $card.name -}}
