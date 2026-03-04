@@ -128,7 +128,7 @@
       
       <!-- Right Column: Image -->
       {{- with $section.Params.image -}}
-      <div class="rounded-xl overflow-hidden shadow-lg">
+      <div class="overflow-hidden shadow-lg">
         <img src="{{ . | relURL }}" 
              alt="{{ $section.Params.imageAlt | default $section.Title }}" 
              class="w-full h-auto object-cover" />
@@ -187,7 +187,7 @@
     <!-- Large Centered Hero Image -->
     {{- with $section.Params.heroImage -}}
     <div class="max-w-5xl mx-auto mb-16">
-      <div class="rounded-xl overflow-hidden shadow-lg border-2" style="border-color: {{ $sectionHeading | safeCSS }};">
+      <div class="overflow-hidden shadow-lg border-2" style="border-color: {{ $sectionHeading | safeCSS }};">
         <img src="{{ . | relURL }}" 
              alt="{{ $section.Params.heroImageAlt | default $section.Title }}" 
              class="w-full h-auto object-cover" />
