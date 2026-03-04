@@ -184,6 +184,11 @@
 [data-theme="light"] .mobile-theme-icon-sun { display: none; }
 [data-theme="light"] .mobile-theme-icon-moon { display: block; }
 
+/* Light theme — thin separator between top-level sections */
+[data-theme="light"] main > section + section {
+  border-top: 1px solid #000;
+}
+
 /* Smooth scrolling for anchor links */
 html {
   scroll-behavior: smooth;
