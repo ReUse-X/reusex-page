@@ -174,10 +174,10 @@
    Dark Theme Overrides (#343634 dark gray)
    ======================================== */
 [data-theme="dark"] {
-  --header-bg: rgba(34, 34, 34, 0.95);
+  --header-bg: rgba(52, 54, 52, 0.95);
 
   /* Footer background */
-  --footer-bg: #2C2C2A;
+  --footer-bg: #343634;
 
   /* CTA button (Get Started) */
   --cta-bg: #000000;
