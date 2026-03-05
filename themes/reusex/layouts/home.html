@@ -383,6 +383,9 @@
       {{ range first (.posts_count | default 6) $posts }}
         <article class="group overflow-hidden rounded-2xl transition-all duration-300" style="background-color: var(--section2-card-bg); border: 1px solid var(--section2-card-border);">
           <div class="h-48 flex items-center justify-center relative overflow-hidden" style="background: linear-gradient(135deg, var(--section2-card-bg) 0%, var(--card-hover) 100%);">
+            {{ if .Params.image }}
+              <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            {{ else }}
             <div class="relative text-center z-10">
               <div class="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" style="background-color: var(--primary-teal);">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--button-text-dark);">
@@ -390,6 +393,7 @@
                 </svg>
               </div>
             </div>
+            {{ end }}
           </div>
           <div class="p-6">
             <h3 class="font-display text-xl font-bold mb-3">
