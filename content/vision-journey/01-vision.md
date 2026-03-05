@@ -1,7 +1,7 @@
 ---
 title: "Vision"
 order: 1
-colorScheme: 1
+colorScheme: 2
 ---
 
 Make adaptive reuse the default - by turning existing buildings into actionable, shareable data fast.
