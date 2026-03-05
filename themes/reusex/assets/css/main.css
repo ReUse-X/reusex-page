@@ -131,7 +131,7 @@
   /* SECTION 1 THEME — off-white background in light mode */
   --section1-bg: #F5F4F0;
   --section1-text: #000000;
-  --section1-card-bg: #FFFFFF;
+  --section1-card-bg: #F5F4F0;
   --section1-card-border: #000000;
   --section1-card-heading: #000000;
   --section1-card-body: #000000;
@@ -147,7 +147,7 @@
   --section2-muted: #000000;
   --section2-link: #0284C7;
   --section2-link-hover: #0369A1;
-  --section2-card-bg: #FFFFFF;
+  --section2-card-bg: #F5F4F0;
   --section2-card-border: #000000;
   --section2-card-hover: #ECEAE4;
   --section2-callout-bg: #FEF3C7;
@@ -160,7 +160,7 @@
   --section3-muted: #000000;
   --section3-link: #0284C7;
   --section3-link-hover: #0369A1;
-  --section3-card-bg: #FFFFFF;
+  --section3-card-bg: #F5F4F0;
   --section3-card-border: #000000;
   --section3-divider: #000000;
 
@@ -338,6 +338,15 @@ html[data-theme="dark"] .nav-link--active {
 /* Light theme — thin separator above footer */
 [data-theme="light"] footer {
   border-top: 1px solid #000;
+}
+
+/* Light theme — replace hardcoded white backgrounds with off-white */
+[data-theme="light"] .card-modern {
+  background-color: var(--surface-bg);
+}
+
+[data-theme="light"] .bg-white {
+  background-color: var(--surface-bg);
 }
 
 /* Smooth scrolling for anchor links */
