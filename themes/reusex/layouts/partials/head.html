@@ -9,10 +9,8 @@
   (function () {
     var stored = localStorage.getItem('theme');
     var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var useDark = stored ? stored === 'dark' : prefersDark;
-    if (!useDark) {
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
+    var theme = stored || (prefersDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
   }());
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">

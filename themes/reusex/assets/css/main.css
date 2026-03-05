@@ -171,6 +171,123 @@
 }
 
 /* ========================================
+   Dark Theme Overrides (#74706B warm gray)
+   ======================================== */
+[data-theme="dark"] {
+  --header-bg: rgba(100, 96, 91, 0.95);
+
+  /* Footer background */
+  --footer-bg: #5E5A56;
+
+  /* CTA button (Get Started) */
+  --cta-bg: #000000;
+  --cta-text: #FFFFFF;
+
+  /* Nav active link color */
+  --nav-active-color: #FFFFFF;
+
+  /* GLOBAL TOKENS */
+  --surface-bg: #74706B;
+  --border: rgba(255, 255, 255, 0.25);
+  --border-subtle: rgba(255, 255, 255, 0.15);
+  --graphic: rgba(255, 255, 255, 0.25);
+  --heading-text: #FFFFFF;
+  --body-text: #F0EDE8;
+  --muted-text: #D4CFC7;
+  --disabled-text: #A09C96;
+  --link: #7DD3E0;
+  --link-hover: #93D9E4;
+  --highlight: #FBBF24;
+  --highlight-soft-bg: #3A3530;
+  --primary-teal: #14B8A6;
+  --primary-hover: #0D9488;
+  --primary-active: #0F766E;
+  --card-hover: #6B6762;
+  --button-text-dark: #000000;
+
+  /* SECTION 1 THEME */
+  --section1-bg: #74706B;
+  --section1-text: #FFFFFF;
+  --section1-text-muted: rgba(255, 255, 255, 0.7);
+  --section1-link: #FFFFFF;
+  --section1-link-hover: #F0EDE8;
+  --section1-card-bg: #68645F;
+  --section1-card-border: rgba(255, 255, 255, 0.2);
+  --section1-card-heading: #FFFFFF;
+  --section1-card-body: #F0EDE8;
+  --section1-card-muted: #D4CFC7;
+  --section1-btn-primary-bg: #000000;
+  --section1-btn-primary-text: #FFFFFF;
+  --section1-btn-primary-hover: #1a1a1a;
+  --section1-btn-secondary-bg: transparent;
+  --section1-btn-secondary-border: rgba(255, 255, 255, 0.7);
+  --section1-btn-secondary-text: #FFFFFF;
+  --section1-btn-secondary-hover: rgba(255, 255, 255, 0.1);
+
+  /* SECTION 2 THEME */
+  --section2-bg: #74706B;
+  --section2-heading: #FFFFFF;
+  --section2-body: #F0EDE8;
+  --section2-muted: #D4CFC7;
+  --section2-link: #7DD3E0;
+  --section2-link-hover: #93D9E4;
+  --section2-card-bg: #68645F;
+  --section2-card-border: rgba(255, 255, 255, 0.2);
+  --section2-card-hover: #6B6762;
+  --section2-callout-bg: #3A3530;
+  --section2-callout-title: #FBBF24;
+
+  /* SECTION 3 THEME */
+  --section3-bg: #74706B;
+  --section3-heading: #FFFFFF;
+  --section3-body: #F0EDE8;
+  --section3-muted: #D4CFC7;
+  --section3-link: #7DD3E0;
+  --section3-link-hover: #93D9E4;
+  --section3-card-bg: #68645F;
+  --section3-card-border: rgba(255, 255, 255, 0.2);
+  --section3-divider: rgba(255, 255, 255, 0.25);
+
+  /* Icon & timeline color tokens */
+  --icon-color: rgba(255, 255, 255, 0.9);
+  --timeline-heading: rgba(255, 255, 255, 0.9);
+  --timeline-text: rgba(255, 255, 255, 0.7);
+
+  /* People card tokens */
+  --people-card-bg: rgba(0, 0, 0, 0.12);
+  --people-card-ring: rgba(255, 255, 255, 0.2);
+}
+
+/* Dark theme — thin separator between top-level sections */
+[data-theme="dark"] main > section + section {
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Dark theme — thin separator above footer */
+[data-theme="dark"] footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Active nav link underline for dark mode (mirrors light mode) */
+html[data-theme="dark"] .nav-link--active {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: var(--nav-active-color);
+}
+
+/* Hero section: always use the section1 variable;
+   light mode may override via --hero-bg-light custom property
+   set as an inline style from the heroBg content parameter */
+.hero-section {
+  background-color: var(--section1-bg);
+}
+
+[data-theme="light"] .hero-section {
+  background-color: var(--hero-bg-light, var(--section1-bg));
+}
+
+/* ========================================
    Light Theme — enforce black text on
    elements that use hardcoded Tailwind
    colour utilities
