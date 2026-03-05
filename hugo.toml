@@ -14,6 +14,7 @@ theme = 'reusex'
 
 [params]
 description = 'Revolutionizing resource reuse for a sustainable future'
+login_url = 'https://app.reusex.com/projects'
 
 # Footer Configuration
 [params.footer]
