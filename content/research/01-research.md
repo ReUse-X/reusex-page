@@ -1,7 +1,7 @@
 ---
 title: "Research"
 order: 1
-colorScheme: 1
+colorScheme: 2
 layout: "research-card"
 ---
 

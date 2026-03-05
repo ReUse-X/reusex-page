@@ -290,57 +290,57 @@
 </section>
 {{ end }}
 
-<!-- Enhanced CTA Section (Section 1 - Teal variant) -->
+<!-- Enhanced CTA Section (Section 2 - Dark variant) -->
 {{- $cta := site.GetPage "sections/cta" -}}
 {{ with $cta.Params }}
-<section id="demo" class="section-padding" style="background-color: var(--section1-bg);">
+<section id="demo" class="section-padding" style="background-color: var(--section2-bg);">
   <div class="container-custom text-center">
     <div class="max-w-4xl mx-auto">
-      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: var(--section1-text);">
+      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: var(--section2-heading);">
         {{ .title }}
       </h2>
-      <p class="text-xl mb-12 max-w-2xl mx-auto leading-relaxed" style="color: var(--section1-text);">
+      <p class="text-xl mb-12 max-w-2xl mx-auto leading-relaxed" style="color: var(--section2-body);">
         {{ .subtitle }}
       </p>
       <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
         {{ with .primary_button }}
         {{- $url := .url | default "#" -}}
         {{- if hasPrefix $url "#" -}}
-          <a href="{{ $url }}" class="btn-solid text-lg px-10 py-4" style="background-color: var(--section1-btn-primary-bg); color: var(--section1-btn-primary-text);">
+          <a href="{{ $url }}" class="btn-solid text-lg px-10 py-4" style="background-color: var(--primary-teal); color: var(--button-text-dark);">
         {{- else if or (hasPrefix $url "http") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") -}}
-          <a href="{{ $url }}" class="btn-solid text-lg px-10 py-4" style="background-color: var(--section1-btn-primary-bg); color: var(--section1-btn-primary-text);">
+          <a href="{{ $url }}" class="btn-solid text-lg px-10 py-4" style="background-color: var(--primary-teal); color: var(--button-text-dark);">
         {{- else -}}
-          <a href="{{ $url | relURL }}" class="btn-solid text-lg px-10 py-4" style="background-color: var(--section1-btn-primary-bg); color: var(--section1-btn-primary-text);">
+          <a href="{{ $url | relURL }}" class="btn-solid text-lg px-10 py-4" style="background-color: var(--primary-teal); color: var(--button-text-dark);">
         {{- end -}}
           {{ .text | default "Start Free Trial" }}
         </a>
         {{ else }}
-        <a href="#" class="btn-solid text-lg px-10 py-4" style="background-color: var(--section1-btn-primary-bg); color: var(--section1-btn-primary-text);">
+        <a href="#" class="btn-solid text-lg px-10 py-4" style="background-color: var(--primary-teal); color: var(--button-text-dark);">
           Start Free Trial
         </a>
         {{ end }}
         {{ with .secondary_button }}
         {{- $url := .url | default "#" -}}
         {{- if hasPrefix $url "#" -}}
-          <a href="{{ $url }}" class="btn-outline text-lg px-10 py-4" style="border-color: var(--section1-btn-secondary-border); color: var(--section1-btn-secondary-text); background-color: var(--section1-btn-secondary-bg);">
+          <a href="{{ $url }}" class="btn-outline text-lg px-10 py-4" style="border-color: var(--section2-card-border); color: var(--section2-heading); background-color: transparent;">
         {{- else if or (hasPrefix $url "http") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") -}}
-          <a href="{{ $url }}" class="btn-outline text-lg px-10 py-4" style="border-color: var(--section1-btn-secondary-border); color: var(--section1-btn-secondary-text); background-color: var(--section1-btn-secondary-bg);">
+          <a href="{{ $url }}" class="btn-outline text-lg px-10 py-4" style="border-color: var(--section2-card-border); color: var(--section2-heading); background-color: transparent;">
         {{- else -}}
-          <a href="{{ $url | relURL }}" class="btn-outline text-lg px-10 py-4" style="border-color: var(--section1-btn-secondary-border); color: var(--section1-btn-secondary-text); background-color: var(--section1-btn-secondary-bg);">
+          <a href="{{ $url | relURL }}" class="btn-outline text-lg px-10 py-4" style="border-color: var(--section2-card-border); color: var(--section2-heading); background-color: transparent;">
         {{- end -}}
           {{ .text | default "Schedule Demo" }}
         </a>
         {{ else }}
-        <a href="#" class="btn-outline text-lg px-10 py-4" style="border-color: var(--section1-btn-secondary-border); color: var(--section1-btn-secondary-text); background-color: var(--section1-btn-secondary-bg);">
+        <a href="#" class="btn-outline text-lg px-10 py-4" style="border-color: var(--section2-card-border); color: var(--section2-heading); background-color: transparent;">
           Schedule Demo
         </a>
         {{ end }}
       </div>
       {{ if .features }}
-      <div class="mt-12 flex items-center justify-center space-x-8 text-sm" style="color: var(--section1-text-muted);">
+      <div class="mt-12 flex items-center justify-center space-x-8 text-sm" style="color: var(--section2-muted);">
         {{ range .features }}
         <div class="flex items-center space-x-2">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--section1-text);">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--section2-heading);">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
           </svg>
           <span>{{ . }}</span>
