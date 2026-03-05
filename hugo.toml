@@ -34,12 +34,6 @@ description = 'Revolutionizing resource reuse for a sustainable future'
       name = "Pricing" 
       url = "#demo"
     [[params.footer.menus.links]]
-      name = "Vision"
-      url = "vision-journey#vision"
-    [[params.footer.menus.links]]
-      name = "Journey"
-      url = "vision-journey#journey"
-    [[params.footer.menus.links]]
       name = "Research"
       url = "https://linkarkitektur.github.io/reusex-page/research/"
     #[[params.footer.menus.links]]
