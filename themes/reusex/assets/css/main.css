@@ -11,8 +11,8 @@
   --footer-bg: var(--section3-bg);
 
   /* CTA button (Get Started) */
-  --cta-bg: var(--primary-teal);
-  --cta-text: var(--button-text-dark);
+  --cta-bg: #FFFFFF;
+  --cta-text: #000000;
 
   /* Nav active link color */
   --nav-active-color: var(--link);
@@ -180,8 +180,8 @@
   --footer-bg: #343634;
 
   /* CTA button (Get Started) */
-  --cta-bg: #000000;
-  --cta-text: #FFFFFF;
+  --cta-bg: #FFFFFF;
+  --cta-text: #000000;
 
   /* Nav active link color */
   --nav-active-color: #FFFFFF;

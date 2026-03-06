@@ -306,16 +306,16 @@
         {{ with .primary_button }}
         {{- $url := .url | default "#" -}}
         {{- if hasPrefix $url "#" -}}
-          <a href="{{ $url }}" class="btn-solid text-lg px-10 py-4" style="background-color: var(--primary-teal); color: var(--button-text-dark);">
+          <a href="{{ $url }}" class="btn-solid text-lg px-10 py-4" style="background-color: var(--cta-bg); color: var(--cta-text);">
         {{- else if or (hasPrefix $url "http") (hasPrefix $url "mailto:") (hasPrefix $url "tel:") -}}
-          <a href="{{ $url }}" class="btn-solid text-lg px-10 py-4" style="background-color: var(--primary-teal); color: var(--button-text-dark);">
+          <a href="{{ $url }}" class="btn-solid text-lg px-10 py-4" style="background-color: var(--cta-bg); color: var(--cta-text);">
         {{- else -}}
-          <a href="{{ $url | relURL }}" class="btn-solid text-lg px-10 py-4" style="background-color: var(--primary-teal); color: var(--button-text-dark);">
+          <a href="{{ $url | relURL }}" class="btn-solid text-lg px-10 py-4" style="background-color: var(--cta-bg); color: var(--cta-text);">
         {{- end -}}
           {{ .text | default "Start Free Trial" }}
         </a>
         {{ else }}
-        <a href="#" class="btn-solid text-lg px-10 py-4" style="background-color: var(--primary-teal); color: var(--button-text-dark);">
+        <a href="#" class="btn-solid text-lg px-10 py-4" style="background-color: var(--cta-bg); color: var(--cta-text);">
           Start Free Trial
         </a>
         {{ end }}
