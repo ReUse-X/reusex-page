@@ -96,6 +96,38 @@
         </div>
       </div>
 
+      {{- else if $slide.Params.cards -}}
+      <!-- ===== SLIDE WITH TEAM CARDS ===== -->
+      {{- $peopleSection := site.GetPage "/people" -}}
+      <div style="max-width: 1100px; width: 100%;">
+        <div style="text-align: center; margin-bottom: 2.5rem;">
+          <p style="color: var(--primary-teal); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
+          <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.75rem;">{{ $slide.Title }}</h2>
+          {{ with $slide.Params.subtitle }}<p style="font-size: 1.25rem; color: var(--body-text);">{{ . }}</p>{{ end }}
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;">
+          {{ range $slide.Params.cards }}
+          <div style="background-color: var(--section2-bg); border: 1px solid var(--border); border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.25);">
+            {{- if $peopleSection -}}
+            {{- $imageResource := $peopleSection.Resources.GetMatch (.image | default "portraits/placeholder.svg") -}}
+            {{- if $imageResource -}}
+            <img src="{{ $imageResource.RelPermalink }}" alt="{{ .name }}" style="width: 100%; aspect-ratio: 3/2; object-fit: cover; object-position: top;" />
+            {{- end -}}
+            {{- end -}}
+            <div style="padding: 1.25rem 1.5rem;">
+              <div style="font-size: 1rem; font-weight: 700; color: var(--heading-text); opacity: 0.9;">{{ .name }}</div>
+              {{ with .role }}<div style="font-size: 0.85rem; color: var(--primary-teal); font-weight: 600; margin-top: 0.25rem;">{{ . }}</div>{{ end }}
+              {{- if and .social .social.linkedin -}}
+              <div style="margin-top: 0.75rem;">
+                <a href="{{ .social.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn – {{ .name }}" style="color: var(--body-text); opacity: 0.6; font-size: 0.8rem; text-decoration: none;">LinkedIn →</a>
+              </div>
+              {{- end -}}
+            </div>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+
       {{- else if $slide.Params.metrics -}}
       <!-- ===== SLIDE WITH METRICS (Impact) ===== -->
       <div style="max-width: 1000px; width: 100%;">
