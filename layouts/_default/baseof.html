@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}" class="scroll-smooth">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body class="antialiased" style="background-color: var(--section3-bg); color: var(--body-text); font-family: var(--font-display);">
+  <header class="fixed top-0 w-full z-50 backdrop-blur-lg border-b shadow-sm" style="background-color: var(--header-bg); border-color: var(--border);">
+    {{ partial "header.html" . }}
+  </header>
+  <main class="pt-16">
+    {{ block "main" . }}{{ end }}
+  </main>
+  <footer style="background-color: var(--footer-bg); color: var(--section3-body);">
+    {{ partial "footer.html" . }}
+  </footer>
+</body>
+</html>
