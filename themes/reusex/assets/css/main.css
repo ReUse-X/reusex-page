@@ -34,6 +34,8 @@
   --primary-active: #0F766E;
   --card-hover: #111E36;
   --button-text-dark: #071018;
+  --pitchdeck-accent: #FFFFFF;
+  --pitchdeck-accent-text: #000000;
   
   /* SECTION 1 THEME (Teal band) */
   --section1-bg: #14B8A6;
@@ -127,6 +129,8 @@
   --primary-active: #115E59;
   --card-hover: #ECEAE4;
   --button-text-dark: #FFFFFF;
+  --pitchdeck-accent: #000000;
+  --pitchdeck-accent-text: #FFFFFF;
 
   /* SECTION 1 THEME — off-white background in light mode */
   --section1-bg: #F5F4F0;
