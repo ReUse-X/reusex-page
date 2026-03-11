@@ -21,19 +21,19 @@
       <!-- ===== SLIDE 1: COVER ===== -->
       <div style="text-align: center; max-width: 900px; width: 100%;">
         <div style="margin-bottom: 1.5rem;">
-          <span style="display: inline-block; background-color: var(--primary-teal); color: var(--button-text-dark); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.4rem 1.2rem; border-radius: 999px;">Pitch Deck</span>
+          <span style="display: inline-block; background-color: var(--pitchdeck-accent); color: var(--pitchdeck-accent-text); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.4rem 1.2rem; border-radius: 999px;">Pitch Deck</span>
         </div>
         <h1 style="font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; line-height: 1; color: var(--heading-text); letter-spacing: -0.03em; margin-bottom: 1.5rem;">
           {{ $slide.Title }}
         </h1>
         {{ with $slide.Params.subtitle }}
-        <p style="font-size: clamp(1.25rem, 3vw, 1.75rem); color: var(--primary-teal); font-weight: 600; margin-bottom: 1rem;">{{ . }}</p>
+        <p style="font-size: clamp(1.25rem, 3vw, 1.75rem); color: var(--pitchdeck-accent); font-weight: 600; margin-bottom: 1rem;">{{ . }}</p>
         {{ end }}
         {{ with $slide.Params.tagline }}
         <p style="font-size: clamp(1rem, 2vw, 1.25rem); color: var(--body-text); max-width: 600px; margin: 0 auto;">{{ . }}</p>
         {{ end }}
         <div style="margin-top: 3rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-          <button onclick="goToSlide(2)" style="background-color: var(--primary-teal); color: var(--button-text-dark); font-weight: 700; padding: 0.9rem 2.5rem; border-radius: 0.5rem; border: none; cursor: pointer; font-size: 1rem; transition: background 0.2s;">
+          <button onclick="goToSlide(2)" style="background-color: var(--pitchdeck-accent); color: var(--pitchdeck-accent-text); font-weight: 700; padding: 0.9rem 2.5rem; border-radius: 0.5rem; border: none; cursor: pointer; font-size: 1rem; transition: background 0.2s;">
             View Presentation →
           </button>
         </div>
@@ -43,14 +43,14 @@
       <!-- ===== SLIDE WITH STEPS (How It Works) ===== -->
       <div style="max-width: 1000px; width: 100%;">
         <div style="text-align: center; margin-bottom: 3rem;">
-          <p style="color: var(--primary-teal); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
+          <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
           <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.75rem;">{{ $slide.Title }}</h2>
           {{ with $slide.Params.subtitle }}<p style="font-size: 1.25rem; color: var(--body-text);">{{ . }}</p>{{ end }}
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
           {{ range $slide.Params.steps }}
           <div style="background-color: var(--section2-bg); border: 1px solid var(--border); border-radius: 1rem; padding: 1.75rem; text-align: center;">
-            <div style="font-size: 2.5rem; font-weight: 900; color: var(--primary-teal); line-height: 1; margin-bottom: 0.75rem;">{{ .number }}</div>
+            <div style="font-size: 2.5rem; font-weight: 900; color: var(--pitchdeck-accent); line-height: 1; margin-bottom: 0.75rem;">{{ .number }}</div>
             <div style="font-size: 1.25rem; font-weight: 700; color: var(--heading-text); margin-bottom: 0.75rem;">{{ .label }}</div>
             <div style="font-size: 0.95rem; color: var(--body-text); line-height: 1.6;">{{ .description }}</div>
           </div>
@@ -62,14 +62,14 @@
       <!-- ===== SLIDE WITH MILESTONES (Roadmap) ===== -->
       <div style="max-width: 1000px; width: 100%;">
         <div style="text-align: center; margin-bottom: 3rem;">
-          <p style="color: var(--primary-teal); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
+          <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
           <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.75rem;">{{ $slide.Title }}</h2>
           {{ with $slide.Params.subtitle }}<p style="font-size: 1.25rem; color: var(--body-text);">{{ . }}</p>{{ end }}
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
           {{ range $slide.Params.milestones }}
           <div style="background-color: var(--section2-bg); border: 1px solid var(--border); border-radius: 1rem; padding: 1.75rem;">
-            <div style="font-size: 1.5rem; font-weight: 900; color: var(--primary-teal); margin-bottom: 0.25rem;">{{ .year }}</div>
+            <div style="font-size: 1.5rem; font-weight: 900; color: var(--pitchdeck-accent); margin-bottom: 0.25rem;">{{ .year }}</div>
             <div style="font-size: 1.1rem; font-weight: 700; color: var(--heading-text); margin-bottom: 0.75rem;">{{ .label }}</div>
             <div style="font-size: 0.9rem; color: var(--body-text); line-height: 1.6;">{{ .description }}</div>
           </div>
@@ -81,14 +81,14 @@
       <!-- ===== SLIDE WITH PILOTS ===== -->
       <div style="max-width: 1000px; width: 100%;">
         <div style="text-align: center; margin-bottom: 3rem;">
-          <p style="color: var(--primary-teal); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
+          <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
           <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.75rem;">{{ $slide.Title }}</h2>
           {{ with $slide.Params.subtitle }}<p style="font-size: 1.25rem; color: var(--body-text);">{{ . }}</p>{{ end }}
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
           {{ range $idx, $pilot := $slide.Params.pilots }}
           <div style="background-color: var(--section2-bg); border: 1px solid var(--border); border-radius: 1rem; padding: 2rem;">
-            <div style="font-size: 0.8rem; font-weight: 700; color: var(--primary-teal); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem;">Pilot {{ add $idx 1 }}</div>
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--pitchdeck-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem;">Pilot {{ add $idx 1 }}</div>
             <div style="font-size: 1.15rem; font-weight: 700; color: var(--heading-text); margin-bottom: 0.75rem;">{{ $pilot.label }}</div>
             <div style="font-size: 0.95rem; color: var(--body-text); line-height: 1.6;">{{ $pilot.description }}</div>
           </div>
@@ -101,7 +101,7 @@
       {{- $peopleSection := site.GetPage "/people" -}}
       <div style="max-width: 1100px; width: 100%;">
         <div style="text-align: center; margin-bottom: 2.5rem;">
-          <p style="color: var(--primary-teal); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
+          <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
           <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.75rem;">{{ $slide.Title }}</h2>
           {{ with $slide.Params.subtitle }}<p style="font-size: 1.25rem; color: var(--body-text);">{{ . }}</p>{{ end }}
         </div>
@@ -116,7 +116,7 @@
             {{- end -}}
             <div style="padding: 1.25rem 1.5rem;">
               <div style="font-size: 1rem; font-weight: 700; color: var(--heading-text); opacity: 0.9;">{{ .name }}</div>
-              {{ with .role }}<div style="font-size: 0.85rem; color: var(--primary-teal); font-weight: 600; margin-top: 0.25rem;">{{ . }}</div>{{ end }}
+              {{ with .role }}<div style="font-size: 0.85rem; color: var(--pitchdeck-accent); font-weight: 600; margin-top: 0.25rem;">{{ . }}</div>{{ end }}
               {{- if and .social .social.linkedin -}}
               <div style="margin-top: 0.75rem;">
                 <a href="{{ .social.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn – {{ .name }}" style="color: var(--body-text); opacity: 0.6; font-size: 0.8rem; text-decoration: none;">LinkedIn →</a>
@@ -132,7 +132,7 @@
       <!-- ===== SLIDE WITH METRICS (Impact) ===== -->
       <div style="max-width: 1000px; width: 100%;">
         <div style="text-align: center; margin-bottom: 3rem;">
-          <p style="color: var(--primary-teal); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
+          <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
           <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.75rem;">{{ $slide.Title }}</h2>
           {{ with $slide.Params.subtitle }}<p style="font-size: 1.25rem; color: var(--body-text);">{{ . }}</p>{{ end }}
         </div>
@@ -148,7 +148,7 @@
         <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem;">
           {{ range . }}
           <li style="display: flex; align-items: flex-start; gap: 0.75rem; background-color: var(--section2-bg); border-radius: 0.75rem; padding: 1rem 1.25rem;">
-            <span style="color: var(--primary-teal); font-size: 1.1rem; line-height: 1.5; flex-shrink: 0;">✓</span>
+            <span style="color: var(--pitchdeck-accent); font-size: 1.1rem; line-height: 1.5; flex-shrink: 0;">✓</span>
             <span style="color: var(--body-text); font-size: 0.95rem; line-height: 1.6;">{{ . | markdownify }}</span>
           </li>
           {{ end }}
@@ -159,20 +159,20 @@
       {{- else if and (eq $slideNum $total) $slide.Params.cta -}}
       <!-- ===== SLIDE 12: CALL TO ACTION ===== -->
       <div style="text-align: center; max-width: 800px; width: 100%;">
-        <p style="color: var(--primary-teal); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem;">Slide {{ $slideNum }} of {{ $total }}</p>
+        <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem;">Slide {{ $slideNum }} of {{ $total }}</p>
         <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 1rem;">{{ $slide.Title }}</h2>
-        {{ with $slide.Params.subtitle }}<p style="font-size: 1.25rem; color: var(--primary-teal); font-weight: 600; margin-bottom: 2rem;">{{ . }}</p>{{ end }}
+        {{ with $slide.Params.subtitle }}<p style="font-size: 1.25rem; color: var(--pitchdeck-accent); font-weight: 600; margin-bottom: 2rem;">{{ . }}</p>{{ end }}
         {{ with $slide.Params.points }}
         <ul style="list-style: none; padding: 0; margin: 0 0 2.5rem 0; display: flex; flex-direction: column; gap: 0.75rem; text-align: left;">
           {{ range . }}
           <li style="display: flex; align-items: flex-start; gap: 0.75rem; background-color: var(--section2-bg); border-radius: 0.75rem; padding: 1rem 1.25rem;">
-            <span style="color: var(--primary-teal); font-size: 1.1rem; line-height: 1.5; flex-shrink: 0;">→</span>
+            <span style="color: var(--pitchdeck-accent); font-size: 1.1rem; line-height: 1.5; flex-shrink: 0;">→</span>
             <span style="color: var(--body-text); font-size: 0.95rem; line-height: 1.6;">{{ . | markdownify }}</span>
           </li>
           {{ end }}
         </ul>
         {{ end }}
-        <a href="{{ $slide.Params.cta.url | relURL }}" style="display: inline-block; background-color: var(--primary-teal); color: var(--button-text-dark); font-weight: 700; padding: 1rem 2.5rem; border-radius: 0.5rem; font-size: 1.1rem; text-decoration: none; transition: background 0.2s;">
+        <a href="{{ $slide.Params.cta.url | relURL }}" style="display: inline-block; background-color: var(--pitchdeck-accent); color: var(--pitchdeck-accent-text); font-weight: 700; padding: 1rem 2.5rem; border-radius: 0.5rem; font-size: 1.1rem; text-decoration: none; transition: background 0.2s;">
           {{ $slide.Params.cta.label }} →
         </a>
       </div>
@@ -181,15 +181,15 @@
       <!-- ===== GENERIC BULLET SLIDE ===== -->
       <div style="max-width: 900px; width: 100%;">
         <div style="margin-bottom: 2.5rem;">
-          <p style="color: var(--primary-teal); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
+          <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
           <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.5rem;">{{ $slide.Title }}</h2>
-          {{ with $slide.Params.subtitle }}<p style="font-size: 1.25rem; color: var(--primary-teal); font-weight: 600;">{{ . }}</p>{{ end }}
+          {{ with $slide.Params.subtitle }}<p style="font-size: 1.25rem; color: var(--pitchdeck-accent); font-weight: 600;">{{ . }}</p>{{ end }}
         </div>
         {{ with $slide.Params.points }}
         <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem;">
           {{ range . }}
           <li style="display: flex; align-items: flex-start; gap: 1rem; background-color: var(--section2-bg); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.25rem 1.5rem;">
-            <span style="color: var(--primary-teal); font-size: 1.25rem; line-height: 1.4; flex-shrink: 0;">▸</span>
+            <span style="color: var(--pitchdeck-accent); font-size: 1.25rem; line-height: 1.4; flex-shrink: 0;">▸</span>
             <span style="color: var(--body-text); font-size: 1.05rem; line-height: 1.65;">{{ . | markdownify }}</span>
           </li>
           {{ end }}
@@ -206,8 +206,8 @@
         {{ $slideNum }} / {{ $total }}
       </div>
 
-      <!-- Teal accent line (top) -->
-      <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary-teal), #0EA5E9);"></div>
+      <!-- Accent line (top) -->
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--pitchdeck-accent);"></div>
 
     </div>
     {{- end -}}
@@ -227,7 +227,7 @@
         data-target="{{ $slideNum }}"
         onclick="goToSlide({{ $slideNum }})"
         title="Slide {{ $slideNum }}: {{ $slide.Title }}"
-        style="width: {{ if eq $slideNum 1 }}1.5rem{{ else }}0.5rem{{ end }}; height: 0.5rem; border-radius: 999px; border: none; cursor: pointer; background-color: {{ if eq $slideNum 1 }}var(--primary-teal){{ else }}var(--border){{ end }}; transition: all 0.25s; padding: 0;"
+        style="width: {{ if eq $slideNum 1 }}1.5rem{{ else }}0.5rem{{ end }}; height: 0.5rem; border-radius: 999px; border: none; cursor: pointer; background-color: {{ if eq $slideNum 1 }}var(--pitchdeck-accent){{ else }}var(--border){{ end }}; transition: all 0.25s; padding: 0;"
         aria-label="Go to slide {{ $slideNum }}"
       ></button>
       {{- end -}}
@@ -256,7 +256,7 @@
     var dots = document.querySelectorAll('.slide-dot');
     dots.forEach(function (d) {
       var isActive = parseInt(d.dataset.target) === n;
-      d.style.backgroundColor = isActive ? 'var(--primary-teal)' : 'var(--border)';
+      d.style.backgroundColor = isActive ? 'var(--pitchdeck-accent)' : 'var(--border)';
       d.style.width = isActive ? '1.5rem' : '0.5rem';
     });
     // Update button states
