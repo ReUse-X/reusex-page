@@ -7,6 +7,36 @@
 .pitchdeck-fs-btn { display: inline-flex; align-items: center; justify-content: center; }
 #pitchdeck-nav-sep  { display: inline-block; }
 
+/* Left / right arrow navigation buttons */
+.pitchdeck-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 101;
+  background-color: var(--section2-bg);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--body-text);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0;
+  transition: opacity 0.2s;
+}
+.pitchdeck-arrow-prev { left: 0.75rem; }
+.pitchdeck-arrow-next { right: 0.75rem; }
+@media (max-width: 480px) {
+  .pitchdeck-arrow { width: 2rem; height: 2rem; font-size: 1.2rem; }
+  .pitchdeck-arrow-prev { left: 0.4rem; }
+  .pitchdeck-arrow-next { right: 0.4rem; }
+}
+
 /* CSS-based fullscreen fallback (iOS Safari doesn't support the Fullscreen API) */
 #pitchdeck.pitchdeck-fullscreen-active {
   position: fixed !important;
@@ -36,7 +66,26 @@
   min-height: 100vh !important;
 }
 
-/* Mobile landscape: contain slides so the fixed nav bar never overlaps content */
+/* Mobile fullscreen (portrait): force desktop-width layout so grids don't collapse,
+   JS will then scale .pitchdeck-slide-inner to fit the viewport */
+@media (max-width: 1024px) {
+  #pitchdeck.pitchdeck-fullscreen-active .pitchdeck-slide,
+  #pitchdeck:fullscreen .pitchdeck-slide,
+  #pitchdeck:-webkit-full-screen .pitchdeck-slide {
+    overflow: hidden;
+    padding-bottom: 3rem !important;
+    box-sizing: border-box;
+  }
+  #pitchdeck.pitchdeck-fullscreen-active .pitchdeck-slide-inner,
+  #pitchdeck:fullscreen .pitchdeck-slide-inner,
+  #pitchdeck:-webkit-full-screen .pitchdeck-slide-inner {
+    min-width: 720px;
+    transform-origin: top center;
+    will-change: transform;
+  }
+}
+
+/* Mobile landscape: contain slides so the bottom dots bar never overlaps content */
 @media (max-width: 1024px) and (orientation: landscape) {
   #pitchdeck {
     min-height: calc(100svh - 4rem) !important;
@@ -46,8 +95,8 @@
   }
   .pitchdeck-slide {
     min-height: calc(100svh - 4rem) !important;
-    /* Reserve space at the bottom for the fixed nav bar (~3rem tall + 2rem offset) */
-    padding-bottom: 5rem !important;
+    /* Reserve space at the bottom for the dots/fullscreen nav bar (~2.5rem + 1rem offset) */
+    padding-bottom: 3.5rem !important;
     box-sizing: border-box;
     /* Clip any overflow so scaled content doesn't bleed outside the slide area */
     overflow: hidden;
@@ -272,9 +321,12 @@
 
   </div><!-- /.pitchdeck-slides -->
 
-  <!-- Navigation Controls -->
-  <div id="pitchdeck-nav" style="position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 1rem; background-color: var(--section2-bg); border: 1px solid var(--border); border-radius: 999px; padding: 0.6rem 1.25rem; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 100;">
-    <button id="btn-prev" onclick="prevSlide()" title="Previous slide (←)" style="background: none; border: none; cursor: pointer; color: var(--body-text); font-size: 1.2rem; padding: 0.25rem 0.5rem; border-radius: 0.375rem; transition: color 0.2s;" aria-label="Previous slide">‹</button>
+  <!-- Left / right arrow navigation -->
+  <button id="btn-prev" onclick="prevSlide()" title="Previous slide (←)" class="pitchdeck-arrow pitchdeck-arrow-prev" aria-label="Previous slide">‹</button>
+  <button id="btn-next" onclick="nextSlide()" title="Next slide (→)" class="pitchdeck-arrow pitchdeck-arrow-next" aria-label="Next slide">›</button>
+
+  <!-- Bottom navigation: dot indicators + fullscreen button -->
+  <div id="pitchdeck-nav" style="position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 0.5rem; background-color: var(--section2-bg); border: 1px solid var(--border); border-radius: 999px; padding: 0.35rem 0.75rem; box-shadow: 0 4px 16px rgba(0,0,0,0.25); z-index: 100;">
 
     <!-- Dot indicators -->
     <div id="slide-dots" style="display: flex; gap: 0.4rem; align-items: center;">
@@ -291,24 +343,22 @@
       {{- end -}}
     </div>
 
-    <button id="btn-next" onclick="nextSlide()" title="Next slide (→)" style="background: none; border: none; cursor: pointer; color: var(--body-text); font-size: 1.2rem; padding: 0.25rem 0.5rem; border-radius: 0.375rem; transition: color 0.2s;" aria-label="Next slide">›</button>
-
     <!-- Fullscreen button -->
-    <span id="pitchdeck-nav-sep" style="width: 1px; height: 1.2rem; background-color: var(--border); margin: 0 0.125rem;"></span>
+    <span id="pitchdeck-nav-sep" style="width: 1px; height: 1rem; background-color: var(--border); margin: 0 0.1rem;"></span>
     <button
       id="btn-fullscreen"
       class="pitchdeck-fs-btn"
       onclick="togglePitchdeckFullscreen()"
       title="Enter fullscreen"
       aria-label="Enter fullscreen"
-      style="background: none; border: none; cursor: pointer; color: var(--body-text); padding: 0.25rem 0.5rem; border-radius: 0.375rem; transition: color 0.2s; line-height: 0;"
+      style="background: none; border: none; cursor: pointer; color: var(--body-text); padding: 0.2rem 0.4rem; border-radius: 0.375rem; transition: color 0.2s; line-height: 0;"
     >
       <!-- expand icon (shown when not in fullscreen) -->
-      <svg id="fs-icon-expand" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <svg id="fs-icon-expand" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
       </svg>
       <!-- compress icon (shown when in fullscreen) -->
-      <svg id="fs-icon-compress" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
+      <svg id="fs-icon-compress" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
         <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>
       </svg>
     </button>
@@ -343,8 +393,8 @@
     current = n;
     // Scroll to top of main
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    // Scale slide content to fit landscape viewport (if applicable)
-    if (target) scaleLandscapeSlide(target);
+    // Scale slide content to fit viewport (if applicable)
+    if (target) scaleSlideIfNeeded(target);
   }
 
   window.goToSlide = function (n) { showSlide(n); };
@@ -404,6 +454,7 @@
     fsIsActive = true;
     updateFsButton();
     window.scrollTo({ top: 0 });
+    requestAnimationFrame(function () { scaleCurrentSlide(); });
   }
 
   function exitCssFullscreen() {
@@ -411,6 +462,7 @@
     document.body.style.overflow = '';
     fsIsActive = false;
     updateFsButton();
+    scaleCurrentSlide();
   }
 
   window.togglePitchdeckFullscreen = function () {
@@ -448,57 +500,85 @@
     fsIsActive = !!document.fullscreenElement;
     if (!fsIsActive) { document.body.style.overflow = ''; }
     updateFsButton();
+    requestAnimationFrame(function () { scaleCurrentSlide(); });
   });
   document.addEventListener('webkitfullscreenchange', function () {
     fsIsActive = !!document.webkitFullscreenElement;
     if (!fsIsActive) { document.body.style.overflow = ''; }
     updateFsButton();
+    requestAnimationFrame(function () { scaleCurrentSlide(); });
   });
 
-  // ── Mobile landscape scaling ──────────────────────────────────────────────
+  // ── Mobile / fullscreen slide scaling ────────────────────────────────────
   var MOBILE_BREAKPOINT_PX  = 1024;
   var DEFAULT_HEADER_HEIGHT = 64;  // fallback when header element is not found
   var VIEWPORT_BUFFER_PX    = 8;   // safety clearance between content and nav bar
+  var DESKTOP_INNER_WIDTH   = 720; // matches the CSS min-width set on .pitchdeck-slide-inner in fullscreen
 
-  function scaleLandscapeSlide(slide) {
+  function scaleSlideIfNeeded(slide) {
     var inner = slide.querySelector('.pitchdeck-slide-inner');
     if (!inner) return;
     // Reset first so we can measure the natural (unscaled) size
     inner.style.transform = 'none';
     var isLandscape = window.innerWidth > window.innerHeight;
     var isMobile    = window.innerWidth <= MOBILE_BREAKPOINT_PX;
-    if (!isLandscape || !isMobile) { inner.style.transform = ''; return; }
-    // Available height: viewport minus header, nav bar height, and nav bar bottom offset
-    var headerEl  = document.querySelector('header');
-    var headerH   = headerEl ? headerEl.offsetHeight : DEFAULT_HEADER_HEIGHT;
+
+    if (!isMobile && !fsIsActive) { inner.style.transform = ''; return; }
+
     var navEl     = document.getElementById('pitchdeck-nav');
-    var navH      = navEl ? navEl.offsetHeight : 48;
-    var navBottom = navEl ? parseFloat(getComputedStyle(navEl).bottom) : 32;
-    var availH    = window.innerHeight - headerH - navH - navBottom - VIEWPORT_BUFFER_PX;
-    var contentH  = inner.offsetHeight;
-    if (contentH > 0 && contentH > availH) {
-      inner.style.transform = 'scale(' + (availH / contentH).toFixed(4) + ')';
+    var navH      = navEl ? navEl.offsetHeight : 40;
+    var navBottom = navEl ? parseFloat(getComputedStyle(navEl).bottom) : 16;
+
+    if (isLandscape && isMobile) {
+      // Landscape mobile: scale to fit available height
+      var headerEl = document.querySelector('header');
+      var headerH  = headerEl ? headerEl.offsetHeight : DEFAULT_HEADER_HEIGHT;
+      var availH   = window.innerHeight - headerH - navH - navBottom - VIEWPORT_BUFFER_PX;
+      var contentH = inner.offsetHeight;
+      if (contentH > 0 && contentH > availH) {
+        inner.style.transform = 'scale(' + (availH / contentH).toFixed(4) + ')';
+      } else {
+        inner.style.transform = '';
+      }
+    } else if (fsIsActive) {
+      // Portrait (or any orientation) fullscreen on mobile:
+      // CSS has set min-width: 720px on the inner to prevent grid reflow,
+      // now scale it down to fit the viewport width.
+      var arrowBtn = document.querySelector('.pitchdeck-arrow');
+      var arrowW   = arrowBtn ? arrowBtn.offsetWidth : 36;
+      var availW   = window.innerWidth - arrowW * 2 - VIEWPORT_BUFFER_PX * 2;
+      var contentW = inner.offsetWidth || DESKTOP_INNER_WIDTH;
+      var wScale   = availW / contentW;
+      var availH   = window.innerHeight - navH - navBottom - VIEWPORT_BUFFER_PX;
+      var contentH = inner.offsetHeight;
+      var hScale   = contentH > 0 ? availH / contentH : 1;
+      var scale    = Math.min(wScale, hScale);
+      if (scale < 1) {
+        inner.style.transform = 'scale(' + scale.toFixed(4) + ')';
+      } else {
+        inner.style.transform = '';
+      }
     } else {
       inner.style.transform = '';
     }
   }
 
-  function scaleCurrentLandscapeSlide() {
+  function scaleCurrentSlide() {
     // Reset all, then scale only the active slide
     document.querySelectorAll('.pitchdeck-slide').forEach(function (s) {
       var inner = s.querySelector('.pitchdeck-slide-inner');
       if (inner) inner.style.transform = '';
     });
     var activeSlide = document.getElementById('slide-' + current);
-    if (activeSlide) scaleLandscapeSlide(activeSlide);
+    if (activeSlide) scaleSlideIfNeeded(activeSlide);
   }
 
-  window.addEventListener('resize', scaleCurrentLandscapeSlide);
+  window.addEventListener('resize', scaleCurrentSlide);
 
   // Initialize
   showSlide(1);
   // Re-apply scaling after layout is fully computed
-  requestAnimationFrame(function () { scaleCurrentLandscapeSlide(); });
+  requestAnimationFrame(function () { scaleCurrentSlide(); });
 }());
 </script>
 {{ end }}
