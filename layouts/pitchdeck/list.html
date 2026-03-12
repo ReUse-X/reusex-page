@@ -101,11 +101,44 @@
     /* Clip any overflow so scaled content doesn't bleed outside the slide area */
     overflow: hidden;
   }
-  /* JS will set transform: scale() on .pitchdeck-slide-inner; keep origin at top */
+  /* Force desktop-like inner width so grids keep their desktop column-count;
+     JS will then scale the inner to fit the visible area */
   .pitchdeck-slide-inner {
+    min-width: 720px;
     transform-origin: top center;
     will-change: transform;
   }
+  /* Remove the white accent line — it becomes a distracting stripe in landscape */
+  .slide-accent-line { display: none; }
+}
+
+/* Also hide the accent line in all fullscreen modes */
+#pitchdeck.pitchdeck-fullscreen-active .slide-accent-line,
+#pitchdeck:fullscreen .slide-accent-line,
+#pitchdeck:-webkit-full-screen .slide-accent-line {
+  display: none;
+}
+
+/* Close (×) button — shown only when fullscreen is active */
+#btn-close-fullscreen {
+  display: none; /* toggled to flex by JS when fullscreen is active */
+  position: fixed;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 10001;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0;
+  transition: background 0.2s;
 }
 </style>
 
@@ -314,7 +347,7 @@
       </div>
 
       <!-- Accent line (top) -->
-      <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--pitchdeck-accent);"></div>
+      <div class="slide-accent-line" style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--pitchdeck-accent);"></div>
 
     </div>
     {{- end -}}
@@ -363,6 +396,13 @@
       </svg>
     </button>
   </div>
+  <!-- Close (×) button — appears in top-right corner when fullscreen is active -->
+  <button
+    id="btn-close-fullscreen"
+    onclick="togglePitchdeckFullscreen()"
+    title="Exit fullscreen"
+    aria-label="Exit fullscreen"
+  >×</button>
 
 </div><!-- /#pitchdeck -->
 
@@ -434,17 +474,20 @@
     var btn          = document.getElementById('btn-fullscreen');
     var iconExpand   = document.getElementById('fs-icon-expand');
     var iconCompress = document.getElementById('fs-icon-compress');
+    var closeBtn     = document.getElementById('btn-close-fullscreen');
     if (!btn) return;
     if (fsIsActive) {
       btn.title = 'Exit fullscreen';
       btn.setAttribute('aria-label', 'Exit fullscreen');
       if (iconExpand)   iconExpand.style.display   = 'none';
       if (iconCompress) iconCompress.style.display = '';
+      if (closeBtn)     closeBtn.style.display     = 'flex';
     } else {
       btn.title = 'Enter fullscreen';
       btn.setAttribute('aria-label', 'Enter fullscreen');
       if (iconExpand)   iconExpand.style.display   = '';
       if (iconCompress) iconCompress.style.display = 'none';
+      if (closeBtn)     closeBtn.style.display     = 'none';
     }
   }
 
@@ -512,8 +555,11 @@
   // ── Mobile / fullscreen slide scaling ────────────────────────────────────
   var MOBILE_BREAKPOINT_PX  = 1024;
   var DEFAULT_HEADER_HEIGHT = 64;  // fallback when header element is not found
+  var DEFAULT_ARROW_WIDTH   = 36;  // fallback when arrow button element is not found
   var VIEWPORT_BUFFER_PX    = 8;   // safety clearance between content and nav bar
   var DESKTOP_INNER_WIDTH   = 720; // matches the CSS min-width set on .pitchdeck-slide-inner in fullscreen
+  var MAX_LANDSCAPE_SCALE   = 1.15; // cap for upscaling in landscape — objects appear slightly bigger without overflowing
+  var SCALE_THRESHOLD       = 0.005; // avoid applying a near-identity transform that would cause a no-op repaint
 
   function scaleSlideIfNeeded(slide) {
     var inner = slide.querySelector('.pitchdeck-slide-inner');
@@ -530,22 +576,35 @@
     var navBottom = navEl ? parseFloat(getComputedStyle(navEl).bottom) : 16;
 
     if (isLandscape && isMobile) {
-      // Landscape mobile: scale to fit available height
+      // Landscape mobile: scale to fill available area.
+      // Allow slight upscaling (capped at 1.15×) so objects appear slightly bigger,
+      // while preventing overflow into the nav bar or arrow buttons.
       var headerEl = document.querySelector('header');
-      var headerH  = headerEl ? headerEl.offsetHeight : DEFAULT_HEADER_HEIGHT;
+      // In CSS/native fullscreen the header is visually hidden behind the pitchdeck
+      var headerH  = (headerEl && !fsIsActive) ? headerEl.offsetHeight : 0;
+      var arrowBtn = document.querySelector('.pitchdeck-arrow');
+      var arrowW   = arrowBtn ? arrowBtn.offsetWidth : DEFAULT_ARROW_WIDTH;
       var availH   = window.innerHeight - headerH - navH - navBottom - VIEWPORT_BUFFER_PX;
+      var availW   = window.innerWidth  - arrowW  * 2   - VIEWPORT_BUFFER_PX * 2;
       var contentH = inner.offsetHeight;
-      if (contentH > 0 && contentH > availH) {
-        inner.style.transform = 'scale(' + (availH / contentH).toFixed(4) + ')';
-      } else {
-        inner.style.transform = '';
+      var contentW = inner.offsetWidth;
+      if (contentH > 0) {
+        var scaleH = availH / contentH;
+        var scaleW = contentW > 0 ? availW / contentW : 1;
+        // Use the more constraining dimension; cap upscaling at MAX_LANDSCAPE_SCALE
+        var scale  = Math.min(scaleH, scaleW, MAX_LANDSCAPE_SCALE);
+        if (Math.abs(scale - 1) > SCALE_THRESHOLD) {
+          inner.style.transform = 'scale(' + scale.toFixed(4) + ')';
+        } else {
+          inner.style.transform = '';
+        }
       }
     } else if (fsIsActive) {
       // Portrait (or any orientation) fullscreen on mobile:
       // CSS has set min-width: 720px on the inner to prevent grid reflow,
       // now scale it down to fit the viewport width.
       var arrowBtn = document.querySelector('.pitchdeck-arrow');
-      var arrowW   = arrowBtn ? arrowBtn.offsetWidth : 36;
+      var arrowW   = arrowBtn ? arrowBtn.offsetWidth : DEFAULT_ARROW_WIDTH;
       var availW   = window.innerWidth - arrowW * 2 - VIEWPORT_BUFFER_PX * 2;
       var contentW = inner.offsetWidth || DESKTOP_INNER_WIDTH;
       var wScale   = availW / contentW;
