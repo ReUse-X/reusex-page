@@ -3,13 +3,9 @@
 {{- $total := len $slides -}}
 
 <style>
-/* Fullscreen button — visible on mobile/tablet only */
-.pitchdeck-fs-btn { display: none; }
-#pitchdeck-nav-sep  { display: none; }
-@media (max-width: 1024px) {
-  .pitchdeck-fs-btn { display: inline-flex; align-items: center; justify-content: center; }
-  #pitchdeck-nav-sep  { display: inline-block; }
-}
+/* Fullscreen button — visible on all screen sizes */
+.pitchdeck-fs-btn { display: inline-flex; align-items: center; justify-content: center; }
+#pitchdeck-nav-sep  { display: inline-block; }
 
 /* CSS-based fullscreen fallback (iOS Safari doesn't support the Fullscreen API) */
 #pitchdeck.pitchdeck-fullscreen-active {
@@ -297,7 +293,7 @@
 
     <button id="btn-next" onclick="nextSlide()" title="Next slide (→)" style="background: none; border: none; cursor: pointer; color: var(--body-text); font-size: 1.2rem; padding: 0.25rem 0.5rem; border-radius: 0.375rem; transition: color 0.2s;" aria-label="Next slide">›</button>
 
-    <!-- Fullscreen button (mobile/tablet only) -->
+    <!-- Fullscreen button -->
     <span id="pitchdeck-nav-sep" style="width: 1px; height: 1.2rem; background-color: var(--border); margin: 0 0.125rem;"></span>
     <button
       id="btn-fullscreen"
