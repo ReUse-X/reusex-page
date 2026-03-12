@@ -39,6 +39,29 @@
 #pitchdeck:-webkit-full-screen .pitchdeck-slide {
   min-height: 100vh !important;
 }
+
+/* Mobile landscape: contain slides so the fixed nav bar never overlaps content */
+@media (max-width: 1024px) and (orientation: landscape) {
+  #pitchdeck {
+    min-height: calc(100svh - 4rem) !important;
+  }
+  .pitchdeck-slides {
+    min-height: calc(100svh - 4rem) !important;
+  }
+  .pitchdeck-slide {
+    min-height: calc(100svh - 4rem) !important;
+    /* Reserve space at the bottom for the fixed nav bar (~3rem tall + 2rem offset) */
+    padding-bottom: 5rem !important;
+    box-sizing: border-box;
+    /* Clip any overflow so scaled content doesn't bleed outside the slide area */
+    overflow: hidden;
+  }
+  /* JS will set transform: scale() on .pitchdeck-slide-inner; keep origin at top */
+  .pitchdeck-slide-inner {
+    transform-origin: top center;
+    will-change: transform;
+  }
+}
 </style>
 
 <!-- Pitch Deck Slideshow -->
@@ -58,7 +81,7 @@
 
       {{- if eq $slideNum 1 -}}
       <!-- ===== SLIDE 1: COVER ===== -->
-      <div style="text-align: center; max-width: 900px; width: 100%;">
+      <div class="pitchdeck-slide-inner" style="text-align: center; max-width: 900px; width: 100%;">
         <div style="margin-bottom: 1.5rem;">
           <span style="display: inline-block; background-color: var(--pitchdeck-accent); color: var(--pitchdeck-accent-text); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.4rem 1.2rem; border-radius: 999px;">Pitch Deck</span>
         </div>
@@ -80,7 +103,7 @@
 
       {{- else if $slide.Params.steps -}}
       <!-- ===== SLIDE WITH STEPS (How It Works) ===== -->
-      <div style="max-width: 1000px; width: 100%;">
+      <div class="pitchdeck-slide-inner" style="max-width: 1000px; width: 100%;">
         <div style="text-align: center; margin-bottom: 3rem;">
           <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
           <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.75rem;">{{ $slide.Title }}</h2>
@@ -99,7 +122,7 @@
 
       {{- else if $slide.Params.milestones -}}
       <!-- ===== SLIDE WITH MILESTONES (Roadmap) ===== -->
-      <div style="max-width: 1000px; width: 100%;">
+      <div class="pitchdeck-slide-inner" style="max-width: 1000px; width: 100%;">
         <div style="text-align: center; margin-bottom: 3rem;">
           <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
           <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.75rem;">{{ $slide.Title }}</h2>
@@ -118,7 +141,7 @@
 
       {{- else if $slide.Params.pilots -}}
       <!-- ===== SLIDE WITH PILOTS ===== -->
-      <div style="max-width: 1000px; width: 100%;">
+      <div class="pitchdeck-slide-inner" style="max-width: 1000px; width: 100%;">
         <div style="text-align: center; margin-bottom: 3rem;">
           <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
           <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.75rem;">{{ $slide.Title }}</h2>
@@ -138,7 +161,7 @@
       {{- else if $slide.Params.cards -}}
       <!-- ===== SLIDE WITH TEAM CARDS ===== -->
       {{- $peopleSection := site.GetPage "/people" -}}
-      <div style="max-width: 1100px; width: 100%;">
+      <div class="pitchdeck-slide-inner" style="max-width: 1100px; width: 100%;">
         <div style="text-align: center; margin-bottom: 2.5rem;">
           <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
           <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.75rem;">{{ $slide.Title }}</h2>
@@ -169,7 +192,7 @@
 
       {{- else if $slide.Params.metrics -}}
       <!-- ===== SLIDE WITH METRICS (Impact) ===== -->
-      <div style="max-width: 1000px; width: 100%;">
+      <div class="pitchdeck-slide-inner" style="max-width: 1000px; width: 100%;">
         <div style="text-align: center; margin-bottom: 3rem;">
           <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
           <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.75rem;">{{ $slide.Title }}</h2>
@@ -197,7 +220,7 @@
 
       {{- else if and (eq $slideNum $total) $slide.Params.cta -}}
       <!-- ===== SLIDE 12: CALL TO ACTION ===== -->
-      <div style="text-align: center; max-width: 800px; width: 100%;">
+      <div class="pitchdeck-slide-inner" style="text-align: center; max-width: 800px; width: 100%;">
         <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem;">Slide {{ $slideNum }} of {{ $total }}</p>
         <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 1rem;">{{ $slide.Title }}</h2>
         {{ with $slide.Params.subtitle }}<p style="font-size: 1.25rem; color: var(--pitchdeck-accent); font-weight: 600; margin-bottom: 2rem;">{{ . }}</p>{{ end }}
@@ -218,7 +241,7 @@
 
       {{- else -}}
       <!-- ===== GENERIC BULLET SLIDE ===== -->
-      <div style="max-width: 900px; width: 100%;">
+      <div class="pitchdeck-slide-inner" style="max-width: 900px; width: 100%;">
         <div style="text-align: center; margin-bottom: 3rem;">
           <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
           <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.75rem;">{{ $slide.Title }}</h2>
@@ -324,6 +347,8 @@
     current = n;
     // Scroll to top of main
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Scale slide content to fit landscape viewport (if applicable)
+    if (target) scaleLandscapeSlide(target);
   }
 
   window.goToSlide = function (n) { showSlide(n); };
@@ -434,8 +459,50 @@
     updateFsButton();
   });
 
+  // ── Mobile landscape scaling ──────────────────────────────────────────────
+  var MOBILE_BREAKPOINT_PX  = 1024;
+  var DEFAULT_HEADER_HEIGHT = 64;  // fallback when header element is not found
+  var VIEWPORT_BUFFER_PX    = 8;   // safety clearance between content and nav bar
+
+  function scaleLandscapeSlide(slide) {
+    var inner = slide.querySelector('.pitchdeck-slide-inner');
+    if (!inner) return;
+    // Reset first so we can measure the natural (unscaled) size
+    inner.style.transform = 'none';
+    var isLandscape = window.innerWidth > window.innerHeight;
+    var isMobile    = window.innerWidth <= MOBILE_BREAKPOINT_PX;
+    if (!isLandscape || !isMobile) { inner.style.transform = ''; return; }
+    // Available height: viewport minus header, nav bar height, and nav bar bottom offset
+    var headerEl  = document.querySelector('header');
+    var headerH   = headerEl ? headerEl.offsetHeight : DEFAULT_HEADER_HEIGHT;
+    var navEl     = document.getElementById('pitchdeck-nav');
+    var navH      = navEl ? navEl.offsetHeight : 48;
+    var navBottom = navEl ? parseFloat(getComputedStyle(navEl).bottom) : 32;
+    var availH    = window.innerHeight - headerH - navH - navBottom - VIEWPORT_BUFFER_PX;
+    var contentH  = inner.offsetHeight;
+    if (contentH > 0 && contentH > availH) {
+      inner.style.transform = 'scale(' + (availH / contentH).toFixed(4) + ')';
+    } else {
+      inner.style.transform = '';
+    }
+  }
+
+  function scaleCurrentLandscapeSlide() {
+    // Reset all, then scale only the active slide
+    document.querySelectorAll('.pitchdeck-slide').forEach(function (s) {
+      var inner = s.querySelector('.pitchdeck-slide-inner');
+      if (inner) inner.style.transform = '';
+    });
+    var activeSlide = document.getElementById('slide-' + current);
+    if (activeSlide) scaleLandscapeSlide(activeSlide);
+  }
+
+  window.addEventListener('resize', scaleCurrentLandscapeSlide);
+
   // Initialize
   showSlide(1);
+  // Re-apply scaling after layout is fully computed
+  requestAnimationFrame(function () { scaleCurrentLandscapeSlide(); });
 }());
 </script>
 {{ end }}
