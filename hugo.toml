@@ -85,11 +85,6 @@ description = 'Revolutionizing resource reuse for a sustainable future'
     weight = 45
 
   [[menus.main]]
-    name = 'People'
-    pageRef = '/people'
-    weight = 50
-
-  [[menus.main]]
     name = 'Contact'
     pageRef = '/contact'
     weight = 60
