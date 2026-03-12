@@ -2,6 +2,45 @@
 {{- $slides := .Pages.ByParam "order" -}}
 {{- $total := len $slides -}}
 
+<style>
+/* Fullscreen button — visible on mobile/tablet only */
+.pitchdeck-fs-btn { display: none; }
+#pitchdeck-nav-sep  { display: none; }
+@media (max-width: 1024px) {
+  .pitchdeck-fs-btn { display: inline-flex; align-items: center; justify-content: center; }
+  #pitchdeck-nav-sep  { display: inline-block; }
+}
+
+/* CSS-based fullscreen fallback (iOS Safari doesn't support the Fullscreen API) */
+#pitchdeck.pitchdeck-fullscreen-active {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999 !important;
+  width: 100vw !important;
+  height: 100svh !important;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+#pitchdeck.pitchdeck-fullscreen-active .pitchdeck-slides,
+#pitchdeck.pitchdeck-fullscreen-active .pitchdeck-slide {
+  min-height: 100vh !important;
+  min-height: 100svh !important;
+}
+
+/* Native Fullscreen API */
+#pitchdeck:fullscreen,
+#pitchdeck:-webkit-full-screen {
+  background-color: var(--section3-bg);
+  overflow-y: auto;
+}
+#pitchdeck:fullscreen .pitchdeck-slides,
+#pitchdeck:fullscreen .pitchdeck-slide,
+#pitchdeck:-webkit-full-screen .pitchdeck-slides,
+#pitchdeck:-webkit-full-screen .pitchdeck-slide {
+  min-height: 100vh !important;
+}
+</style>
+
 <!-- Pitch Deck Slideshow -->
 <div id="pitchdeck" class="pitchdeck-wrapper" style="background-color: var(--section3-bg); min-height: calc(100vh - 4rem);">
 
@@ -234,6 +273,26 @@
     </div>
 
     <button id="btn-next" onclick="nextSlide()" title="Next slide (→)" style="background: none; border: none; cursor: pointer; color: var(--body-text); font-size: 1.2rem; padding: 0.25rem 0.5rem; border-radius: 0.375rem; transition: color 0.2s;" aria-label="Next slide">›</button>
+
+    <!-- Fullscreen button (mobile/tablet only) -->
+    <span id="pitchdeck-nav-sep" style="width: 1px; height: 1.2rem; background-color: var(--border); margin: 0 0.125rem;"></span>
+    <button
+      id="btn-fullscreen"
+      class="pitchdeck-fs-btn"
+      onclick="togglePitchdeckFullscreen()"
+      title="Enter fullscreen"
+      aria-label="Enter fullscreen"
+      style="background: none; border: none; cursor: pointer; color: var(--body-text); padding: 0.25rem 0.5rem; border-radius: 0.375rem; transition: color 0.2s; line-height: 0;"
+    >
+      <!-- expand icon (shown when not in fullscreen) -->
+      <svg id="fs-icon-expand" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+      </svg>
+      <!-- compress icon (shown when in fullscreen) -->
+      <svg id="fs-icon-compress" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
+        <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>
+      </svg>
+    </button>
   </div>
 
 </div><!-- /#pitchdeck -->
@@ -277,6 +336,102 @@
     if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); window.prevSlide(); }
     if (e.key === 'Home') { e.preventDefault(); showSlide(1); }
     if (e.key === 'End') { e.preventDefault(); showSlide(total); }
+  });
+
+  // ── Touch swipe navigation ────────────────────────────────────────────────
+  var swipeStartX = 0;
+  var swipeStartY = 0;
+  var pitchdeckEl = document.getElementById('pitchdeck');
+
+  pitchdeckEl.addEventListener('touchstart', function (e) {
+    swipeStartX = e.changedTouches[0].clientX;
+    swipeStartY = e.changedTouches[0].clientY;
+  }, { passive: true });
+
+  pitchdeckEl.addEventListener('touchend', function (e) {
+    var dx = swipeStartX - e.changedTouches[0].clientX;
+    var dy = swipeStartY - e.changedTouches[0].clientY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+      if (dx > 0) { window.nextSlide(); } else { window.prevSlide(); }
+    }
+  }, { passive: true });
+
+  // ── Fullscreen ────────────────────────────────────────────────────────────
+  var fsIsActive = false;
+
+  function updateFsButton() {
+    var btn          = document.getElementById('btn-fullscreen');
+    var iconExpand   = document.getElementById('fs-icon-expand');
+    var iconCompress = document.getElementById('fs-icon-compress');
+    if (!btn) return;
+    if (fsIsActive) {
+      btn.title = 'Exit fullscreen';
+      btn.setAttribute('aria-label', 'Exit fullscreen');
+      if (iconExpand)   iconExpand.style.display   = 'none';
+      if (iconCompress) iconCompress.style.display = '';
+    } else {
+      btn.title = 'Enter fullscreen';
+      btn.setAttribute('aria-label', 'Enter fullscreen');
+      if (iconExpand)   iconExpand.style.display   = '';
+      if (iconCompress) iconCompress.style.display = 'none';
+    }
+  }
+
+  function enterCssFullscreen() {
+    pitchdeckEl.classList.add('pitchdeck-fullscreen-active');
+    document.body.style.overflow = 'hidden';
+    fsIsActive = true;
+    updateFsButton();
+    window.scrollTo({ top: 0 });
+  }
+
+  function exitCssFullscreen() {
+    pitchdeckEl.classList.remove('pitchdeck-fullscreen-active');
+    document.body.style.overflow = '';
+    fsIsActive = false;
+    updateFsButton();
+  }
+
+  window.togglePitchdeckFullscreen = function () {
+    if (fsIsActive) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else {
+        exitCssFullscreen();
+      }
+      return;
+    }
+    // Enter fullscreen — try native API first, fall back to CSS
+    try {
+      if (pitchdeckEl.requestFullscreen) {
+        fsIsActive = true;
+        updateFsButton();
+        var p = pitchdeckEl.requestFullscreen();
+        if (p && p.catch) { p.catch(function () { enterCssFullscreen(); }); }
+        return;
+      }
+      if (pitchdeckEl.webkitRequestFullscreen) {
+        pitchdeckEl.webkitRequestFullscreen();
+        fsIsActive = true;
+        updateFsButton();
+        return;
+      }
+    } catch (e) { /* fall through */ }
+    enterCssFullscreen();
+  };
+
+  // Native fullscreen change events
+  document.addEventListener('fullscreenchange', function () {
+    fsIsActive = !!document.fullscreenElement;
+    if (!fsIsActive) { document.body.style.overflow = ''; }
+    updateFsButton();
+  });
+  document.addEventListener('webkitfullscreenchange', function () {
+    fsIsActive = !!document.webkitFullscreenElement;
+    if (!fsIsActive) { document.body.style.overflow = ''; }
+    updateFsButton();
   });
 
   // Initialize
