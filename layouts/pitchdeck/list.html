@@ -228,6 +228,51 @@
     font-size: 0.8rem !important;
     line-height: 1.35 !important;
   }
+
+  /* ── Top-align all slides (override inline justify-content: center) ── */
+  .pitchdeck-slide {
+    justify-content: flex-start !important;
+    padding-top: 0.75rem !important;
+  }
+
+  /* ── Bullet list boxes: remove outlines, tighten spacing ── */
+  .pitchdeck-bullet-list {
+    gap: 0.35rem !important;
+  }
+  .pitchdeck-bullet-item {
+    border: none !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+  .pitchdeck-bullet-item span:last-child {
+    font-size: 0.85rem !important;
+    line-height: 1.45 !important;
+  }
+
+  /* ── Team cards (slide 10): reduce portrait card height ── */
+  .pitchdeck-cards-grid img {
+    height: 60px !important;
+    aspect-ratio: unset !important;
+    object-fit: cover !important;
+  }
+  .pitchdeck-cards-grid > div > div {
+    padding: 0.35rem 0.5rem !important;
+  }
+  .pitchdeck-cards-grid > div > div > div:first-child {
+    font-size: 0.75rem !important;
+  }
+  .pitchdeck-cards-grid > div > div > div:nth-child(2) {
+    font-size: 0.65rem !important;
+    margin-top: 0.1rem !important;
+  }
+  .pitchdeck-card-linkedin {
+    display: none !important;
+  }
+
+  /* ── Impact (slide 11): center the two bullet points horizontally ── */
+  .pitchdeck-metric-points > li:nth-last-child(-n+2) {
+    align-self: center !important;
+    max-width: 80% !important;
+  }
 }
 
 /* Also hide the accent line in all fullscreen modes */
@@ -297,6 +342,7 @@
       {{- if eq $slideNum 1 -}}
       <!-- ===== SLIDE 1: COVER ===== -->
       <div class="pitchdeck-slide-inner" style="text-align: center; max-width: 900px; width: 100%;">
+        <p class="pitchdeck-slide-num" style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
         <div style="margin-bottom: 1.5rem;">
           <span style="display: inline-block; background-color: var(--pitchdeck-accent); color: var(--pitchdeck-accent-text); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.4rem 1.2rem; border-radius: 999px;">Pitch Deck</span>
         </div>
@@ -377,10 +423,10 @@
       <!-- ===== SLIDE WITH TEAM CARDS ===== -->
       {{- $peopleSection := site.GetPage "/people" -}}
       <div class="pitchdeck-slide-inner" style="max-width: 1100px; width: 100%;">
-        <div style="text-align: center; margin-bottom: 2.5rem;">
-          <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
+        <div class="pitchdeck-slide-header" style="text-align: center; margin-bottom: 2.5rem;">
+          <p class="pitchdeck-slide-num" style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
           <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.75rem;">{{ $slide.Title }}</h2>
-          {{ with $slide.Params.subtitle }}<p style="font-size: 1.25rem; color: var(--body-text);">{{ . }}</p>{{ end }}
+          {{ with $slide.Params.subtitle }}<p class="pitchdeck-slide-subtitle" style="font-size: 1.25rem; color: var(--body-text);">{{ . }}</p>{{ end }}
         </div>
         <div class="pitchdeck-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;">
           {{ range $slide.Params.cards }}
@@ -395,7 +441,7 @@
               <div style="font-size: 1rem; font-weight: 700; color: var(--heading-text); opacity: 0.9;">{{ .name }}</div>
               {{ with .role }}<div style="font-size: 0.85rem; color: var(--pitchdeck-accent); font-weight: 600; margin-top: 0.25rem;">{{ . }}</div>{{ end }}
               {{- if and .social .social.linkedin -}}
-              <div style="margin-top: 0.75rem;">
+              <div class="pitchdeck-card-linkedin" style="margin-top: 0.75rem;">
                 <a href="{{ .social.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn – {{ .name }}" style="color: var(--body-text); opacity: 0.6; font-size: 0.8rem; text-decoration: none;">LinkedIn →</a>
               </div>
               {{- end -}}
@@ -436,13 +482,15 @@
       {{- else if and (eq $slideNum $total) $slide.Params.cta -}}
       <!-- ===== SLIDE 12: CALL TO ACTION ===== -->
       <div class="pitchdeck-slide-inner" style="text-align: center; max-width: 800px; width: 100%;">
-        <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem;">Slide {{ $slideNum }} of {{ $total }}</p>
-        <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 1rem;">{{ $slide.Title }}</h2>
-        {{ with $slide.Params.subtitle }}<p style="font-size: 1.25rem; color: var(--pitchdeck-accent); font-weight: 600; margin-bottom: 2rem;">{{ . }}</p>{{ end }}
+        <div class="pitchdeck-slide-header">
+          <p class="pitchdeck-slide-num" style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem;">Slide {{ $slideNum }} of {{ $total }}</p>
+          <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 1rem;">{{ $slide.Title }}</h2>
+          {{ with $slide.Params.subtitle }}<p class="pitchdeck-slide-subtitle" style="font-size: 1.25rem; color: var(--pitchdeck-accent); font-weight: 600; margin-bottom: 2rem;">{{ . }}</p>{{ end }}
+        </div>
         {{ with $slide.Params.points }}
-        <ul style="list-style: none; padding: 0; margin: 0 0 2.5rem 0; display: flex; flex-direction: column; gap: 0.75rem; text-align: left;">
+        <ul class="pitchdeck-bullet-list" style="list-style: none; padding: 0; margin: 0 0 2.5rem 0; display: flex; flex-direction: column; gap: 0.75rem; text-align: left;">
           {{ range . }}
-          <li style="display: flex; align-items: flex-start; gap: 0.75rem; background-color: var(--section2-bg); border-radius: 0.75rem; padding: 1rem 1.25rem;">
+          <li class="pitchdeck-bullet-item" style="display: flex; align-items: flex-start; gap: 0.75rem; background-color: var(--section2-bg); border-radius: 0.75rem; padding: 1rem 1.25rem;">
             <span style="color: var(--pitchdeck-accent); font-size: 1.1rem; line-height: 1.5; flex-shrink: 0;">→</span>
             <span style="color: var(--body-text); font-size: 0.95rem; line-height: 1.6;">{{ . | markdownify }}</span>
           </li>
@@ -457,15 +505,15 @@
       {{- else -}}
       <!-- ===== GENERIC BULLET SLIDE ===== -->
       <div class="pitchdeck-slide-inner" style="max-width: 900px; width: 100%;">
-        <div style="text-align: center; margin-bottom: 3rem;">
-          <p style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
+        <div class="pitchdeck-slide-header" style="text-align: center; margin-bottom: 3rem;">
+          <p class="pitchdeck-slide-num" style="color: var(--pitchdeck-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem;">Slide {{ $slideNum }} of {{ $total }}</p>
           <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.75rem;">{{ $slide.Title }}</h2>
-          {{ with $slide.Params.subtitle }}<p style="font-size: 1.25rem; color: var(--body-text);">{{ . }}</p>{{ end }}
+          {{ with $slide.Params.subtitle }}<p class="pitchdeck-slide-subtitle" style="font-size: 1.25rem; color: var(--body-text);">{{ . }}</p>{{ end }}
         </div>
         {{ with $slide.Params.points }}
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem;">
+        <ul class="pitchdeck-bullet-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem;">
           {{ range . }}
-          <li style="display: flex; align-items: flex-start; gap: 1rem; background-color: var(--section2-bg); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.25rem 1.5rem;">
+          <li class="pitchdeck-bullet-item" style="display: flex; align-items: flex-start; gap: 1rem; background-color: var(--section2-bg); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.25rem 1.5rem;">
             <span style="color: var(--pitchdeck-accent); font-size: 1.25rem; line-height: 1.4; flex-shrink: 0;">▸</span>
             <span style="color: var(--body-text); font-size: 1.05rem; line-height: 1.65;">{{ . | markdownify }}</span>
           </li>
