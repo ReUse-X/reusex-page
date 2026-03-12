@@ -73,7 +73,7 @@
   #pitchdeck:fullscreen .pitchdeck-slide,
   #pitchdeck:-webkit-full-screen .pitchdeck-slide {
     overflow: hidden;
-    padding-bottom: 3rem !important;
+    padding-bottom: 0 !important;
     box-sizing: border-box;
   }
   #pitchdeck.pitchdeck-fullscreen-active .pitchdeck-slide-inner,
@@ -117,6 +117,25 @@
 #pitchdeck:fullscreen .slide-accent-line,
 #pitchdeck:-webkit-full-screen .slide-accent-line {
   display: none;
+}
+
+/* Hide the bottom navigation bar when fullscreen is active */
+#pitchdeck.pitchdeck-fullscreen-active #pitchdeck-nav,
+#pitchdeck:fullscreen #pitchdeck-nav,
+#pitchdeck:-webkit-full-screen #pitchdeck-nav {
+  display: none !important;
+}
+
+/* Mobile landscape: force all portrait/team cards into a single row */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .pitchdeck-cards-grid {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+  }
+  .pitchdeck-cards-grid > div {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+  }
 }
 
 /* Close (×) button — shown only when fullscreen is active */
@@ -245,7 +264,7 @@
           <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--heading-text); line-height: 1.1; margin-bottom: 0.75rem;">{{ $slide.Title }}</h2>
           {{ with $slide.Params.subtitle }}<p style="font-size: 1.25rem; color: var(--body-text);">{{ . }}</p>{{ end }}
         </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;">
+        <div class="pitchdeck-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;">
           {{ range $slide.Params.cards }}
           <div style="background-color: var(--section2-bg); border: 1px solid var(--border); border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.25);">
             {{- if $peopleSection -}}
@@ -572,8 +591,9 @@
     if (!isMobile && !fsIsActive) { inner.style.transform = ''; return; }
 
     var navEl     = document.getElementById('pitchdeck-nav');
-    var navH      = navEl ? navEl.offsetHeight : 40;
-    var navBottom = navEl ? parseFloat(getComputedStyle(navEl).bottom) : 16;
+    // Nav bar is hidden in fullscreen — do not reserve space for it
+    var navH      = (navEl && !fsIsActive) ? navEl.offsetHeight : 0;
+    var navBottom = (navEl && !fsIsActive) ? parseFloat(getComputedStyle(navEl).bottom) : 0;
 
     if (isLandscape && isMobile) {
       // Landscape mobile: scale to fill available area.
