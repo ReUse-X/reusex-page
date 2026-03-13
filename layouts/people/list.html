@@ -22,13 +22,13 @@
 {{- end -}}
 <section class="section-padding" style="background-color: {{ $sectionBg | safeCSS }};">
   <div class="max-w-6xl mx-auto px-6">
-    <!-- Left-aligned Title and Intro -->
-    <div class="mb-8">
-      <h2 class="text-3xl md:text-4xl font-semibold" style="color: {{ $sectionHeading | safeCSS }}; opacity: 0.9;">
+    <!-- Centered Title and Intro -->
+    <div class="max-w-3xl mx-auto text-center mb-8">
+      <h2 class="font-display text-4xl font-extrabold sm:text-5xl mb-6" style="color: {{ $sectionHeading | safeCSS }};">
         {{ $section.Title }}
       </h2>
       {{- with $section.Params.intro -}}
-      <p class="mt-2 max-w-2xl text-sm md:text-base" style="color: {{ $sectionBody | safeCSS }}; opacity: 0.7;">
+      <p class="text-lg leading-relaxed" style="color: {{ $sectionBody | safeCSS }};">
         {{ . }}
       </p>
       {{- end -}}
