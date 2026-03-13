@@ -1,5 +1,6 @@
 ---
 title: "People"
+draft: true
 order: 1
 colorScheme: 2
 ---
