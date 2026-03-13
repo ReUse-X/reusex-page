@@ -1,5 +1,6 @@
 ---
 title: "Board"
+draft: true
 order: 3
 colorScheme: 2
 layout: "cards"
