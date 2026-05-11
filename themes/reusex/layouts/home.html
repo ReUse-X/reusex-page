@@ -202,8 +202,9 @@
       <!-- Before-and-After Image Slider -->
       <div>
         {{ with .slider_video }}
-        <video class="w-full h-auto" autoplay muted loop playsinline controls>
+        <video class="w-full h-auto" autoplay muted loop playsinline controls aria-label="ReUseX Scan demonstration video showing transformation from raw building to AI segmented components">
           <source src="{{ . | relURL }}" type="video/mp4">
+          <p>Your browser does not support the video element.</p>
         </video>
         {{ else }}
         <div class="before-after-slider">
