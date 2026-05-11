@@ -201,6 +201,11 @@
       </div>
       <!-- Before-and-After Image Slider -->
       <div>
+        {{ with .slider_video }}
+        <video class="w-full h-auto" autoplay muted loop playsinline controls>
+          <source src="{{ . | relURL }}" type="video/mp4">
+        </video>
+        {{ else }}
         <div class="before-after-slider">
           <div class="before-after-wrapper">
             <img src="{{ "images/after.jpg" | relURL }}" alt="After: Building with reused materials" class="after-image">
@@ -213,6 +218,7 @@
         <p class="text-center mt-4 text-sm" style="color: var(--section3-muted);">
           Raw building → AI segmented components
         </p>
+        {{ end }}
       </div>
     </div>
     <!-- Platform Section -->
