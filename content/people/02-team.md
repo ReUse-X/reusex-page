@@ -11,6 +11,10 @@ cards:
     text: "Head of LINK IO and initiator of the PhD project that forms the foundation of ReUseX. Holds the strategic and commercial threads."
     social:
       linkedin: "https://www.linkedin.com/in/jan-buthke/"
+  - role: "CCO"
+    name: "Søren Arrildskov"
+    image: "portraits/søren-arrildskov.jpg"
+    text: "Architect MAA with a career in strategic business development at AART, Juul Frost and Gottlieb Paludan. Knows the market and the right doors to knock on."
   - role: "CTO"
     name: "Povl Filip Sonne-Frederiksen"
     image: "portraits/povl-filip-sonne-frederiksen.jpg"
