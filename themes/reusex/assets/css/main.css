@@ -1680,8 +1680,8 @@ a[href^="tel:"] {
 }
 
 @media (min-width: 1024px) {
-  .team-cards-grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+  .people-cards-grid {
+    grid-template-columns: repeat(var(--people-grid-desktop-columns, 4), minmax(0, 1fr));
   }
 }
 

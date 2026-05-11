@@ -3,6 +3,7 @@ title: "Team"
 order: 2
 colorScheme: 3
 layout: "cards"
+desktopColumns: 5
 intro: "ReUseX is built by a lean software team focused on circularity. We bring expertise in scanning workflows, AI-driven classification and segmentation, and platform development for AEC use cas[...]"
 cards:
   - role: "CEO"
