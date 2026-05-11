@@ -36,7 +36,7 @@
     
     <!-- 4-Column Grid of Profile Cards (desktop) -->
     {{- with $section.Params.cards -}}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 {{ if eq $section.File.ContentBaseName "02-team" }}team-cards-grid{{ else }}lg:grid-cols-4{{ end }} gap-8">
       {{- range $cardIndex, $card := . -}}
       <div class="overflow-hidden shadow-lg shadow-black/30 people-card">
         {{- $imageResource := $peopleSection.Resources.GetMatch ($card.image | default "portraits/placeholder.svg") -}}

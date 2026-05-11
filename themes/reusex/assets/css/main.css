@@ -1679,6 +1679,12 @@ a[href^="tel:"] {
   box-shadow: 0 0 0 1px var(--people-card-ring), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
 }
 
+@media (min-width: 1024px) {
+  .team-cards-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
 [data-theme="light"] .people-card {
   background-color: var(--section2-card-bg);
   box-shadow: 0 0 0 1px var(--graphic), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
