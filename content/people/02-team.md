@@ -12,9 +12,11 @@ cards:
     social:
       linkedin: "https://www.linkedin.com/in/jan-buthke/"
   - role: "CCO"
-    name: "Søren Arrildskov"
+    name: "Søren Arildskov"
     image: "portraits/søren-arrildskov.jpg"
     text: "Architect MAA with a career in strategic business development at AART, Juul Frost and Gottlieb Paludan. Knows the market and the right doors to knock on."
+    social:
+      linkedin: https://www.linkedin.com/in/s%C3%B8ren-arildskov-4b2a054/
   - role: "CTO"
     name: "Povl Filip Sonne-Frederiksen"
     image: "portraits/povl-filip-sonne-frederiksen.jpg"
