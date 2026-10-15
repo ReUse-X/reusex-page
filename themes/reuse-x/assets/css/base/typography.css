@@ -1,0 +1,53 @@
+body {
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--site-font-size-body);
+  line-height: var(--site-line-height-prose);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headings follow the product: Oswald, uppercase, tight. */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+h1 { font-size: var(--site-font-size-h1); line-height: var(--site-line-height-display); }
+h2 { font-size: var(--site-font-size-h2); }
+h3 { font-size: var(--site-font-size-h3); }
+h4 { font-size: var(--site-font-size-h4); }
+
+/* Naming rule: the product name is never uppercased as one word (it would
+   read "reu-SEX"). Templates wrap it in .brand / the wordmark. */
+.brand { text-transform: none; }
+
+a { color: var(--color-accent-deep); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { color: var(--color-accent-hover); text-decoration-thickness: 2px; }
+
+strong, b { font-weight: var(--font-weight-bold); }
+code, kbd, samp { font-family: var(--font-mono); font-size: 0.9em; }
+
+/* Small caps label — the product's eyebrow / KPI label recipe. Use sparingly. */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: calc(-1 * var(--site-header-height) * 2);
+  z-index: calc(var(--z-titlebar) + 1);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+  &:focus { top: var(--space-2); }
+}

@@ -250,7 +250,9 @@ def main() -> int:
                     color_scheme=theme,
                     reduced_motion="reduce",
                 )
-                ctx.add_init_script(f"try {{ localStorage.setItem('theme', '{theme}'); }} catch (e) {{}}")
+                # reusex-theme = the product/new-site key; theme = the old site's key.
+                ctx.add_init_script(f"try {{ localStorage.setItem('reusex-theme', '{theme}'); "
+                                    f"localStorage.setItem('theme', '{theme}'); }} catch (e) {{}}")
                 for path in paths:
                     page = ctx.new_page()
                     problems: list[str] = []

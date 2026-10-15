@@ -1,0 +1,2 @@
+{{- /* Markdown headings: anchor id + product-name protection (brand-text). */ -}}
+<h{{ .Level }} id="{{ .Anchor }}"{{ range $k, $v := .Attributes }}{{ if ne $k "id" }} {{ $k }}="{{ $v }}"{{ end }}{{ end }}>{{ partial "brand-text.html" .Text }}</h{{ .Level }}>

@@ -1,0 +1,7 @@
+# Social profiles shown in the footer. icon = a name from the theme's icon registry.
+- name: LinkedIn
+  url: https://www.linkedin.com/in/sonne-frederiksen/
+  icon: linkedin
+- name: GitHub
+  url: https://github.com/ReUse-X
+  icon: github

@@ -1,0 +1,33 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+{{- $description := or .Description site.Params.description }}
+<meta name="description" content="{{ $description }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+{{- /* Theme before first paint (no flash). Same key and values as the app:
+       reusex-theme = light | dark | system; default light. js/theme.js
+       owns the toggle. */}}
+<script>
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('reusex-theme'); } catch (e) {}
+    if (t === 'dark' || (t === 'system' && matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  }());
+</script>
+{{- with resources.Get "css/main.css" }}
+  {{- /* /fonts/ is served from static/ as-is; css.Build must not resolve it. */}}
+  {{- $css := . | css.Build (dict "minify" hugo.IsProduction "externals" (slice "/fonts/*")) }}
+  {{- if hugo.IsProduction }}{{ $css = $css | fingerprint }}{{ end }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}"{{ with $css.Data.Integrity }} integrity="{{ . }}"{{ end }}>
+{{- end }}
+{{- with resources.Get "js/main.js" }}
+  {{- $js := . | js.Build (dict "minify" hugo.IsProduction "targetPath" "js/main.js") }}
+  {{- if hugo.IsProduction }}{{ $js = $js | fingerprint }}{{ end }}
+  <script src="{{ $js.RelPermalink }}" defer{{ with $js.Data.Integrity }} integrity="{{ . }}"{{ end }}></script>
+{{- end }}

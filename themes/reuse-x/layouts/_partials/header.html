@@ -1,0 +1,24 @@
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="{{ site.Home.RelPermalink }}">{{ partial "wordmark.html" . }}</a>
+    <nav class="site-nav" id="site-nav" aria-label="{{ i18n "main_nav" }}">
+      <ul class="site-nav__list">
+        {{- range site.Menus.main }}
+          {{- $current := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}
+          {{- with .Page }}
+          <li><a href="{{ .RelPermalink }}"{{ if $current }} aria-current="page"{{ end }}>{{ .LinkTitle }}</a></li>
+          {{- end }}
+        {{- end }}
+      </ul>
+      <div class="site-nav__actions">
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="{{ i18n "theme_toggle" }}">
+          {{ partial "icon.html" "sun" }}{{ partial "icon.html" "moon" }}
+        </button>
+        <a class="button button--primary" href="{{ site.Params.app_url }}">{{ i18n "log_in" }}</a>
+      </div>
+    </nav>
+    <button type="button" class="menu-toggle" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="{{ i18n "menu_open" }}" data-label-close="{{ i18n "menu_close" }}">
+      {{ partial "icon.html" "menu" }}{{ partial "icon.html" "close" }}
+    </button>
+  </div>
+</header>

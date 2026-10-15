@@ -1,0 +1,5 @@
+{{- /* Naming rule: headings are uppercase, and "REUSEX" reads "reu-SEX".
+       Wrap every occurrence of the product name in .brand (exempt from
+       text-transform) so it always renders "ReUseX". Input: HTML string.
+       Usage: partial "brand-text.html" .Title */ -}}
+{{- replaceRE `(?i)\bre-?use-?x\b` `<span class="brand">ReUseX</span>` . | safeHTML -}}

@@ -1,0 +1,47 @@
+/*
+ * Site-only tokens for the marketing site, layered on the product tokens
+ * (tokens.css, vendored verbatim from rux-frontend — never edit that file).
+ * Every colour here is an alias of a product token, so a product palette
+ * change flows straight through. Literal values are allowed only for things
+ * the app has no token for: display type sizes, page widths, section rhythm.
+ */
+:root {
+  /* Type — the app's scale tops out at 3xl (1.9rem); a website needs display sizes. */
+  --site-font-size-body: 1.0625rem;
+  --site-font-size-lead: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --site-font-size-h1: clamp(2.5rem, 1.6rem + 4vw, 4.75rem);
+  --site-font-size-h2: clamp(1.875rem, 1.4rem + 2vw, 3rem);
+  --site-font-size-h3: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
+  --site-font-size-h4: 1.125rem;
+  --site-line-height-prose: 1.6;
+  --site-line-height-display: 1.02;
+
+  /* Layout */
+  --site-width: 74rem;
+  --site-width-prose: 42rem;
+  --site-gutter: clamp(1rem, 4vw, 2.5rem);
+  --site-space-section: clamp(3.5rem, 2rem + 6vw, 7rem);
+  --site-header-height: 3.5rem;
+  --site-tap-target: 44px;
+  --site-focus-ring: 2px solid var(--color-border-focus);
+
+  /* Bands — what a section looks like is decided here, never in content. */
+  --band-default-bg: var(--color-surface);
+  --band-default-text: var(--color-text);
+  --band-alt-bg: var(--color-surface-raised);
+  --band-alt-text: var(--color-text);
+  --band-inverse-bg: var(--color-chrome);
+  --band-inverse-text: var(--color-on-chrome);
+  --band-inverse-muted: var(--color-on-chrome-muted);
+  --band-inverse-border: var(--color-chrome-border);
+  --band-canvas-bg: var(--color-canvas);
+  --band-accent-bg: var(--color-accent-deep);
+  --band-accent-text: var(--color-on-accent);
+
+  /* Site chrome */
+  --site-header-bg: var(--color-chrome);
+  --site-header-text: var(--color-on-chrome);
+  --site-header-muted: var(--color-on-chrome-muted);
+  --site-footer-bg: var(--color-chrome);
+  --site-footer-text: var(--color-on-chrome-muted);
+}

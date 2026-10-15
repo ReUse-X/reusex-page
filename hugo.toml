@@ -2,94 +2,100 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-baseURL = 'https://linkarkitektur.github.io/reusex-page/'
-languageCode = 'en-us'
-title = 'ReUseX'
-theme = 'reusex'
+# Site configuration: identity, languages, navigation and site-wide links.
+# Page content lives in content/<lang>/, lists of things (people, partners,
+# contact, socials) in data/, and all design in themes/reuse-x/.
 
-[markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
+baseURL = 'https://reuse-x.com/'
+title = 'ReUseX'
+theme = 'reuse-x'
+disableKinds = ['taxonomy', 'term']
+
+defaultContentLanguage = 'en'
+# Danish is set up but not published until content/da/ exists.
+disableLanguages = ['da']
+
+[languages]
+  [languages.en]
+    contentDir = 'content/en'
+    label = 'English'
+    locale = 'en'
+    weight = 1
+  [languages.da]
+    contentDir = 'content/da'
+    label = 'Dansk'
+    locale = 'da'
+    weight = 2
 
 [params]
-description = 'Revolutionizing resource reuse for a sustainable future'
+  description = 'Revolutionizing resource reuse for a sustainable future'
+  # The ReUseX app. Content links to it with `app:<path>` (see the link partial).
+  app_url = 'https://app.reuse-x.com/'
+  footer_text = 'Building the future of sustainable resource management through innovative technology and collaborative networks.'
 
-# Footer Configuration
-[params.footer]
-  description = "Building the future of sustainable resource management through innovative technology and collaborative networks."
-  
-  # Social Media Links
-  [params.footer.social]
-    twitter = "https://twitter.com/reusex"
-    linkedin = "https://www.linkedin.com/in/sonne-frederiksen/"
-    facebook = "https://facebook.com/reusex"
-    github = "https://github.com/pfmephisto/ReUseX"
-    instagram = "https://instagram.com/reusex"
-    
-  # Footer Menus
-  [[params.footer.menus]]
-    title = "Product"
-    [[params.footer.menus.links]]
-      name = "Pricing" 
-      url = "#demo"
-    [[params.footer.menus.links]]
-      name = "Research"
-      url = "research/"
-    [[params.footer.menus.links]]
-      name = "Pitch Deck"
-      url = "pitchdeck/"
-    #[[params.footer.menus.links]]
-    #  name = "Documentation"
-    #  url = "/docs"
-    #[[params.footer.menus.links]]
-    #  name = "API Reference"
-    #  url = "/api"
-      
-  [[params.footer.menus]]
-    title = "Support"
-    #[[params.footer.menus.links]]
-    #  name = "Help Center"
-    #  url = "help"
-    #[[params.footer.menus.links]]
-    #  name = "Privacy Policy"
-    #  url = "privacy"
-    #[[params.footer.menus.links]]
-    #  name = "Terms of Service"
-    #  url = "terms"
+[markup.goldmark.parser.attribute]
+  block = true
 
+# ---------------------------------------------------------------------------
+# Navigation — the only place menus are defined. Pages never set menu entries.
+# ---------------------------------------------------------------------------
 [menus]
   [[menus.main]]
-    name = 'Home'
-    pageRef = '/'
+    name = 'Solution'
+    pageRef = '/solution'
     weight = 10
-
+  [[menus.main]]
+    name = 'How it works'
+    pageRef = '/how-it-works'
+    weight = 20
   [[menus.main]]
     name = 'Vision'
-    pageRef = '/vision-journey'
-    weight = 20
-
-  [[menus.main]]
-    name = 'Solution'
-    pageRef = '/reusex-solution'
+    pageRef = '/vision'
     weight = 30
-
-  [[menus.main]]
-    name = 'How it Works'
-    pageRef = '/how-it-works'
-    weight = 40
-
   [[menus.main]]
     name = 'Roadmap'
     pageRef = '/roadmap'
-    weight = 45
-
+    weight = 40
   [[menus.main]]
     name = 'People'
     pageRef = '/people'
     weight = 50
-
   [[menus.main]]
     name = 'Contact'
     pageRef = '/contact'
     weight = 60
+
+  # Footer: top-level entries are column headings, children are the links.
+  [[menus.footer]]
+    name = 'Product'
+    identifier = 'product'
+    weight = 10
+  [[menus.footer]]
+    name = 'Pilots'
+    pageRef = '/pilots'
+    parent = 'product'
+    weight = 10
+  [[menus.footer]]
+    name = 'Research'
+    pageRef = '/research'
+    parent = 'product'
+    weight = 20
+  [[menus.footer]]
+    name = 'Pitch deck'
+    pageRef = '/pitchdeck'
+    parent = 'product'
+    weight = 30
+  [[menus.footer]]
+    name = 'Company'
+    identifier = 'company'
+    weight = 20
+  [[menus.footer]]
+    name = 'People'
+    pageRef = '/people'
+    parent = 'company'
+    weight = 10
+  [[menus.footer]]
+    name = 'Contact'
+    pageRef = '/contact'
+    parent = 'company'
+    weight = 20

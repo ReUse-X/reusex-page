@@ -3,8 +3,8 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 """Guard the site's colour-token rule: colours come from the CSS custom
-properties in themes/reusex/assets/css/main.css (`:root` = dark, and the
-`[data-theme="light"]` overrides), never from literals.
+properties in themes/reuse-x/assets/css/tokens.css (vendored product tokens)
+and site-tokens.css, never from literals.
 
 Why: the site has two themes switched by data-theme on <html>. A literal
 colour (or a Tailwind palette class like `bg-white` / `text-gray-600`) is the
@@ -12,12 +12,12 @@ same in both themes, so it is the usual cause of "dark text on dark
 background" or "white card in dark mode" bugs. A token flips with the theme.
 
 What it flags:
-  templates (layouts/**/*.html, themes/reusex/layouts/**/*.html)
+  templates (themes/reuse-x/layouts/**/*.html, layouts/**/*.html)
     - hex / rgb() / hsl() colours (in style="", <style>, SVG fill/stroke)
     - Tailwind palette colour utilities: bg-/text-/border-/from-/via-/to-/
       ring-/fill-/stroke-/divide-/outline-/shadow- + white|black|<palette>-<n>
-    - var(--x) naming a token main.css does not define
-  main.css
+    - var(--x) naming a token no token file defines
+  component CSS (themes/reuse-x/assets/css/**, except *tokens.css)
     - colour literals OUTSIDE the token blocks (`:root { … }` and
       `[data-theme="light"] { … }` — only those define values)
     - var(--x) naming an undefined token
@@ -117,15 +117,19 @@ def main() -> int:
     a = ap.parse_args()
 
     r = root()
-    css = r / "themes/reusex/assets/css/main.css"
-    templates = sorted([*r.glob("layouts/**/*.html"), *r.glob("themes/reusex/layouts/**/*.html")])
-    tokens = defined_tokens([css, *templates])
-    files = a.files or [*templates, css]
+    theme = r / "themes/reuse-x"
+    token_files = sorted((theme / "assets/css").glob("*tokens.css"))
+    css_files = sorted(p for p in (theme / "assets/css").rglob("*.css") if p not in token_files)
+    templates = sorted([*theme.glob("layouts/**/*.html"), *r.glob("layouts/**/*.html")])
+    tokens = defined_tokens([*token_files, *css_files, *templates])
+    files = a.files or [*templates, *css_files]
 
     total = 0
     per_file: Counter = Counter()
     for f in files:
         f = f if f.is_absolute() else Path.cwd() / f
+        if f.name.endswith("tokens.css"):
+            continue  # token files define the values
         hits = lint_css(f, tokens) if f.suffix == ".css" else lint_template(f, tokens)
         rel = f.relative_to(r) if f.is_relative_to(r) else f
         for n, kind, what in hits:

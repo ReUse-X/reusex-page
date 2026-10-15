@@ -1,0 +1,28 @@
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__about">
+      <a class="site-footer__brand" href="{{ site.Home.RelPermalink }}">{{ partial "wordmark.html" . }}</a>
+      {{ with site.Params.footer_text }}<p>{{ . }}</p>{{ end }}
+      {{ with hugo.Data.socials }}
+      <ul class="site-footer__socials">
+        {{- range . }}
+        <li><a href="{{ .url }}" rel="noopener" aria-label="{{ .name }}">{{ partial "icon.html" .icon }}</a></li>
+        {{- end }}
+      </ul>
+      {{ end }}
+    </div>
+    <nav class="site-footer__nav" aria-label="{{ i18n "footer_nav" }}">
+      {{- range site.Menus.footer }}
+      <div class="site-footer__column">
+        <h2 class="site-footer__heading">{{ .Name }}</h2>
+        <ul>
+          {{- range .Children }}
+            {{- with .Page }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}
+          {{- end }}
+        </ul>
+      </div>
+      {{- end }}
+    </nav>
+  </div>
+  <p class="site-footer__legal">© {{ now.Year }} {{ site.Title }}. {{ i18n "all_rights" }}</p>
+</footer>

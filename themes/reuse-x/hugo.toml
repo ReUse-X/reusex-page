@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: 2026 Povl Filip Sonne-Frederiksen
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# Theme "reuse-x": the ReUseX marketing-site template. All design lives here;
+# the site supplies content (content/<lang>/), data/ and hugo.toml.
+[module]
+  [module.hugoVersion]
+    extended = false
+    min = '0.158.0'
