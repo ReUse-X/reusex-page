@@ -60,18 +60,47 @@ This protocol applies when ending a Beads implementation workflow. It is subordi
 
 ## Build & Test
 
-_Add your build and test commands here_
+Everything runs in the Nix dev shell (`nix develop`, or direnv via `.envrc`):
+hugo, beads (`bd`), Python + Playwright with a Nix-provided Chromium.
 
 ```bash
-# Example:
-# npm install
-# npm test
+bash .claude/skills/design-studio/scripts/serve.sh        # live hugo server (Tailscale IP, live reload)
+python3 .claude/skills/design-studio/scripts/shot.py --all   # screenshots, both themes, desktop + mobile
+python3 .claude/skills/design-studio/scripts/token_lint.py   # colour literals / unknown tokens
 ```
+
+Don't run `hugo` (full build into public/) to check a change — the live
+server re-renders in under a second. CI (`.github/workflows/deploy-hugo.yml`)
+builds with Hugo 0.146.0 and deploys `main` to GitHub Pages under
+`/reusex-page/`.
 
 ## Architecture Overview
 
-_Add a brief overview of your project architecture_
+Hugo site, theme `themes/reusex/`; root `layouts/` overrides it per section.
+Section pages are `layouts/<section>/list.html` ranging over
+`content/<section>/NN-*.md` bands (`order`, `colorScheme`, `layout` front
+matter). Colours are CSS custom properties in
+`themes/reusex/assets/css/main.css` (light/dark via `data-theme` on `<html>`);
+layout uses the Tailwind Play CDN.
 
 ## Conventions & Patterns
 
-_Add your project-specific conventions here_
+Any visual or template work: use the `design-studio` skill
+(`.claude/skills/design-studio/`) — it has the site map, house rules and the
+screenshot loop.
+
+## Planning & tracking: beads only
+
+We use the superpowers skills (brainstorming, writing-plans, executing-plans,
+…) for their *process*, but **never write spec or plan Markdown files** — no
+`docs/superpowers/specs/`, no `docs/superpowers/plans/`, no design docs.
+Wherever a skill says "write the spec/plan to a file", put it in **beads**
+instead:
+
+- the agreed design → the description of an epic (`bd create -t epic`)
+- plan steps → child issues (`--parent <epic>`) with dependencies
+  (`bd dep add`), acceptance criteria in each issue
+- progress, decisions, findings → `bd update` / `bd comment` on the issue
+
+A skill's "user reviews the written spec" gate becomes "user reviews the epic
+and its issues (`bd show <epic>`)".

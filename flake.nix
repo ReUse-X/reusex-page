@@ -78,7 +78,20 @@
               github-copilot-cli
               hugo
               tailwindcss_4
+              claude-code
+
+              # Issue tracking (bd)
+              beads
+
+              # Design loop: headless screenshots of the live `hugo server`
+              # (.claude/skills/design-studio/scripts/shot.py)
+              (python3.withPackages (ps: [ps.playwright]))
+              playwright-driver.browsers-chromium
             ];
+
+            # Point Python Playwright at the Nix-provided browsers (no `playwright install`).
+            PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers-chromium}";
+            PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
 
             shellHook =
               ''
