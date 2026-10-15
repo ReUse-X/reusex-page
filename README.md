@@ -10,9 +10,10 @@ The marketing site for [ReUseX](https://reuse-x.com/) — AI-powered resource
 mapping of existing buildings. The product itself lives at
 [app.reuse-x.com](https://app.reuse-x.com/).
 
-Built with [Hugo](https://gohugo.io/) and a custom theme (`themes/reuse-x`)
-that uses the product's own design tokens. No Node, no npm, no CDN: plain CSS
-and JS bundled by Hugo, self-hosted fonts.
+Built with [Hugo](https://gohugo.io/), [Tailwind CSS](https://tailwindcss.com/)
+and a custom theme (`themes/reuse-x`) whose Tailwind theme *is* the
+product's design tokens. No Node, no npm, no CDN: Tailwind's standalone CLI
+and Hugo build everything; fonts are self-hosted.
 
 ## Develop
 
@@ -22,8 +23,8 @@ bash .claude/skills/design-studio/scripts/serve.sh            # live server
 DRAFTS=1 bash .claude/skills/design-studio/scripts/serve.sh restart   # incl. /components/
 ```
 
-The server live-reloads on every edit; there is no build step during
-development.
+`serve.sh` runs the Hugo server and a Tailwind watcher; every edit is live
+in about a second.
 
 ## Where things live
 
@@ -33,7 +34,7 @@ development.
 | Lists of things: people, partners, contact, socials | `data/*.yaml` |
 | Images, portraits, logos, videos | `assets/` (resized by Hugo) |
 | Menus, site settings, app URL | `hugo.toml` |
-| All design: layouts, elements, CSS, JS | `themes/reuse-x/` |
+| All design: layouts, elements (Tailwind utilities), CSS, JS | `themes/reuse-x/` |
 | Product design tokens (vendored, never edit) | `themes/reuse-x/assets/css/tokens.css` — refresh with `scripts/sync-tokens.sh` |
 
 A page has at most ten lines of front matter (`title`, `description`,

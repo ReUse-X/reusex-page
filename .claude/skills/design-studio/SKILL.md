@@ -43,10 +43,17 @@ go in beads — never in spec/plan Markdown files (see CLAUDE.md).
   `themes/reuse-x/layouts/_shortcodes/` (doc comment at the top of each) and
   the `/components/` gallery. A new element or a new page follows its
   checklist in the site map.
-- **Colours and sizes come from tokens only.** Product tokens
-  (`assets/css/tokens.css`) are vendored and never edited — refresh with
-  `scripts/sync-tokens.sh`. Site-only tokens go in `site-tokens.css`, built
-  on product tokens. Dark mode is the product's `[data-theme='dark']`.
+- **Style with Tailwind utilities on the token theme.** `bg-accent`,
+  `text-text-muted`, `border-border`, `rounded-md`, `text-h2`, `px-gutter` …
+  are the product tokens (Tailwind's own palette is switched off). Product
+  tokens (`assets/css/tokens.css`) are vendored and never edited — refresh
+  with `scripts/sync-tokens.sh`, which also regenerates the Tailwind theme.
+  Site-only tokens go in `site-tokens.css`. Dark mode is the product's
+  `[data-theme='dark']` (`dark:` variant). CSS files are the exception —
+  only for what utilities can't express.
+- **Write content readably:** an element's tags and its content on separate
+  lines, titles as `###` headings inside card/step/question, a blank line
+  between items.
 
 ### 3. Serve (once per session)
 
@@ -55,7 +62,8 @@ bash .claude/skills/design-studio/scripts/serve.sh            # prints the URL
 DRAFTS=1 bash .claude/skills/design-studio/scripts/serve.sh restart   # + drafts, /components/
 ```
 
-Idempotent; one `hugo server` in memory with live reload, bound to this
+Idempotent; one `hugo server` in memory plus one Tailwind CLI watcher, with
+live reload, bound to this
 machine's **Tailscale** address so the user can watch from their own device
 (give them the URL). Drafts are off by default, like production. Edits are
 live in < 1 s. **Never run `hugo` to check a change** and never restart for

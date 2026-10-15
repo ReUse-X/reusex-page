@@ -82,9 +82,11 @@ Hugo site with the custom theme `themes/reuse-x`. **Content and design are
 separate:** pages are Markdown + content elements (shortcodes) in
 `content/en/` with ≤ 10 lines of front matter; lists of things are in
 `data/`; menus in `hugo.toml`; every visual decision lives in the theme.
-Colours/sizes come from the product's design tokens (vendored from
-rux-frontend, `scripts/sync-tokens.sh`) plus `site-tokens.css`. Plain CSS
-and JS bundled by Hugo — no Node, no CDN.
+Styling is Tailwind utilities, built by the standalone Tailwind CLI (no
+npm, no CDN); the Tailwind theme is generated from the product's design
+tokens (vendored from rux-frontend, `scripts/sync-tokens.sh`) plus
+`site-tokens.css`, with Tailwind's own palette switched off. In content, an
+element's tags and its content always sit on separate lines.
 
 ## Conventions & Patterns
 

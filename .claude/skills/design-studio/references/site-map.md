@@ -5,9 +5,23 @@
 - **Hugo** from the flake (dev shell and CI use the same version; CI builds
   with `nix develop .#ci`). Theme `themes/reuse-x`, new template system
   (`layouts/_partials`, `_shortcodes`, `_markup`).
-- **No Node/npm/CDN.** CSS: plain modern CSS (native nesting) bundled by
-  `css.Build` from `assets/css/main.css` (an `@import` list). JS: vanilla
-  modules bundled by `js.Build` from `assets/js/main.js`.
+- **Tailwind v4, built ourselves — no Node/npm/CDN.** The standalone
+  Tailwind CLI (dev shell `tailwindcss_4`) compiles `assets/css/main.css`
+  (the Tailwind entry) into `assets/css/generated/site.css` (gitignored),
+  which `head.html` loads. `serve.sh` runs `tailwindcss --watch=always`
+  next to `hugo server`; CI runs `tailwindcss --minify` before `hugo`.
+  Hugo's own `css.TailwindCSS` is not used (it needs the npm package).
+- **Theme = product tokens.** `scripts/tailwind-theme.py` (run by
+  `sync-tokens.sh`) generates `tailwind-theme.css`: `@theme reference`
+  registers the product token names, so `bg-accent`, `text-on-chrome`,
+  `border-border`, `rounded-md`, `shadow-md`, `font-display` compile to
+  `var(--color-accent)` … and the values stay in `tokens.css` (per theme).
+  Tailwind's default palette/radii/shadows/fonts are off — `bg-gray-500`
+  doesn't exist. Site sizes map via `@theme inline`: `text-hero/h1–h4/lead/body`,
+  `max-w-site`, `max-w-site-prose`, `px-gutter`, `py-section`, `size-tap`,
+  `min-h-header`. Use `page-width` for the centred content width;
+  `dark:` = `[data-theme=dark]`.
+- **JS:** vanilla modules bundled by `js.Build` from `assets/js/main.js`.
 - **Fonts:** Oswald + Archivo, self-hosted in `themes/reuse-x/static/fonts/`
   (OFL, licences next to them); `css.Build` treats `/fonts/*` as external.
 - **Hosting:** GitHub Pages at `https://reuse-x.com/` (root, no path
@@ -45,7 +59,8 @@ valid layouts, known element names and **no hand-written HTML** (Goldmark
 | Element plumbing | `_partials/validate.html` (param checks → `errorf` with file:line), `markdown.html` (nesting-safe inner Markdown), `link.html` (pages / `app:` / external / mailto), `image.html` (webp srcset, w/h, required alt), `actions.html` (button pairs), `icon.html` (the one icon registry), `brand-text.html` (naming rule), `frontmatter-check.html` |
 | Markdown headings | `_markup/render-heading.html` (anchors + naming rule) |
 | Tokens | `assets/css/tokens.css` (vendored from rux-frontend, never edit; `scripts/sync-tokens.sh`), `assets/css/site-tokens.css` (display type, widths, bands, deck canvas — all colours alias product tokens) |
-| CSS | `assets/css/base/` (fonts, reset, typography), `layouts/` (site frame, flow, landing, article, deck), `components/` (one file per element) |
+| CSS | Utilities in the templates. Small layers only where utilities can't reach: `base/` (fonts, reset, typography), `layouts/` (flow grid, landing bands, article, deck), `components/` (`markdown.css` = `.md` for Markdown inside elements, media side alternation, checklist ticks, before/after clip, gallery panel) |
+| Shared template pieces | `_partials/button.html` (all button variants — templates pass `variant`, never classes), `frame.html` (picture frames by `kind`), `heading-split.html` (title from the first Markdown heading) |
 | JS | `assets/js/{theme,menu,before-after,video,deck}.js` |
 
 ## How layout works (the "flow" grid)
@@ -78,8 +93,10 @@ hero, cta) is itself a `.flow`. Consequences:
 
 ## Writing a new element (checklist)
 
-1. `layouts/_shortcodes/<name>.html`, starting with the doc comment
-   (purpose, params, inner, example).
+1. `layouts/_shortcodes/<name>.html`, starting with the short header every
+   element has: one line of purpose, one usage example written the way
+   content should be written (tags and content on separate lines), and a
+   compact parameter table. Then the validate line, then indented HTML.
 2. First line of logic: `partial "validate.html" (dict "ctx" . "named" … "required" … "enums" … "inner" …)`.
    Never accept design params (colour, tone, columns, size …) — validate
    rejects them.
@@ -88,21 +105,29 @@ hero, cta) is itself a `.flow`. Consequences:
    content if its own template mentions `.Inner`).
 4. Output must contain **no blank lines** (they break the parent's HTML
    block when elements nest) — use `{{- -}}` trimming.
-5. Links via `link.html`, images via `image.html`, icons via `icon.html`.
-6. CSS in `assets/css/components/<name>.css`, imported in `main.css`;
-   tokens only (`token_lint.py`).
-7. Add a snippet `content/en/components/examples/<name>.txt` and an
+5. Links via `link.html`, images via `image.html`, icons via `icon.html`,
+   buttons via `button.html`, picture frames via `frame.html`.
+6. Style with Tailwind utilities (token colours only — `token_lint.py`
+   rejects literal colours and palette classes). Panels use
+   `bg-(--panel-bg)` so they contrast on alternating bands. Wrap rendered
+   Markdown in `class="md"`. Only add a CSS file (in a layer, imported in
+   `main.css`) for what utilities can't do; say why in its header.
+   Every partial that returns HTML must end with `-}}` (a trailing newline
+   becomes a blank line that breaks nested elements; shot.py flags it).
+7. An item with a title (card, step, question) takes it from the first
+   Markdown heading: `partial "heading-split.html"`. Never add `title=`.
+8. Add a snippet `content/en/components/examples/<name>.txt` and an
    `{{< example "<name>" >}}` line on the gallery page. In the gallery the
    source panel is `#example-<name>` and the rendered element is its next
    sibling: shoot it with `--selector "#example-<name> + .<name>"`.
-8. Container + item elements (cards/card, steps/step, stats/stat,
+9. Container + item elements (cards/card, steps/step, stats/stat,
    faq/question): only the container carries `element`; each item checks
    its parent with the guard copied from `card.html`
    (`with .Parent … ne .Name "cards" … errorf`).
-9. Icons: add new ones to the registry in `_partials/icon.html` (24×24,
+10. Icons: add new ones to the registry in `_partials/icon.html` (24×24,
    stroke `currentColor`, same 1.75 stroke weight); an unknown name errors
    and lists the known ones.
-10. Interactive states: shoot them with `--js` (e.g. open every
+11. Interactive states: shoot them with `--js` (e.g. open every
     `<details>`, `goToSlide(4)`) and real keyboard focus with
     `--keys "Tab Tab Enter"`; check the focus ring is visible on every band
     (dark bands override `--site-focus-ring`).
@@ -117,14 +142,24 @@ template.
 
 ## Gotchas (recorded)
 
-- **Mixed params:** Hugo can't mix positional and named shortcode params —
-  `card`/`step` take `title="…"`; only `stat "40 %"` is positional.
+- **Readable content:** an element's content never shares a line with its
+  tags; titles are `###` headings inside card/step/question; long tags put
+  one group of params per line; a blank line between sibling items.
+  content_lint enforces the one-line rule.
+- **Mixed params:** Hugo can't mix positional and named shortcode params;
+  only `stat "40 %"` is positional.
+- **Utilities vs layers:** Tailwind utilities beat the CSS layers; to
+  change an element inside a context (slides) use variants like
+  `in-[.slide]:hidden`, not a layered override.
 - **Self-closing:** an element whose template mentions `.Inner` must be
   closed or self-closed (`{{< media … />}}`) when used without content.
 - **Broken internal links** don't stop the build: the link partial warns
   and renders `#broken-link/<path>`; shot.py reports them as CHECK FAIL.
 - **Aliases** of pages added while the server runs only appear after
   `serve.sh restart`.
+- **Watcher:** if a new class has no effect, check `serve.sh log` (the
+  Tailwind section) — the watcher scans `themes/reuse-x/layouts` and
+  `assets/js`; classes built from strings must appear literally there.
 - **`zoom`** scales the deck canvas (it also scales layout, so centring
   works); the canvas is 1000×562.5 (`--deck-canvas-*`).
 - **Theme key:** `localStorage['reusex-theme']` = light | dark | system,
