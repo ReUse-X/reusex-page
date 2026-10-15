@@ -1,0 +1,129 @@
+/* deck — the pitch deck. Without JS: slides stacked as cards. With JS
+   (.deck--active): one slide at a time; on wide screens the fixed canvas is
+   zoomed to fit the stage (--deck-scale is set by js/deck.js). */
+.deck {
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-6) var(--site-gutter);
+}
+.deck__stage { display: grid; gap: var(--space-5); justify-items: center; }
+
+.slide__canvas {
+  display: grid;
+  align-items: center;
+  width: min(100%, var(--deck-canvas-width));
+  padding: var(--space-5);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-panel);
+  overflow: hidden;
+}
+.slide__content {
+  display: grid;
+  gap: var(--space-4);
+  align-content: center;
+  & > h2 { margin-bottom: 0; }
+  & > h2 + p { font-size: var(--site-font-size-lead); color: var(--color-text-muted); margin-bottom: var(--space-3); }
+  & > ul:not(.element) { list-style: none; padding: 0; display: grid; gap: var(--space-3); font-size: var(--site-font-size-lead); }
+  & > ul:not(.element) li { position: relative; padding-left: var(--space-6); }
+  & > ul:not(.element) li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: var(--space-4);
+    height: 2px;
+    background: var(--color-accent);
+  }
+  & > .element { margin: 0; }
+}
+.slide__actions { margin-top: var(--space-3); }
+
+/* Elements condensed for a slide: the full versions live on their pages. */
+.slide {
+  & .person__bio, & .person__link { display: none; }
+  & .people { grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); }
+  & .person__portrait img { aspect-ratio: 1; }
+  & .person__body { padding: var(--space-3); gap: var(--space-1); }
+  & .person__name { font-size: var(--font-size-lg); }
+  & .step__body { padding-bottom: var(--space-4); }
+}
+
+/* Title slide: the navy chrome. */
+.slide--title .slide__canvas {
+  background: var(--band-inverse-bg);
+  color: var(--band-inverse-text);
+  border-color: var(--color-chrome-border);
+}
+.slide--title .slide__content {
+  & > :is(h1, h2) { font-size: var(--site-font-size-h1); color: var(--band-inverse-text); }
+  & > :is(h1, h2) + p { font-size: var(--site-font-size-lead); color: var(--band-inverse-text); }
+  & > p { color: var(--band-inverse-muted); }
+}
+
+/* Controls */
+.deck__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: var(--deck-controls-height);
+}
+.deck__controls[hidden] { display: none; }
+.deck__button {
+  display: inline-grid;
+  place-items: center;
+  width: var(--site-tap-target);
+  height: var(--site-tap-target);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  &:hover:not(:disabled) { border-color: var(--color-accent); }
+  &:disabled { opacity: 0.4; cursor: default; }
+}
+.deck__dots { list-style: none; padding: 0; display: flex; gap: var(--space-1); }
+.deck__dot {
+  display: block;
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--color-border-strong);
+  &[aria-current] { width: var(--space-5); background: var(--color-accent); }
+}
+.deck__counter { font-family: var(--font-mono); font-size: var(--font-size-lg); color: var(--color-text-muted); min-width: 4ch; text-align: center; }
+@media (max-width: 40rem) { .deck__dots { display: none; } }
+
+/* Enhanced, wide: one zoomed slide filling the stage. */
+@media (min-width: 60rem) {
+  .deck--active {
+    height: calc(100dvh - var(--site-header-height));
+    grid-template-rows: 1fr auto;
+    padding-block: var(--space-4) var(--space-2);
+    & .deck__stage { min-height: 0; place-items: center; }
+    & .slide__canvas {
+      width: var(--deck-canvas-width);
+      height: var(--deck-canvas-height);
+      padding: var(--space-7);
+      zoom: var(--deck-scale, 1);
+    }
+    /* Fixed sizes on the zoomed canvas: viewport-relative clamps make no sense there. */
+    & .slide__content {
+      --site-font-size-h1: 5rem;
+      --site-font-size-h2: 2.75rem;
+      --site-font-size-h3: 1.5rem;
+      --site-font-size-lead: 1.375rem;
+    }
+  }
+}
+.deck:fullscreen {
+  height: 100dvh;
+  background: var(--color-surface);
+}
+
+@media print {
+  .deck__controls, .site-header, .site-footer { display: none; }
+  .slide[hidden] { display: block; }
+  .slide { break-after: page; }
+  .slide__canvas { zoom: 1; box-shadow: none; }
+}

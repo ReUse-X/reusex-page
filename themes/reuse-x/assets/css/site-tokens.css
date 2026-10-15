@@ -39,6 +39,12 @@
   --band-accent-bg: var(--color-accent-deep);
   --band-accent-text: var(--color-on-accent);
 
+  /* Deck: slides are designed on a fixed canvas and zoomed to fit. */
+  --deck-canvas-width: 1000px;
+  --deck-canvas-height: 562.5px;
+  --deck-controls-height: 4rem;
+  --deck-scale: 1; /* set by js/deck.js to fit the stage */
+
   /* Site chrome */
   --site-header-bg: var(--color-chrome);
   --site-header-text: var(--color-on-chrome);

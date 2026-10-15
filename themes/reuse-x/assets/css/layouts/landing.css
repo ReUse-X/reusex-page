@@ -3,6 +3,7 @@
   & > .band { margin: 0; }
   & > :not(.band):first-child { margin-top: var(--site-space-section); }
   & > .band + :not(.band) { margin-top: var(--site-space-section); }
+  & > .band--intro + :not(.band) { margin-top: 0; }
   & > :not(.band):has(+ .band) { margin-bottom: var(--site-space-section); }
   & > :not(.band):last-child { margin-bottom: var(--site-space-section); }
 }

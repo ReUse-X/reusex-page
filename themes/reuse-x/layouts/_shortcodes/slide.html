@@ -1,0 +1,26 @@
+{{- /*
+  slide — one slide of a deck page (layout: deck). The first slide is shown
+  as the title slide.
+
+  Params:  action  label of a button on the slide   link   its target
+  Inner:   Markdown + elements (required). Convention: a ## title, then a
+           one-line subtitle paragraph, then bullets or an element
+           (steps, stats, people, cards).
+
+  {{< slide >}}
+  ## The Problem
+  Buildings are a waste crisis
+  - **40 %** of all global waste comes from construction and demolition
+  {{< /slide >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "action" "link") "inner" "required") -}}
+{{- if ne .Page.Layout "deck" }}{{ errorf "%s: {{< slide >}} only works on a page with layout: deck" .Position }}{{ end -}}
+{{- $n := add .Ordinal 1 -}}
+<section class="slide{{ if eq $n 1 }} slide--title{{ end }}" id="slide-{{ $n }}" aria-roledescription="slide" aria-label="{{ i18n "deck_slide" (dict "n" $n) }}">
+<div class="slide__canvas">
+<div class="slide__content">
+{{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
+{{- partial "actions.html" (dict "ctx" . "class" "slide__actions") }}
+</div>
+</div>
+</section>

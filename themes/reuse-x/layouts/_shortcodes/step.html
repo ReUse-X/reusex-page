@@ -15,7 +15,7 @@
 {{- $title := .Get "title" -}}
 {{- with .Parent }}{{ if ne .Name "steps" }}{{ errorf "%s: {{< step >}} must be inside {{< steps >}}" $.Position }}{{ end }}{{ else }}{{ errorf "%s: {{< step >}} must be inside {{< steps >}}" .Position }}{{ end -}}
 <div class="step{{ if or (.Get "marker") (.Get "icon") }} step--marked{{ end }}">
-<div class="step__marker" aria-hidden="true">{{ with .Get "icon" }}{{ partial "icon.html" . }}{{ else }}{{ with $.Get "marker" }}{{ . }}{{ end }}{{ end }}</div>
+<div class="step__aside"><div class="step__marker" aria-hidden="true">{{ with .Get "icon" }}{{ partial "icon.html" . }}{{ else }}{{ with $.Get "marker" }}{{ . }}{{ end }}{{ end }}</div></div>
 <div class="step__body">
 <h3 class="step__title">{{ with .Get "marker" }}<span class="visually-hidden">{{ . }}: </span>{{ end }}{{ partial "brand-text.html" $title }}</h3>
 {{- with strings.TrimSpace .Inner }}<div class="step__text">{{ partial "markdown.html" (dict "page" $.Page "inner" $.Inner) }}</div>{{ end }}

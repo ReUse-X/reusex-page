@@ -41,6 +41,8 @@ code, kbd, samp { font-family: var(--font-mono); font-size: 0.9em; }
   color: var(--color-text-muted);
 }
 
+.lead { font-size: var(--site-font-size-lead); color: var(--color-text-muted); line-height: var(--line-height-normal); }
+
 .skip-link {
   position: absolute;
   left: var(--space-4);

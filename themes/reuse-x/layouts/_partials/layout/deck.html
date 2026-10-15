@@ -1,0 +1,17 @@
+{{- /* deck — a slide presentation (the pitch deck). Each {{< slide >}} is one
+       slide. Desktop: one 16:9 slide at a time, scaled to fit; phones: the
+       slides as cards in sequence. Without JS all slides show in order. */ -}}
+{{- $content := .Content }}
+<div class="deck" data-deck>
+  <h1 class="visually-hidden">{{ partial "brand-text.html" .Title }}</h1>
+  <div class="deck__stage">
+    {{ $content }}
+  </div>
+  <nav class="deck__controls" aria-label="{{ i18n "deck_controls" }}" hidden>
+    <button type="button" class="deck__button" data-deck-prev aria-label="{{ i18n "deck_prev" }}">{{ partial "icon.html" "arrow-left" }}</button>
+    <ol class="deck__dots" data-deck-dots></ol>
+    <span class="deck__counter" data-deck-counter aria-live="polite"></span>
+    <button type="button" class="deck__button" data-deck-next aria-label="{{ i18n "deck_next" }}">{{ partial "icon.html" "arrow-right" }}</button>
+    <button type="button" class="deck__button" data-deck-fullscreen aria-label="{{ i18n "deck_fullscreen" }}">{{ partial "icon.html" "expand" }}</button>
+  </nav>
+</div>

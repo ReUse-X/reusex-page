@@ -8,6 +8,7 @@
 @import "layouts/flow.css";
 @import "layouts/landing.css";
 @import "layouts/article.css";
+@import "layouts/deck.css";
 @import "components/button.css";
 @import "components/actions.css";
 @import "components/media-frame.css";

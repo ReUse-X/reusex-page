@@ -16,6 +16,13 @@
   border-radius: var(--radius-lg);
 }
 .band--plain:nth-child(odd of .band--plain) .card { background: var(--color-surface); }
+.card--image { padding-top: 0; overflow: hidden; }
+.card__image {
+  margin-inline: calc(-1 * var(--space-5));
+  margin-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  & img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+}
 .card__icon {
   display: inline-grid;
   place-items: center;

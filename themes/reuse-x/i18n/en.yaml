@@ -11,3 +11,9 @@ read_publication: Read the publication
 before: Before
 after: After
 compare: Drag to compare before and after
+deck_controls: Slide navigation
+deck_prev: Previous slide
+deck_next: Next slide
+deck_fullscreen: Toggle fullscreen
+deck_slide: "Slide {{ .n }}"
+deck_go_to: "Go to slide {{ .n }}"

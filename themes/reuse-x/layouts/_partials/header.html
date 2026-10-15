@@ -5,8 +5,9 @@
       <ul class="site-nav__list">
         {{- range site.Menus.main }}
           {{- $current := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}
+          {{- $name := .Name }}
           {{- with .Page }}
-          <li><a href="{{ .RelPermalink }}"{{ if $current }} aria-current="page"{{ end }}>{{ .LinkTitle }}</a></li>
+          <li><a href="{{ .RelPermalink }}"{{ if $current }} aria-current="page"{{ end }}>{{ $name }}</a></li>
           {{- end }}
         {{- end }}
       </ul>

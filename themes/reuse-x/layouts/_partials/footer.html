@@ -17,7 +17,8 @@
         <h2 class="site-footer__heading">{{ .Name }}</h2>
         <ul>
           {{- range .Children }}
-            {{- with .Page }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}
+            {{- $name := .Name }}
+            {{- with .Page }}<li><a href="{{ .RelPermalink }}">{{ $name }}</a></li>{{ end }}
           {{- end }}
         </ul>
       </div>

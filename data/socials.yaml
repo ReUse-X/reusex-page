@@ -1,6 +1,6 @@
 # Social profiles shown in the footer. icon = a name from the theme's icon registry.
 - name: LinkedIn
-  url: https://www.linkedin.com/in/sonne-frederiksen/
+  url: https://www.linkedin.com/company/reuse-x
   icon: linkedin
 - name: GitHub
   url: https://github.com/ReUse-X

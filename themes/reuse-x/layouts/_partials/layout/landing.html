@@ -4,7 +4,7 @@
 {{- $content := .Content }}
 <div class="landing flow">
   {{- if not (.Store.Get "hero") }}
-  <header class="band band--intro">
+  <header class="band band--intro flow">
     <h1>{{ partial "brand-text.html" .Title }}</h1>
     {{- with .Description }}<p class="lead">{{ . }}</p>{{ end }}
   </header>

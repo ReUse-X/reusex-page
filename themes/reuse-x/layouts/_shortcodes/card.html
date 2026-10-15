@@ -3,6 +3,8 @@
   icon and an optional link (the whole card becomes clickable).
 
   Params:  title            the title (required)
+           image            picture shown at the top of the card, optional
+           alt              alt text for image (required with image)
            icon             icon name from the theme's icon registry
            link             page path, app:…, or https://…
   Inner:   Markdown text (optional)
@@ -11,12 +13,13 @@
   Scan with an iPad and tag components as you go.
   {{< /card >}}
 */ -}}
-{{- partial "validate.html" (dict "ctx" . "named" (slice "title" "icon" "link") "required" (slice "title")) -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "title" "image" "alt" "icon" "link") "required" (slice "title")) -}}
 {{- $title := .Get "title" -}}
 {{- with .Parent }}{{ if ne .Name "cards" }}{{ errorf "%s: {{< card >}} must be inside {{< cards >}}" $.Position }}{{ end }}{{ else }}{{ errorf "%s: {{< card >}} must be inside {{< cards >}}" .Position }}{{ end -}}
 {{- $link := "" -}}
 {{- with .Get "link" }}{{ $link = (partial "link.html" (dict "url" . "page" $.Page "position" $.Position)).href }}{{ end -}}
-<article class="card{{ if $link }} card--link{{ end }}">
+<article class="card{{ if $link }} card--link{{ end }}{{ if .Get "image" }} card--image{{ end }}">
+{{- with .Get "image" }}<div class="card__image">{{ partial "image.html" (dict "src" . "alt" ($.Get "alt") "page" $.Page "sizes" "(min-width: 60rem) 24rem, 100vw" "position" $.Position) }}</div>{{ end }}
 {{- with .Get "icon" }}<span class="card__icon">{{ partial "icon.html" . }}</span>{{ end }}
 <h3 class="card__title">{{ if $link }}<a href="{{ $link }}">{{ partial "brand-text.html" $title }}</a>{{ else }}{{ partial "brand-text.html" $title }}{{ end }}</h3>
 {{- with strings.TrimSpace .Inner }}<div class="card__text">{{ partial "markdown.html" (dict "page" $.Page "inner" $.Inner) }}</div>{{ end }}
