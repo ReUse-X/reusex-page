@@ -33,6 +33,25 @@ export function initDeck() {
     const stage = deck.querySelector('.deck__stage');
     const scale = Math.min(stage.clientWidth / DESIGN_W, stage.clientHeight / DESIGN_H);
     deck.style.setProperty('--deck-scale', String(scale));
+    fitContent(slides[current - 1]);
+  }
+
+  // Too much content for the fixed canvas: shrink it (down to MIN_FIT)
+  // instead of clipping. Below that the slide should be split.
+  const MIN_FIT = 0.75;
+  function fitContent(slide) {
+    const canvas = slide?.querySelector('.slide__canvas');
+    const content = slide?.querySelector('.slide__content');
+    if (!canvas || !content) return;
+    content.style.zoom = '';
+    if (!matchMedia('(min-width: 60rem)').matches) return; // phones: natural height
+    const room = canvas.clientHeight - parseFloat(getComputedStyle(canvas).paddingTop) * 2;
+    const need = content.scrollHeight;
+    if (need > room) {
+      const z = Math.max(MIN_FIT, room / need);
+      content.style.zoom = String(z);
+      if (room / need < MIN_FIT) console.warn(`deck: slide ${current} has too much content even at ${MIN_FIT} — split it`);
+    }
   }
 
   function show(n, push = true) {

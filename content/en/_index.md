@@ -65,19 +65,19 @@ Explore the building in an interactive 3D dashboard. The model, documents, inven
 Real results from pilot projects already using ReUseX for resource mapping. Pilot results to date.
 
 {{< stats >}}
-{{< stat "8" >}}
+{{< stat value="8" >}}
 Buildings analysed in pilots
 {{< /stat >}}
 
-{{< stat "250" >}}
+{{< stat value="250" >}}
 Avg. hours saved per project
 {{< /stat >}}
 
-{{< stat "10x" >}}
+{{< stat value="10x" >}}
 Faster resource mapping
 {{< /stat >}}
 
-{{< stat "75%" >}}
+{{< stat value="75%" >}}
 Cost Savings
 {{< /stat >}}
 {{< /stats >}}

@@ -160,7 +160,7 @@ template.
   one group of params per line; a blank line between sibling items.
   content_lint enforces the one-line rule.
 - **Mixed params:** Hugo can't mix positional and named shortcode params;
-  only `stat "40 %"` is positional.
+  every element uses named parameters only.
 - **Utilities vs layers:** Tailwind utilities beat the CSS layers; to
   change an element inside a context (slides) use variants like
   `in-[.slide]:hidden`, not a layered override.
@@ -176,6 +176,9 @@ template.
   `themes/reuse-x/layouts` and `assets/js`; classes built from strings must
   appear literally there. Each checkout/worktree has its own `generated/`
   and its own watcher (started and stopped by its `serve.sh`).
+- **Deck overflow:** a slide with more content than the canvas is shrunk
+  to fit (down to 75 %, `js/deck.js`); below that the console warns —
+  split the slide instead of cutting copy.
 - **`zoom`** scales the deck canvas (it also scales layout, so centring
   works); the canvas is 1000×562.5 (`--deck-canvas-*`).
 - **Theme key:** `localStorage['reusex-theme']` = light | dark | system,

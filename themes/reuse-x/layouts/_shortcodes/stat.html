@@ -2,19 +2,23 @@
   stat — one figure inside stats. A trailing unit (%, m², t …) is set
   smaller automatically. The content is the label.
 
-  {{< stat "54 %" >}}
-  reused or preserved
+  {{< stat value="852 M m²" source="Statistics Denmark, Building Census 2025" >}}
+  existing building stock in Denmark
   {{< /stat >}}
 
-  1st value   the figure, e.g. "72 %", "1,000+", "3.2 t" (required)
+  value    the figure, e.g. "72 %", "1,000+", "3.2 t"     required
+  source   where the figure comes from (under the label)  optional
 */ -}}
-{{- partial "validate.html" (dict "ctx" . "positional" 1 "required" (slice "value") "inner" "required") -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "value" "source") "required" (slice "value") "inner" "required") -}}
 {{- with .Parent }}{{ if ne .Name "stats" }}{{ errorf "%s: {{< stat >}} must be inside {{< stats >}}" $.Position }}{{ end }}{{ else }}{{ errorf "%s: {{< stat >}} must be inside {{< stats >}}" .Position }}{{ end -}}
-{{- $value := .Get 0 -}}
+{{- $value := .Get "value" -}}
 {{- $m := index (findRESubmatch `^([^\d]*[\d.,]+\+?)\s*(.*)$` $value 1) 0 -}}
 <div class="stat grid content-start gap-2 rounded-md border border-border bg-(--panel-bg) p-5">
   <p class="font-display text-h2 leading-none font-medium tabular-nums">
     {{- with $m }}{{ index . 1 }}{{ with index . 2 }}<span class="ml-[0.15em] text-[0.5em]">{{ . }}</span>{{ end }}{{ else }}{{ $value }}{{ end -}}
   </p>
   <p class="text-sm leading-normal font-bold tracking-caps text-text-muted uppercase">{{ .Inner | strings.TrimSpace | .Page.RenderString }}</p>
+  {{- with .Get "source" }}
+  <p class="mt-auto pt-1 text-xs text-text-faint">{{ . }}</p>
+  {{- end }}
 </div>
