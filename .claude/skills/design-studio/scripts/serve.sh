@@ -3,8 +3,9 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
-# Keep ONE live `hugo server` + ONE `tailwindcss --watch` running for the
-# design loop and print the URL. Tailwind (standalone CLI, no npm) compiles
+# Keep ONE live `hugo server` (per PORT) + ONE `tailwindcss --watch` (per
+# checkout — a git worktree gets its own) running for the design loop and
+# print the URL. Tailwind (standalone CLI, no npm) compiles
 # themes/reuse-x/assets/css/main.css → assets/css/generated/site.css; Hugo
 # picks the file up and live-reloads.
 #
@@ -61,6 +62,13 @@ pids() { pgrep -f "^hugo server --bind [^ ]+ --port $PORT " || true; }
 THEME_CSS="$ROOT/themes/reuse-x/assets/css"
 TW_ARGS=(-i "$THEME_CSS/main.css" -o "$THEME_CSS/generated/site.css")
 TW_LOG="$OUT/tailwind.log"
+checkout_hugo_pids() {
+  local p
+  for p in $(pgrep -f '^hugo server ' || true); do
+    [[ "$(readlink "/proc/$p/cwd" 2>/dev/null)" == "$ROOT" ]] && echo "$p"
+  done
+  return 0
+}
 tw_pids() { pgrep -f "^[^ ]*tailwindcss -i $THEME_CSS/main.css" || true; }
 tw_start() {
   [[ -n "$(tw_pids)" ]] && return 0
@@ -78,8 +86,9 @@ stop() {
     kill $p
     echo "serve.sh: stopped hugo server on :$PORT"
   fi
-  # The Tailwind watcher is shared by all ports; stop it with the last server.
-  if [[ -z "$(pgrep -f '^hugo server ' || true)" && -n "$(tw_pids)" ]]; then
+  # One Tailwind watcher per checkout (worktrees get their own, keyed on the
+  # path); stop it once this checkout has no hugo server left on any port.
+  if [[ -z "$(checkout_hugo_pids)" && -n "$(tw_pids)" ]]; then
     # shellcheck disable=SC2046
     kill $(tw_pids); echo "serve.sh: stopped tailwind watcher"
   fi

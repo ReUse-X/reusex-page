@@ -21,6 +21,16 @@
   `max-w-site`, `max-w-site-prose`, `px-gutter`, `py-section`, `size-tap`,
   `min-h-header`. Use `page-width` for the centred content width;
   `dark:` = `[data-theme=dark]`.
+- **Which utilities exist:** whatever `assets/css/tailwind-theme.css`
+  registers, plus Tailwind's own spacing/layout/border-width defaults
+  (`p-5`, `mt-0.5`, `gap-4`, `max-w-3xl`, `border-l-4`, `grid-cols-*` …).
+  Switched off: Tailwind's colours, radii, shadows, fonts, text sizes and
+  leading — `text-sm`, `rounded-md`, `leading-tight` are the *product's*
+  values. Colour names are the token names minus `--color-`, so the body
+  text colour is `text-text`, muted `text-text-muted`, borders
+  `border-border`. Tokens outside the registered families (e.g.
+  `--tone-*`, `--circ-*`, `--label-*`) have no utility — use
+  `bg-(--tone-good-bg)`.
 - **JS:** vanilla modules bundled by `js.Build` from `assets/js/main.js`.
 - **Fonts:** Oswald + Archivo, self-hosted in `themes/reuse-x/static/fonts/`
   (OFL, licences next to them); `css.Build` treats `/fonts/*` as external.
@@ -117,9 +127,12 @@ hero, cta) is itself a `.flow`. Consequences:
 7. An item with a title (card, step, question) takes it from the first
    Markdown heading: `partial "heading-split.html"`. Never add `title=`.
 8. Add a snippet `content/en/components/examples/<name>.txt` and an
-   `{{< example "<name>" >}}` line on the gallery page. In the gallery the
-   source panel is `#example-<name>` and the rendered element is its next
-   sibling: shoot it with `--selector "#example-<name> + .<name>"`.
+   `{{< example "<name>" >}}` line on the gallery page (a draft page: run
+   the server with `DRAFTS=1`). The source panel is `#example-<name>` and
+   the rendered element is its next sibling: shoot it with
+   `--selector "#example-<name> + *"`.
+   An element meant to sit *inside prose* (callout, checklist) also takes
+   `max-w-site-prose` — `.element` alone spans the full content width.
 9. Container + item elements (cards/card, steps/step, stats/stat,
    faq/question): only the container carries `element`; each item checks
    its parent with the guard copied from `card.html`
@@ -157,9 +170,12 @@ template.
   and renders `#broken-link/<path>`; shot.py reports them as CHECK FAIL.
 - **Aliases** of pages added while the server runs only appear after
   `serve.sh restart`.
-- **Watcher:** if a new class has no effect, check `serve.sh log` (the
-  Tailwind section) — the watcher scans `themes/reuse-x/layouts` and
-  `assets/js`; classes built from strings must appear literally there.
+- **Watcher:** if a new class has no effect, grep it in
+  `themes/reuse-x/assets/css/generated/site.css`; if it's missing, see
+  `serve.sh log` (Tailwind section). The watcher scans
+  `themes/reuse-x/layouts` and `assets/js`; classes built from strings must
+  appear literally there. Each checkout/worktree has its own `generated/`
+  and its own watcher (started and stopped by its `serve.sh`).
 - **`zoom`** scales the deck canvas (it also scales layout, so centring
   works); the canvas is 1000×562.5 (`--deck-canvas-*`).
 - **Theme key:** `localStorage['reusex-theme']` = light | dark | system,

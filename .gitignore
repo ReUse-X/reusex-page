@@ -41,3 +41,6 @@ tmp/
 
 # Tailwind output (built by serve.sh / CI)
 themes/reuse-x/assets/css/generated/
+
+# Local source material (decks, exports) — never commit; the repo is public
+*.zip

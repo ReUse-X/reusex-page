@@ -26,6 +26,7 @@ element at all:
 {{< example "steps-timeline" >}}
 {{< example "faq" >}}
 {{< example "quote" >}}
+{{< example "callout" >}}
 {{< example "before-after" >}}
 {{< example "logos" >}}
 {{< example "people" >}}

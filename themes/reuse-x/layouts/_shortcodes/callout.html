@@ -1,0 +1,18 @@
+{{- /*
+  callout — a highlighted note for one important remark inside prose.
+
+  {{< callout icon="info" >}}
+  The simplified model supports early decisions — it does **not** replace a measured survey.
+  {{< /callout >}}
+
+  icon   icon name (see _partials/icon.html)   optional
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "icon") "inner" "required") -}}
+<aside class="element element--callout callout flex max-w-site-prose gap-3 rounded-md border-l-4 border-accent bg-accent-muted px-5 py-4 text-text" role="note">
+  {{- with .Get "icon" }}
+  <span class="mt-0.5 shrink-0 text-accent-deep">{{ partial "icon.html" . }}</span>
+  {{- end }}
+  <div class="md min-w-0">
+    {{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
+  </div>
+</aside>

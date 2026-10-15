@@ -1,0 +1,3 @@
+{{< callout icon="info" >}}
+The simplified 3D model supports early decisions — it does **not** replace a measured survey.
+{{< /callout >}}

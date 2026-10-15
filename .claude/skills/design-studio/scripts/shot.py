@@ -327,6 +327,8 @@ def main() -> int:
                     png = out / f"{slug(path)}-{theme}-{vp}.png"
                     shots = [png]
                     sel = a.selector or a.each
+                    if sel:  # element shots: keep the sticky header from overlapping
+                        page.add_style_tag(content=".site-header { position: static !important; }")
                     if a.probe:
                         for row in page.evaluate(PROBE_JS, a.probe):
                             print(f"PROBE {slug(path)} {theme} {vp}: " + "  ".join(f"{k}={v}" for k, v in row.items()))

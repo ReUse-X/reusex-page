@@ -97,8 +97,17 @@
               ''
                 echo "Entering dev shell"
                 export VIRTUAL_ENV_PROMPT="ReUseX Webpage"
+                # git-hooks.nix rewrites core.hooksPath (shared by all worktrees);
+                # beads keeps its hooks in .beads/hooks — keep whatever was set.
+                _reusex_hooks_path="$(git config --get core.hooksPath 2>/dev/null || true)"
               ''
-              + self.checks.${system}.pre-commit-check.shellHook;
+              + self.checks.${system}.pre-commit-check.shellHook
+              + ''
+                if [ -n "$_reusex_hooks_path" ]; then
+                  git config core.hooksPath "$_reusex_hooks_path"
+                fi
+                unset _reusex_hooks_path
+              '';
           }; # end of default shell
 
           # Minimal shell for CI: build + checks only (no browsers, no CLIs).
