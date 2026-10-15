@@ -1,6 +1,7 @@
 ---
 title: "Roadmap"
 description: "ReUseX roadmap and milestones for scaling reuse delivery"
+aliases: [/roadmap/01-2026/, /roadmap/02-roadmap/, /roadmap/03-2027/]
 ---
 
 {{< section id="2026" >}}

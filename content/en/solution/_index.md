@@ -1,7 +1,7 @@
 ---
 title: ReUseX Solution
 description: AI-powered resource mapping from LiDAR to circularity-ready 3D models and inventories
-aliases: [/reusex-solution/]
+aliases: [/reusex-solution/, /reusex-solution/02-3d-scanning/, /reusex-solution/03-ai-based-segmentation/, /reusex-solution/04-cloudbased-platform/, /reusex-solution/01-the-reusex-solution/]
 ---
 
 {{< hero >}}

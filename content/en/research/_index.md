@@ -1,6 +1,7 @@
 ---
 title: Research
 description: Ph.D. research on 3D mapping of vacant buildings for reuse
+aliases: [/research/01-research/]
 ---
 
 ReUseX is based on the Ph.D. research of Povl Filip Sonne-Frederiksen, focused on making the reuse of vacant buildings more practical and cost-effective. Vacant structures often end up demolished because reuse seems complex and uncertain. This research addresses that challenge by simplifying early-stage 3D mapping, providing accurate data and actionable insights right from the start. With better information early in the process, stakeholders can reduce risk, plan smarter, and make reuse a viable option—ultimately lowering the CO₂ footprint of construction and supporting circular economy principles.

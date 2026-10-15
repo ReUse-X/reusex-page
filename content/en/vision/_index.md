@@ -1,7 +1,7 @@
 ---
 title: "Vision"
 description: "Our vision for sustainable resource management and the journey ahead"
-aliases: [/vision-journey/]
+aliases: [/vision-journey/, /vision-journey/02-journey/, /vision-journey/01-vision/]
 ---
 
 {{< section id="vision" >}}

@@ -2,6 +2,7 @@
 title: Pitch Deck
 description: ReUseX investor and partner pitch deck
 layout: deck
+aliases: [/pitchdeck/01-cover/, /pitchdeck/02-problem/, /pitchdeck/03-opportunity/, /pitchdeck/04-solution/, /pitchdeck/05-how-it-works/, /pitchdeck/06-technology/, /pitchdeck/07-pilots/, /pitchdeck/08-business-model/, /pitchdeck/09-roadmap/, /pitchdeck/10-team/, /pitchdeck/11-impact/, /pitchdeck/12-cta/]
 ---
 
 {{< slide >}}

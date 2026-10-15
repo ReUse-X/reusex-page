@@ -1,6 +1,7 @@
 ---
 title: "People"
 description: "Meet the team and board behind ReUseX"
+aliases: [/people/02-team/]
 ---
 
 {{< section id="team" >}}

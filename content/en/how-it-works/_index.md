@@ -1,6 +1,7 @@
 ---
 title: How it Works
 description: Discover how ReUseX transforms raw LiDAR scans into reuse-ready models and data packages
+aliases: [/how-it-works/01-how-it-works/, /how-it-works/02-on-site-registration/, /how-it-works/03-compute/, /how-it-works/04-platform/]
 ---
 
 {{< hero >}}
