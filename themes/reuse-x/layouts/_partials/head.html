@@ -22,11 +22,13 @@
     }
   }());
 </script>
-{{- with resources.Get "css/main.css" }}
-  {{- /* /fonts/ is served from static/ as-is; css.Build must not resolve it. */}}
-  {{- $css := . | css.Build (dict "minify" hugo.IsProduction "externals" (slice "/fonts/*")) }}
-  {{- if hugo.IsProduction }}{{ $css = $css | fingerprint }}{{ end }}
+{{- /* Built by the Tailwind CLI from css/main.css (serve.sh / CI). */}}
+{{- with resources.Get "css/generated/site.css" }}
+  {{- $css := . }}
+  {{- if hugo.IsProduction }}{{ $css = . | minify | fingerprint }}{{ end }}
   <link rel="stylesheet" href="{{ $css.RelPermalink }}"{{ with $css.Data.Integrity }} integrity="{{ . }}"{{ end }}>
+{{- else }}
+  {{- errorf "css/generated/site.css is missing — run the Tailwind build (serve.sh does it; CI: tailwindcss -i themes/reuse-x/assets/css/main.css -o themes/reuse-x/assets/css/generated/site.css --minify)" }}
 {{- end }}
 {{- with resources.Get "js/main.js" }}
   {{- $js := . | js.Build (dict "minify" hugo.IsProduction "targetPath" "js/main.js") }}

@@ -1,30 +1,49 @@
-/* ReUseX site styles — @import order only. One component per file. */
-@import "tokens.css";
-@import "site-tokens.css";
-@import "base/fonts.css";
-@import "base/reset.css";
-@import "base/typography.css";
-@import "layouts/site.css";
-@import "layouts/flow.css";
-@import "layouts/landing.css";
-@import "layouts/article.css";
-@import "layouts/deck.css";
-@import "components/button.css";
-@import "components/actions.css";
-@import "components/media-frame.css";
-@import "components/hero.css";
-@import "components/media.css";
-@import "components/cards.css";
-@import "components/checklist.css";
-@import "components/quote.css";
-@import "components/cta.css";
-@import "components/stats.css";
-@import "components/steps.css";
-@import "components/logos.css";
-@import "components/people.css";
-@import "components/publication.css";
-@import "components/contact.css";
-@import "components/before-after.css";
-@import "components/video.css";
-@import "components/example.css";
-@import "components/faq.css";
+/*
+ * ReUseX site styles — the Tailwind entry file, built by the standalone
+ * Tailwind CLI (serve.sh in development, CI for production) into
+ * generated/site.css, which head.html loads. No CDN, no npm.
+ *
+ * Templates use Tailwind utilities. The theme maps them onto the product
+ * tokens (tailwind-theme.css, generated) — Tailwind's default palette is
+ * off, so only token colours exist. CSS files below hold only what
+ * utilities do badly; each lives in a cascade layer so utilities win.
+ */
+@import "tailwindcss" source(none);
+@source "../../layouts";
+@source "../js";
+
+@import "./tailwind-theme.css";
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* Design tokens: product (vendored, never edit) + site. */
+@import "./tokens.css";
+@import "./site-tokens.css";
+
+@import "./base/fonts.css" layer(base);
+@import "./base/reset.css" layer(base);
+@import "./base/typography.css" layer(base);
+
+@import "./layouts/site.css" layer(components);
+@import "./layouts/flow.css" layer(components);
+@import "./layouts/landing.css" layer(components);
+@import "./layouts/article.css" layer(components);
+@import "./layouts/deck.css" layer(components);
+@import "./components/button.css" layer(components);
+@import "./components/actions.css" layer(components);
+@import "./components/media-frame.css" layer(components);
+@import "./components/hero.css" layer(components);
+@import "./components/media.css" layer(components);
+@import "./components/cards.css" layer(components);
+@import "./components/checklist.css" layer(components);
+@import "./components/quote.css" layer(components);
+@import "./components/cta.css" layer(components);
+@import "./components/stats.css" layer(components);
+@import "./components/steps.css" layer(components);
+@import "./components/logos.css" layer(components);
+@import "./components/people.css" layer(components);
+@import "./components/publication.css" layer(components);
+@import "./components/contact.css" layer(components);
+@import "./components/before-after.css" layer(components);
+@import "./components/video.css" layer(components);
+@import "./components/example.css" layer(components);
+@import "./components/faq.css" layer(components);

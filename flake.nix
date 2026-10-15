@@ -105,6 +105,7 @@
           ci = pkgs.mkShell {
             packages = with pkgs; [
               hugo
+              tailwindcss_4
               python3
               lychee
             ];

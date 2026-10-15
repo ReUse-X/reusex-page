@@ -119,7 +119,9 @@ def main() -> int:
     r = root()
     theme = r / "themes/reuse-x"
     token_files = sorted((theme / "assets/css").glob("*tokens.css"))
-    css_files = sorted(p for p in (theme / "assets/css").rglob("*.css") if p not in token_files)
+    generated = {theme / "assets/css/tailwind-theme.css"}
+    css_files = sorted(p for p in (theme / "assets/css").rglob("*.css")
+                       if p not in token_files and p not in generated and "generated" not in p.parts)
     templates = sorted([*theme.glob("layouts/**/*.html"), *r.glob("layouts/**/*.html")])
     tokens = defined_tokens([*token_files, *css_files, *templates])
     files = a.files or [*templates, *css_files]

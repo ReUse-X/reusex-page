@@ -40,6 +40,12 @@ jobs:
           nix develop .#ci -c python3 .claude/skills/design-studio/scripts/content_lint.py
           nix develop .#ci -c python3 .claude/skills/design-studio/scripts/token_lint.py
 
+      - name: Build CSS with Tailwind (standalone CLI, no npm)
+        run: >
+          nix develop .#ci -c tailwindcss --minify
+          -i themes/reuse-x/assets/css/main.css
+          -o themes/reuse-x/assets/css/generated/site.css
+
       - name: Build with Hugo
         env:
           HUGO_ENVIRONMENT: production

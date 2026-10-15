@@ -38,3 +38,6 @@ tmp/
 .beads-credential-key
 .beads/proxieddb/
 *.gate.lock*
+
+# Tailwind output (built by serve.sh / CI)
+themes/reuse-x/assets/css/generated/

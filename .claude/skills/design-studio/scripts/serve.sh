@@ -3,7 +3,10 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
-# Keep ONE live `hugo server` running for the design loop and print its URL.
+# Keep ONE live `hugo server` + ONE `tailwindcss --watch` running for the
+# design loop and print the URL. Tailwind (standalone CLI, no npm) compiles
+# themes/reuse-x/assets/css/main.css → assets/css/generated/site.css; Hugo
+# picks the file up and live-reloads.
 #
 # Idempotent: if the server is already answering on the port it just prints
 # the URL and exits 0, so call it at the start of every round without worrying.
@@ -55,6 +58,16 @@ in_dev() {
 # is a wrapper; killing it leaves hugo running). Anchored with ^ so it never
 # matches a shell whose command line merely mentions hugo.
 pids() { pgrep -f "^hugo server --bind [^ ]+ --port $PORT " || true; }
+THEME_CSS="$ROOT/themes/reuse-x/assets/css"
+TW_ARGS=(-i "$THEME_CSS/main.css" -o "$THEME_CSS/generated/site.css")
+TW_LOG="$OUT/tailwind.log"
+tw_pids() { pgrep -f "^[^ ]*tailwindcss -i $THEME_CSS/main.css" || true; }
+tw_start() {
+  [[ -n "$(tw_pids)" ]] && return 0
+  mkdir -p "$THEME_CSS/generated"
+  in_dev tailwindcss "${TW_ARGS[@]}" >"$TW_LOG" 2>&1 || { cat "$TW_LOG" >&2; return 1; }
+  in_dev tailwindcss "${TW_ARGS[@]}" --watch=always >>"$TW_LOG" 2>&1 &
+}
 drafts_on() { pgrep -af "^hugo server --bind [^ ]+ --port $PORT " | grep -q -- --buildDrafts; }
 
 stop() {
@@ -65,9 +78,15 @@ stop() {
     kill $p
     echo "serve.sh: stopped hugo server on :$PORT"
   fi
+  # The Tailwind watcher is shared by all ports; stop it with the last server.
+  if [[ -z "$(pgrep -f '^hugo server ' || true)" && -n "$(tw_pids)" ]]; then
+    # shellcheck disable=SC2046
+    kill $(tw_pids); echo "serve.sh: stopped tailwind watcher"
+  fi
 }
 
 start() {
+  tw_start
   if up; then url; return 0; fi
   # Bound to another address (e.g. Tailscale came up since): restart cleanly.
   if [[ -n "$(pids)" ]]; then stop; sleep 0.5; fi
@@ -101,7 +120,7 @@ case "${1:-start}" in
   restart) stop; sleep 0.5; start ;;
   status)
     if up; then echo "up $(url)$(drafts_on && echo ' (with drafts)')"; else echo "down"; exit 1; fi ;;
-  log) tail -n "${LINES:-40}" "$LOG" ;;
+  log) tail -n "${LINES:-40}" "$LOG"; echo "--- tailwind"; tail -n 5 "$TW_LOG" ;;
   -h|--help) sed -n '2,/^set -euo/p' "$0" | sed 's/^# \{0,1\}//; /^set -euo/d' ;;
   *) echo "serve.sh: unknown command $1" >&2; exit 2 ;;
 esac

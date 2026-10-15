@@ -28,4 +28,5 @@ case "$SRC" in
      cp "$SRC" "$DEST" ;;
 esac
 echo "sync-tokens.sh: $SRC -> ${DEST#"$ROOT/"}"
+python3 "$ROOT/scripts/tailwind-theme.py"
 python3 "$ROOT/.claude/skills/design-studio/scripts/token_lint.py" --summary
