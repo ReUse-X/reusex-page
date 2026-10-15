@@ -2,136 +2,107 @@
 
 ## Stack
 
-- **Hugo** (dev shell: nixpkgs `hugo`, currently 0.16x extended). CI
-  (`.github/workflows/deploy-hugo.yml`) pins **0.146.0** — don't use template
-  functions newer than that without bumping the workflow too.
-- **Tailwind Play CDN** (`<script src="https://cdn.tailwindcss.com">` in
-  `themes/reusex/layouts/partials/head.html`): classes are compiled in the
-  browser at run time. No Tailwind build step, no purge. (`tailwindcss_4` is
-  in the dev shell but nothing uses it yet.)
-- **Fonts**: Inter + Space Grotesk from Google Fonts. Body uses
-  `var(--font-display)` = Inter.
-- **JS**: `themes/reusex/assets/js/main.js` via `js.Build` (theme toggle,
-  mobile menu, fade-in on scroll, before/after slider). The pitch deck has its
-  own inline script in `layouts/pitchdeck/list.html` (`goToSlide(n)`,
-  1-based; `nextSlide()`, arrow keys).
-- **Deploy**: push to `main` → GitHub Pages at
-  `https://linkarkitektur.github.io/reusex-page/` — note the **/reusex-page/
-  path prefix**. Use `relURL`/`.RelPermalink`/`partials/smart-url.html`,
-  never a root-absolute `/foo` (it breaks on Pages).
+- **Hugo** from the flake (dev shell and CI use the same version; CI builds
+  with `nix develop .#ci`). Theme `themes/reuse-x`, new template system
+  (`layouts/_partials`, `_shortcodes`, `_markup`).
+- **No Node/npm/CDN.** CSS: plain modern CSS (native nesting) bundled by
+  `css.Build` from `assets/css/main.css` (an `@import` list). JS: vanilla
+  modules bundled by `js.Build` from `assets/js/main.js`.
+- **Fonts:** Oswald + Archivo, self-hosted in `themes/reuse-x/static/fonts/`
+  (OFL, licences next to them); `css.Build` treats `/fonts/*` as external.
+- **Hosting:** GitHub Pages at `https://reuse-x.com/` (root, no path
+  prefix), `static/CNAME`. The app is `https://app.reuse-x.com/`
+  (`params.app_url`).
+- **Languages:** English in `content/en/`; Danish configured in `hugo.toml`
+  but disabled until `content/da/` exists. UI strings in
+  `themes/reuse-x/i18n/en.yaml`.
 
-## Template lookup (root overrides theme)
+## Content model — content says WHAT, templates decide HOW
+
+| Concern | Lives in |
+|---|---|
+| Page copy | `content/en/<page>/_index.md` (section pages) or `…/index.md` (leaf bundles, e.g. each pilot) |
+| Front matter | ≤ 10 lines: `title`, `description`, `layout` (landing \| article \| deck), `draft`, `date`, `aliases`, `weight` |
+| Navigation | `hugo.toml` `[menus]` (main + footer with parent columns) — never in pages |
+| Lists of things | `data/people.yaml` (team/board, `draft: true` hides), `partners.yaml`, `contact.yaml`, `socials.yaml` |
+| Images / video | `assets/images/`, `assets/videos/`, `assets/people/`, `assets/partners/` (or next to a page in its bundle) — referenced as `image="images/x.jpg"`; the image partial resizes them |
+| Design | `themes/reuse-x/` only |
+
+Layout defaults: home and section pages → `landing`; leaf pages →
+`article`; `layout: deck` → the pitch deck.
+
+Content lint (`scripts/content_lint.py`) enforces front matter keys/length,
+valid layouts, known element names and **no hand-written HTML** (Goldmark
+`unsafe = true` is on only so elements can nest).
+
+## Theme map (`themes/reuse-x/`)
 
 | What | File |
 |---|---|
-| Page shell (head/header/footer) | `themes/reusex/layouts/baseof.html` — the 8 `layouts/*/baseof.html` copies are byte-identical duplicates |
-| Head, CSS/JS includes, theme pre-paint script | `themes/reusex/layouts/partials/head.html` (the `head/css.html`, `head/js.html` partials are unused) |
-| Header / menu / footer | `themes/reusex/layouts/partials/{header,menu,footer}.html`; menu items in `hugo.toml [menus]`, footer in `[params.footer]` |
-| Home page | `themes/reusex/layouts/home.html`, content from `content/sections/*.md` (hero, challenges, solution, stats, testimonial, cta, logos, blog) via `site.GetPage "sections/x"` |
-| Section pages (Vision, Solution, How it Works, Roadmap, People, Contact, Research) | `layouts/<section>/list.html` ranging over `content/<section>/NN-*.md` ordered by `order` |
-| Pitch deck | `layouts/pitchdeck/list.html` (829 lines: own `<style>` + script), slides `content/pitchdeck/NN-*.md` |
-| Pilots / posts | `layouts/pilots/single.html`, `layouts/post/single.html` |
-| Shared partials | `layouts/partials/icon.html` (named SVG icons), `layouts/partials/timeline.html` |
+| Shell | `layouts/baseof.html`; `_partials/head.html` (meta, theme pre-paint, CSS/JS), `header.html`, `footer.html`, `wordmark.html` |
+| Page layouts | `layouts/{home,section,landing,page,article,deck}.html` → `_partials/layout/{landing,article,deck}.html` |
+| Elements | `layouts/_shortcodes/*.html` — each starts with a doc comment (params, inner, example) |
+| Element plumbing | `_partials/validate.html` (param checks → `errorf` with file:line), `markdown.html` (nesting-safe inner Markdown), `link.html` (pages / `app:` / external / mailto), `image.html` (webp srcset, w/h, required alt), `actions.html` (button pairs), `icon.html` (the one icon registry), `brand-text.html` (naming rule), `frontmatter-check.html` |
+| Markdown headings | `_markup/render-heading.html` (anchors + naming rule) |
+| Tokens | `assets/css/tokens.css` (vendored from rux-frontend, never edit; `scripts/sync-tokens.sh`), `assets/css/site-tokens.css` (display type, widths, bands, deck canvas — all colours alias product tokens) |
+| CSS | `assets/css/base/` (fonts, reset, typography), `layouts/` (site frame, flow, landing, article, deck), `components/` (one file per element) |
+| JS | `assets/js/{theme,menu,before-after,video,deck}.js` |
 
-## Content model (section sub-pages)
+## How layout works (the "flow" grid)
 
-Each `content/<section>/NN-name.md` is one band of its section page:
+`.flow` is a breakout grid: children sit in the content column; anything
+that is not `.element` or `.band` is held to the prose measure; `.band`
+spans the full width. Landing pages are a `.flow`; each band (section,
+hero, cta) is itself a `.flow`. Consequences:
 
-- `order:` — position on the page.
-- `colorScheme: 1 | 2 | 3` — which section theme the band uses (default 2).
-  The list templates branch on it (`if eq $colorScheme 1 … else if …`), so
-  a band's look is often defined three times — change all branches.
-- `layout:` — variant within a section (e.g. `cards`, `research-card`).
-- Variant-specific params: `cards:` (people), `steps:` (timeline), `points:`
-  (pitch deck), `desktopColumns:` …
+- A new element's root **must** carry `class="element element--<name>"`
+  (or be a `band …` + `flow` if it is a full-width band), otherwise it is
+  squeezed to the prose width.
+- Band backgrounds alternate automatically (`.band--plain` nth-child);
+  `hero` (navy), `cta` (accent) and canvas-type media own their look.
 
-Hugo also **publishes each sub-page standalone** (`/people/01-people/` etc.,
-in sitemap.xml) — they are fragments, not real pages. `shot.py --all` skips
-them; `--everything` includes them.
+## Writing a new element (checklist)
 
-## Tokens (`themes/reusex/assets/css/main.css`)
+1. `layouts/_shortcodes/<name>.html`, starting with the doc comment
+   (purpose, params, inner, example).
+2. First line of logic: `partial "validate.html" (dict "ctx" . "named" … "required" … "enums" … "inner" …)`.
+   Never accept design params (colour, tone, columns, size …) — validate
+   rejects them.
+3. Inner Markdown: `partial "markdown.html" (dict "page" .Page "inner" .Inner)`
+   — pass `.Inner` explicitly (Hugo only treats a shortcode as taking inner
+   content if its own template mentions `.Inner`).
+4. Output must contain **no blank lines** (they break the parent's HTML
+   block when elements nest) — use `{{- -}}` trimming.
+5. Links via `link.html`, images via `image.html`, icons via `icon.html`.
+6. CSS in `assets/css/components/<name>.css`, imported in `main.css`;
+   tokens only (`token_lint.py`).
+7. Add a snippet `content/en/components/examples/<name>.txt` and an
+   `{{< example "<name>" >}}` line on the gallery page.
 
-Three blocks define values:
+## Naming rule (product name)
 
-| Block | Seen when |
-|---|---|
-| `[data-theme="light"]` | light mode — off-white, black text/borders |
-| `[data-theme="dark"]` | dark mode — dark grey (#343634 family). **This is what dark-mode visitors see.** |
-| `:root` | base values ("Nordic Deep-Tech" navy) — only visible with JS disabled, because the pre-paint script in head.html always sets `data-theme` to `light` or `dark` |
-
-Main groups: global (`--surface-bg`, `--border`, `--heading-text`,
-`--body-text`, `--muted-text`, `--link`, `--highlight`, `--primary-teal` …),
-per-band `--section1-*` (teal/hero band), `--section2-*` (main content),
-`--section3-*` (anchor/footer band), `--header-bg`, `--footer-bg`,
-`--cta-bg/-text`, `--pitchdeck-accent(-text)`, `--icon-color`,
-`--timeline-*`. Older docs: `README-Color-Scheme.md`,
-`README-Light-Theme-Presentation.md` (partly out of date — trust main.css).
-
-`token_lint.py` treats any `--x:` defined in main.css **or** in a template
-(component-local props like timeline.html's `--gap`, content-driven ones like
-home.html's `--hero-bg-light`) as known.
-
-## Theme switching
-
-`localStorage.theme` → else `prefers-color-scheme` → sets
-`<html data-theme>` before paint (head.html), toggled by the header button
-(main.js). `shot.py` forces it by seeding localStorage, so the screenshot is
-the real switched theme, not a CSS emulation.
+Headings are uppercase (Oswald); "REUSEX" reads "reu-SEX". The
+`brand-text` partial wraps any "ReUseX"/"reusex"/"reuse-x" in headings and
+titles in `<span class="brand">` (exempt from `text-transform`). The text
+wordmark sets ReUse and X apart. Never uppercase the name as one word in a
+template.
 
 ## Gotchas (recorded)
 
-- **Tailwind's CSS wins ties.** The Play CDN injects its `<style>` after
-  main.css, so a main.css rule with the same specificity as a utility on the
-  element loses (people `desktopColumns` vs `md:grid-cols-2`). Raise the
-  main.css selector's specificity or drop the utility — don't add
-  `!important`.
-- **Section schemes 2 and 3 are the same colour** in both themes
-  (`--section2-bg` = `--section3-bg`), so bands don't visually alternate yet.
-- **Missing images vanish silently.** Templates use
-  `Resources.GetMatch`/`with`, so a wrong filename in front matter (e.g.
-  `.jpg` vs `.svg`) just drops the `<img>`; shot.py's broken-image check
-  can't see it. Check the content path exists.
-- **Section anchors**: Roadmap bands get ids from `urlize` of the title;
-  People/most others have none — use `--each "main > section"` or a
-  `:nth-of-type` selector rather than guessing `#id`.
-- **Drafts**: several sub-pages are `draft: true` (e.g. people intro and
-  board). The production build omits them; serve.sh does too unless
-  `DRAFTS=1`.
-
-- **Tailwind palette classes ignore the theme.** `bg-white`, `text-gray-600`
-  … look the same in both themes. main.css has a few light-mode patches
-  (`[data-theme="light"] .text-white { … }`) — a symptom, not a pattern to
-  extend. Use tokens.
-- **Hero background in dark mode**: `[data-theme="dark"] .hero-section` also
-  uses `--hero-bg-light` (set from `content/sections/hero.md heroBg`), so the
-  hero is light grey in dark mode.
-- **No `<link rel="icon">`**: browsers request `/favicon.ico` at the domain
-  root → 404 on every page (it exists at `/reusex-page/favicon.ico`).
-  shot.py reports it as `console: Failed to load resource … 404`.
-- **Fade-in on scroll** (main.js IntersectionObserver adds
-  `animate-fadeInUp`) — shot.py disables animations; a user's browser won't.
-- **Hero video** (`static/video/*.mp4`) streams: never wait for network idle.
-  Open-source Chromium can't play H.264, so the video frame is blank in
-  screenshots; check it in a real browser if it matters.
-- **`hugo.toml` deprecations** under Hugo ≥0.158 (`languageCode`,
-  `.Language.LanguageCode/LanguageDirection`) — harmless warnings in the
-  server log, but CI's 0.146 doesn't know the replacements yet.
-- **Big binaries**: `static/` is ~46 MB (video 27 MB). Don't add more
-  without asking; compress images before committing.
-- **Dead head partials**: `head.html` inlines the CSS/JS includes;
-  `partials/head/css.html` and `head/js.html` hold the same code but nothing
-  calls them. Edit `head.html`.
-
-## Server & tooling
-
-- `scripts/serve.sh` — one `hugo server` (in-memory, live reload,
-  `--buildDrafts`), bound to the Tailscale IP (`HOST=` to override, `PORT=`
-  for a second worktree). Log: `.screenshots/hugo-server.log`.
-- `scripts/shot.py` — Playwright/Chromium from the dev shell
-  (`PLAYWRIGHT_BROWSERS_PATH` is set by flake.nix); re-execs itself under
-  `nix develop` if run outside it. Prefer `--probe`/`--js` over a one-off
-  script; if you must write one: `pw.chromium.launch(channel="chromium")`
-  (the dev shell has no headless-shell build) and don't run it with
-  `python3 -I` (that hides the dev shell's site-packages).
-- `scripts/token_lint.py` — colour-literal / unknown-token lint.
-- `.screenshots/` is gitignored.
+- **Mixed params:** Hugo can't mix positional and named shortcode params —
+  `card`/`step` take `title="…"`; only `stat "40 %"` is positional.
+- **Self-closing:** an element whose template mentions `.Inner` must be
+  closed or self-closed (`{{< media … />}}`) when used without content.
+- **Broken internal links** don't stop the build: the link partial warns
+  and renders `#broken-link/<path>`; shot.py reports them as CHECK FAIL.
+- **Aliases** of pages added while the server runs only appear after
+  `serve.sh restart`.
+- **`zoom`** scales the deck canvas (it also scales layout, so centring
+  works); the canvas is 1000×562.5 (`--deck-canvas-*`).
+- **Theme key:** `localStorage['reusex-theme']` = light | dark | system,
+  same as the app; light is the default.
+- **Headless screenshots:** shot.py forces lazy images to load and decode
+  (headless Chromium skips off-screen images) and runs with reduced
+  motion, so silent video clips show controls instead of autoplaying.
+- **Old URLs:** `references/old-urls.txt` + `scripts/check_old_urls.sh`;
+  renamed or retired pages need `aliases:`.

@@ -38,7 +38,7 @@ OUT="$ROOT/.screenshots"
 LOG="$OUT/hugo-server.log"
 mkdir -p "$OUT"
 
-# Path prefix from baseURL (the GitHub Pages site lives under /reusex-page/).
+# Path prefix from baseURL (empty for https://reuse-x.com/).
 url() {
   local path
   path="$(sed -nE "s|^baseURL *= *['\"]https?://[^/]+(/[^'\"]*)['\"].*|\1|p" "$ROOT/hugo.toml")"

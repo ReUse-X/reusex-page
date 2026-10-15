@@ -60,34 +60,37 @@ This protocol applies when ending a Beads implementation workflow. It is subordi
 
 ## Build & Test
 
-Everything runs in the Nix dev shell (`nix develop`, or direnv via `.envrc`):
-hugo, beads (`bd`), Python + Playwright with a Nix-provided Chromium.
+Everything runs in the Nix dev shell (`nix develop`, or direnv): hugo, beads
+(`bd`), Python + Playwright with a Nix-provided Chromium. See README.md.
 
 ```bash
-bash .claude/skills/design-studio/scripts/serve.sh        # live hugo server (Tailscale IP, live reload)
-python3 .claude/skills/design-studio/scripts/shot.py --all   # screenshots, both themes, desktop + mobile
-python3 .claude/skills/design-studio/scripts/token_lint.py   # colour literals / unknown tokens
+bash .claude/skills/design-studio/scripts/serve.sh               # live server (Tailscale IP)
+python3 .claude/skills/design-studio/scripts/shot.py --all        # screenshots + QA, both themes
+python3 .claude/skills/design-studio/scripts/content_lint.py      # content model
+python3 .claude/skills/design-studio/scripts/token_lint.py        # tokens only
+bash .claude/skills/design-studio/scripts/check_old_urls.sh       # old URLs still resolve
 ```
 
-Don't run `hugo` (full build into public/) to check a change — the live
-server re-renders in under a second. CI (`.github/workflows/deploy-hugo.yml`)
-builds with Hugo 0.146.0 and deploys `main` to GitHub Pages under
-`/reusex-page/`.
+Don't run `hugo` to check a change — the live server re-renders in under a
+second. CI (`.github/workflows/deploy-hugo.yml`) builds with the flake's
+Hugo (`nix develop .#ci`), runs the lints and a link check, and deploys
+`main` to GitHub Pages at https://reuse-x.com/.
 
 ## Architecture Overview
 
-Hugo site, theme `themes/reusex/`; root `layouts/` overrides it per section.
-Section pages are `layouts/<section>/list.html` ranging over
-`content/<section>/NN-*.md` bands (`order`, `colorScheme`, `layout` front
-matter). Colours are CSS custom properties in
-`themes/reusex/assets/css/main.css` (light/dark via `data-theme` on `<html>`);
-layout uses the Tailwind Play CDN.
+Hugo site with the custom theme `themes/reuse-x`. **Content and design are
+separate:** pages are Markdown + content elements (shortcodes) in
+`content/en/` with ≤ 10 lines of front matter; lists of things are in
+`data/`; menus in `hugo.toml`; every visual decision lives in the theme.
+Colours/sizes come from the product's design tokens (vendored from
+rux-frontend, `scripts/sync-tokens.sh`) plus `site-tokens.css`. Plain CSS
+and JS bundled by Hugo — no Node, no CDN.
 
 ## Conventions & Patterns
 
-Any visual or template work: use the `design-studio` skill
-(`.claude/skills/design-studio/`) — it has the site map, house rules and the
-screenshot loop.
+Any visual, template or content work: use the `design-studio` skill
+(`.claude/skills/design-studio/`) — site map, element checklist, naming
+rule and the screenshot loop. Never write "REUSEX" as one uppercase word.
 
 ## Planning & tracking: beads only
 

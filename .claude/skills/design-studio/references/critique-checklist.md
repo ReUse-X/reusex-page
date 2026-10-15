@@ -7,7 +7,7 @@ worst issues, not every nit.
 - Zero `CHECK FAIL` lines from shot.py for the pages you touched.
 - Numbers measured with `shot.py --probe`, not guessed (contrast, tap
   target size, font size) — in both themes.
-- `token_lint.py <touched files>` clean for the lines you wrote.
+- `content_lint.py`, `token_lint.py` and `check_old_urls.sh` clean.
 
 ## Brief
 - Does the page do its one job? Is the primary action obvious within 3 s?
@@ -53,8 +53,9 @@ worst issues, not every nit.
 - Real, specific copy; no lorem ipsum, no "Feature 1", no placeholder links
   (`#`, `twitter.com/reusex` that doesn't exist).
 - CTAs name the action and keep the same name everywhere.
-- Spelling — the site is English; watch for Danish leaking in
-  ("projekt").
+- Spelling — the site is English (Danish comes later in `content/da/`);
+  watch for Danish leaking in ("projekt").
+- The product name never renders as one uppercase word (REUSEX).
 
 ## Mobile (390 px shot)
 - No horizontal scroll; menu collapses and opens (`--js` to open it).
