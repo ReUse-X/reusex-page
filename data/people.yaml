@@ -1,5 +1,6 @@
 # People shown on the People page and in the pitch deck (one source).
-# portrait: file in assets/people/. group: team | board.
+# portrait: file in assets/people/ (optional — initials are shown without one).
+# group: team | board.
 # draft: true → not shown on the published site (placeholder content).
 - id: jan-buthke
   name: Jan Buthke
@@ -30,12 +31,17 @@
   bio: Architectural engineer and fullstack developer, creator of the open standards EPDx and LCAx. Responsible for platform, backend and API.
   linkedin: https://www.linkedin.com/in/christian-kongsgaard/
 - id: thomas-titanium
-  name: Thomas Titanium
+  name: Thomas Huulbæk Titanium
   role: iOS App Developer
   group: team
   portrait: people/thomas-titanium.jpg
   bio: Experienced developer with strong competencies in app development and security. Responsible for the ReUseX scan app for iPhone and iPad.
   linkedin: https://www.linkedin.com/in/thomas-titanium-150468/
+- id: mads-ringblom-knudsen
+  name: Mads Ringblom Knudsen
+  role: UI/UX Designer
+  group: team
+  # No portrait or bio yet — the people element shows initials meanwhile.
 
 # Board — bios are placeholder text in the old site (bead reusex-page-3h7).
 - id: jan-buthke-board

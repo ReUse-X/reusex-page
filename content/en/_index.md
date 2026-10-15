@@ -62,23 +62,23 @@ Explore the building in an interactive 3D dashboard. The model, documents, inven
 
 {{< section >}}
 ## Impact at Scale
-Real results from pilot projects already using ReUseX for resource mapping. Pilot results to date.
+Documented: approx. 1,700 m² surveyed and processed into a decision-ready dataset — no special equipment, no expert knowledge required.
 
 {{< stats >}}
-{{< stat value="8" >}}
-Buildings analysed in pilots
+{{< stat value="1,700 m²" >}}
+surveyed and processed in approx. 30 minutes
 {{< /stat >}}
 
-{{< stat value="250" >}}
-Avg. hours saved per project
+{{< stat value="852 M m²" source="Statistics Denmark, Building Census 2025" >}}
+existing building stock in Denmark — the market
 {{< /stat >}}
 
-{{< stat value="10x" >}}
-Faster resource mapping
+{{< stat value="41 %" source="Danish Environmental Protection Agency" >}}
+of Denmark's total waste comes from construction
 {{< /stat >}}
 
-{{< stat value="75%" >}}
-Cost Savings
+{{< stat value="0 kg" source="BR18, Social- og Boligstyrelsen" >}}
+CO₂ counted for reused materials since January 2024
 {{< /stat >}}
 {{< /stats >}}
 {{< /section >}}
