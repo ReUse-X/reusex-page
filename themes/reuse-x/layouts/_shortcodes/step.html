@@ -1,23 +1,28 @@
 {{- /*
-  step — one item inside steps.
+  step — one item inside steps. The first line is its heading.
 
-  Params:  title            the step title (required)
-           marker           what the marker shows instead of the number,
-                            e.g. a year "2026" or "Q3 2026"
-           icon             icon from the theme's registry instead of a number
-  Inner:   Markdown text (optional)
-
-  {{< step title="Pilots and model improvement" marker="2026" >}}
+  {{< step marker="2026" >}}
+  ### Pilots and model improvement
   Run multiple pilots across building types.
   {{< /step >}}
+
+  marker   shown instead of the number, e.g. "2026", "Q3 2026"   optional
+  icon     icon instead of the number (see _partials/icon.html)  optional
 */ -}}
-{{- partial "validate.html" (dict "ctx" . "named" (slice "title" "marker" "icon") "required" (slice "title")) -}}
-{{- $title := .Get "title" -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "marker" "icon") "inner" "required") -}}
 {{- with .Parent }}{{ if ne .Name "steps" }}{{ errorf "%s: {{< step >}} must be inside {{< steps >}}" $.Position }}{{ end }}{{ else }}{{ errorf "%s: {{< step >}} must be inside {{< steps >}}" .Position }}{{ end -}}
-<div class="step{{ if or (.Get "marker") (.Get "icon") }} step--marked{{ end }}">
-<div class="step__aside"><div class="step__marker" aria-hidden="true">{{ with .Get "icon" }}{{ partial "icon.html" . }}{{ else }}{{ with $.Get "marker" }}{{ . }}{{ end }}{{ end }}</div></div>
-<div class="step__body">
-<h3 class="step__title">{{ with .Get "marker" }}<span class="visually-hidden">{{ . }}: </span>{{ end }}{{ partial "brand-text.html" $title }}</h3>
-{{- with strings.TrimSpace .Inner }}<div class="step__text">{{ partial "markdown.html" (dict "page" $.Page "inner" $.Inner) }}</div>{{ end }}
-</div>
+{{- $parts := partial "heading-split.html" (dict "html" (partial "markdown.html" (dict "page" .Page "inner" .Inner)) "ctx" .) -}}
+<div class="step group/step col-span-full grid grid-cols-subgrid">
+  <div class="flex flex-col items-center after:min-h-4 after:flex-1 after:border-l after:border-border-strong group-last/step:after:invisible">
+    <div class="grid h-12 min-w-12 place-items-center rounded-md border border-border-strong bg-surface-raised px-3 font-display text-xl font-medium whitespace-nowrap text-accent-deep tabular-nums max-sm:h-11 max-sm:min-w-11 max-sm:px-2 max-sm:text-lg"
+         aria-hidden="true">
+      {{- with .Get "icon" }}{{ partial "icon.html" . }}{{ else }}{{ with $.Get "marker" }}{{ . }}{{ else }}{{ printf "%02d" (add $.Ordinal 1) }}{{ end }}{{ end -}}
+    </div>
+  </div>
+  <div class="step__body grid max-w-site-prose content-start gap-2 pt-2 pb-8 group-last/step:pb-0">
+    <h3 class="text-h4">{{ with .Get "marker" }}<span class="sr-only">{{ . }}: </span>{{ end }}{{ partial "brand-text.html" $parts.title }}</h3>
+    {{- with $parts.body }}
+    <div class="md text-text-muted">{{ . }}</div>
+    {{- end }}
+  </div>
 </div>

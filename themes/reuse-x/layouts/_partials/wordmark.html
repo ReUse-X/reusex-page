@@ -1,4 +1,7 @@
 {{- /* The text wordmark until a logo exists. Naming rule: "ReUse" and "X"
-       are always visually separate so the name never reads "reu-SEX"; never
-       uppercase the whole name. */ -}}
-<span class="wordmark" aria-label="{{ site.Title }}">ReUse<span class="wordmark__x">X</span></span>
+       are visually separate so the name never reads "reu-SEX"; the name is
+       never uppercased as one word. */ -}}
+<span class="font-display text-2xl leading-none font-bold tracking-[0.02em] normal-case" aria-label="{{ site.Title }}">
+  ReUse<span class="ml-[0.06em] text-accent">X</span>
+</span>
+{{- /* */ -}}

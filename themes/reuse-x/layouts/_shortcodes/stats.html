@@ -1,15 +1,14 @@
 {{- /*
-  stats — a row of key figures (the product's KPI card recipe).
-
-  Params:  none
-  Inner:   stat elements; Markdown before the first stat is the intro
+  stats — a row of key figures (the product's KPI card). Markdown before
+  the first stat is shown above the row.
 
   {{< stats >}}
-  {{< stat "40 %" >}}of all waste is construction & demolition{{< /stat >}}
-  {{< stat "1,000+" >}}buildings to transform in Aarhus alone{{< /stat >}}
+  {{< stat "40 %" >}}
+  of all waste is construction and demolition
+  {{< /stat >}}
   {{< /stats >}}
 */ -}}
 {{- partial "validate.html" (dict "ctx" . "inner" "required") -}}
-<div class="element element--stats stats">
-{{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
+<div class="element grid grid-cols-[repeat(auto-fit,minmax(min(100%,13rem),1fr))] gap-4 [&>:not(.stat)]:col-span-full [&>:not(.stat)]:max-w-site-prose">
+  {{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
 </div>

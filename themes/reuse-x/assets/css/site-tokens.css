@@ -38,6 +38,8 @@
   --band-canvas-bg: var(--color-canvas);
   --band-accent-bg: var(--color-accent-deep);
   --band-accent-text: var(--color-on-accent);
+  /* Background of panels inside a band; alternate bands switch it (landing.css). */
+  --panel-bg: var(--color-surface-raised);
 
   /* Deck: slides are designed on a fixed canvas and zoomed to fit. */
   --deck-canvas-width: 1000px;

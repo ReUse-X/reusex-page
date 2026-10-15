@@ -13,6 +13,8 @@ content/**/examples/):
   - no hand-written HTML in the body (use a content element instead); HTML
     comments and code are fine
   - every {{< element >}} exists in themes/reuse-x/layouts/_shortcodes/
+  - readability: an element's content never shares a line with its tags —
+    open tag, content and close tag each on their own lines
 
 Hugo itself validates element parameters (file:line in the server overlay);
 this script covers what Hugo cannot see. Exit 1 on any finding.
@@ -30,6 +32,7 @@ LAYOUTS = {"landing", "article", "deck"}
 MAX_FRONT_MATTER = 10
 
 SHORTCODE = re.compile(r"\{\{[<%]\s*/?\s*([\w-]+)")
+ONE_LINE = re.compile(r"\{\{<\s*([\w-]+)\b[^\n]*?>\}\}[^\n]*?\{\{<\s*/\1\s*>\}\}")
 SHORTCODE_SPAN = re.compile(r"\{\{[<%].*?[>%]\}\}", re.S)
 FENCE = re.compile(r"^(```|~~~).*?^\1", re.S | re.M)
 INLINE_CODE = re.compile(r"`[^`\n]*`")
@@ -75,6 +78,11 @@ def lint(path: Path, elements: set[str]):
                 val = line.split(":", 1)[1].strip().strip("'\"") if ":" in line else line.split("=", 1)[1].strip().strip("'\"")
                 if val not in LAYOUTS:
                     yield n, f"layout {val!r} — must be one of {', '.join(sorted(LAYOUTS))}"
+
+    # Readability: {{< x >}}content{{< /x >}} on one line.
+    for m in ONE_LINE.finditer(body):
+        n = body_offset + body.count("\n", 0, m.start()) + 1
+        yield n, f"{{{{< {m.group(1)} >}}}} … {{{{< /{m.group(1)} >}}}} on one line — put the content on its own line(s) between the tags"
 
     # Element names.
     for m in SHORTCODE.finditer(body):

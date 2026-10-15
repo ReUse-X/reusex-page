@@ -1,6 +1,8 @@
-{{- /* Buttons from an element's action/link and action2/link2 params.
-       partial "actions.html" (dict "ctx" . "class" "x__actions") */ -}}
+{{- /* Button row from an element's action/link and action2/link2 params.
+       partial "actions.html" (dict "ctx" . "variant" "inverse")
+       variant: "" (light surfaces) | inverse (navy) | accent (cta band) */ -}}
 {{- $ctx := .ctx -}}
+{{- $prefix := .variant | default "" -}}
 {{- $buttons := slice -}}
 {{- range $i, $p := slice (slice "action" "link") (slice "action2" "link2") -}}
   {{- $label := $ctx.Get (index $p 0) -}}
@@ -9,13 +11,14 @@
   {{- if and $url (not $label) }}{{ errorf "%s: %s=%q needs %s=\"…\" (the button label)" $ctx.Position (index $p 1) $url (index $p 0) }}{{ end -}}
   {{- with $label -}}
     {{- $l := partial "link.html" (dict "url" $url "page" $ctx.Page "position" $ctx.Position) -}}
-    {{- $buttons = $buttons | append (dict "label" . "href" $l.href "primary" (eq $i 0)) -}}
+    {{- $variant := cond (eq $i 0) (or $prefix "primary") (cond (eq $prefix "") "secondary" (printf "%s-secondary" $prefix)) -}}
+    {{- $buttons = $buttons | append (dict "label" . "href" $l.href "variant" $variant "icon" (cond (eq $i 0) "arrow-right" "")) -}}
   {{- end -}}
 {{- end -}}
 {{- with $buttons }}
-<div class="actions{{ with $.class }} {{ . }}{{ end }}">
-{{- range . }}
-<a class="button {{ if .primary }}button--primary{{ else }}button--secondary{{ end }}" href="{{ .href }}">{{ .label }}{{ if .primary }}{{ partial "icon.html" "arrow-right" }}{{ end }}</a>
-{{- end }}
+<div class="mt-2 flex flex-wrap gap-3 max-sm:flex-col max-sm:items-stretch">
+  {{- range . }}
+  {{ partial "button.html" . }}
+  {{- end }}
 </div>
 {{- end -}}

@@ -61,4 +61,4 @@
   {{- errorf "%s: {{< %s >}} needs content between {{< %s >}} and {{< /%s >}}" $pos $name $name $name }}
 {{- else if and (eq $inner "forbidden") $hasInner }}
   {{- errorf "%s: {{< %s >}} takes no inner content" $pos $name }}
-{{- end }}
+{{- end -}}

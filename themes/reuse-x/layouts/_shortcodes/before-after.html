@@ -1,25 +1,33 @@
 {{- /*
   before-after — two pictures of the same view, compared with a slider
-  (mouse, touch and keyboard). Without JavaScript both are shown stacked.
+  (mouse, touch, keyboard). Without JavaScript both are shown stacked.
 
-  Params:  before       picture (required)     before_alt  its alt text (required)
-           after        picture (required)     after_alt   its alt text (required)
-           kind         photo (default) | scan | screenshot
-           caption      short caption, optional
-  Inner:   none
+  {{< before-after
+      before="images/raw.jpg" before_alt="Raw point cloud"
+      after="images/segmented.jpg" after_alt="Segmented components"
+      kind="scan" caption="Raw building → AI-segmented components" >}}
 
-  {{< before-after before="raw.jpg" before_alt="Raw point cloud"
-      after="segmented.jpg" after_alt="Segmented components" kind="scan"
-      caption="Raw building → AI-segmented components" >}}
+  before / after          the two pictures (required)
+  before_alt / after_alt  their alt texts (required)
+  kind                    photo | scan | screenshot   default photo
+  caption                 short caption               optional
 */ -}}
 {{- partial "validate.html" (dict "ctx" . "named" (slice "before" "before_alt" "after" "after_alt" "kind" "caption") "required" (slice "before" "before_alt" "after" "after_alt") "enums" (dict "kind" (slice "photo" "scan" "screenshot")) "inner" "forbidden") -}}
-{{- $kind := .Get "kind" | default "photo" -}}
-<figure class="element element--before-after before-after" data-before-after>
-<div class="before-after__stage media-frame media-frame--{{ $kind }}">
-<div class="before-after__before">{{ partial "image.html" (dict "src" (.Get "before") "alt" (.Get "before_alt") "page" .Page "sizes" "(min-width: 74rem) 74rem, 100vw" "position" .Position) }}<span class="before-after__label">{{ i18n "before" }}</span></div>
-<div class="before-after__after">{{ partial "image.html" (dict "src" (.Get "after") "alt" (.Get "after_alt") "page" .Page "sizes" "(min-width: 74rem) 74rem, 100vw" "position" .Position) }}<span class="before-after__label">{{ i18n "after" }}</span></div>
-<input class="before-after__range" type="range" min="0" max="100" value="50" step="1" aria-label="{{ i18n "compare" }}" hidden>
-<span class="before-after__handle" aria-hidden="true"></span>
-</div>
-{{- with .Get "caption" }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+{{- $label := "absolute top-3 rounded-sm bg-chrome px-2 py-1 text-xs font-bold tracking-caps text-on-chrome uppercase" -}}
+<figure class="element before-after" data-before-after>
+  <div class="before-after__stage relative {{ partial "frame.html" (.Get "kind") }}">
+    <div class="before-after__before relative">
+      {{ partial "image.html" (dict "src" (.Get "before") "alt" (.Get "before_alt") "page" .Page "sizes" "(min-width: 74rem) 74rem, 100vw" "position" .Position) }}
+      <span class="{{ $label }} left-3">{{ i18n "before" }}</span>
+    </div>
+    <div class="before-after__after relative">
+      {{ partial "image.html" (dict "src" (.Get "after") "alt" (.Get "after_alt") "page" .Page "sizes" "(min-width: 74rem) 74rem, 100vw" "position" .Position) }}
+      <span class="{{ $label }} right-3">{{ i18n "after" }}</span>
+    </div>
+    <input class="before-after__range" type="range" min="0" max="100" value="50" step="1" aria-label="{{ i18n "compare" }}" hidden>
+    <span class="before-after__handle" aria-hidden="true"></span>
+  </div>
+  {{- with .Get "caption" }}
+  <figcaption class="mt-2 text-lg text-text-muted">{{ . | markdownify }}</figcaption>
+  {{- end }}
 </figure>

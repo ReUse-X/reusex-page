@@ -1,25 +1,31 @@
 {{- /*
-  people — portrait cards for a group from data/people.yaml.
-  People marked draft: true are left out.
-
-  Params:  group   team | board (required)
-  Inner:   none
+  people — portrait cards for a group from data/people.yaml (people marked
+  draft: true are left out).
 
   {{< people group="team" >}}
+
+  group   team | board (required)
 */ -}}
 {{- partial "validate.html" (dict "ctx" . "named" (slice "group") "required" (slice "group") "enums" (dict "group" (slice "team" "board")) "inner" "forbidden") -}}
 {{- $people := where (where hugo.Data.people "group" (.Get "group")) "draft" "!=" true -}}
 {{- if not $people }}{{ warnf "%s: {{< people group=%q >}} — no published people in data/people.yaml" .Position (.Get "group") }}{{ end -}}
-<ul class="element element--people people">
-{{- range $people }}
-<li class="person">
-<div class="person__portrait">{{ partial "image.html" (dict "src" (.portrait | default "people/placeholder.svg") "alt" (printf "Portrait of %s" .name) "page" $.Page "sizes" "(min-width: 60rem) 16rem, 50vw" "position" $.Position) }}</div>
-<div class="person__body">
-<h3 class="person__name">{{ .name }}</h3>
-{{- with .role }}<p class="person__role">{{ . }}</p>{{ end }}
-{{- with .bio }}<p class="person__bio">{{ . }}</p>{{ end }}
-{{- $name := .name }}{{ with .linkedin }}<a class="person__link" href="{{ . }}" rel="noopener" aria-label="LinkedIn – {{ $name }}">{{ partial "icon.html" "linkedin" }}<span>LinkedIn</span></a>{{ end }}
-</div>
-</li>
-{{- end }}
+<ul class="element people grid grid-cols-[repeat(auto-fill,minmax(min(100%,13.5rem),1fr))] gap-4 in-[.slide]:grid-cols-[repeat(auto-fit,minmax(9rem,1fr))]">
+  {{- range $people }}
+  {{- $name := .name }}
+  <li class="person grid grid-rows-[auto_1fr] overflow-hidden rounded-lg border border-border bg-(--panel-bg)">
+    <div class="[&_img]:aspect-[4/5] [&_img]:w-full [&_img]:object-cover in-[.slide]:[&_img]:aspect-square">
+      {{ partial "image.html" (dict "src" (.portrait | default "people/placeholder.svg") "alt" (printf "Portrait of %s" .name) "page" $.Page "sizes" "(min-width: 64rem) 16rem, 50vw" "position" $.Position) }}
+    </div>
+    <div class="person__body flex flex-col gap-2 p-4 in-[.slide]:gap-1 in-[.slide]:p-3">
+      <h3 class="person__name text-h4 in-[.slide]:text-lg">{{ .name }}</h3>
+      {{- with .role }}<p class="text-sm font-bold tracking-caps text-accent-deep uppercase">{{ . }}</p>{{ end }}
+      {{- with .bio }}<p class="person__bio text-lg text-text-muted in-[.slide]:hidden">{{ . }}</p>{{ end }}
+      {{- with .linkedin }}
+      <a class="person__link in-[.slide]:hidden mt-auto inline-flex min-h-tap items-center gap-2 self-start text-lg font-medium [&_.icon]:size-5" href="{{ . }}" rel="noopener" aria-label="LinkedIn – {{ $name }}">
+        {{- partial "icon.html" "linkedin" }}<span>LinkedIn</span>
+      </a>
+      {{- end }}
+    </div>
+  </li>
+  {{- end }}
 </ul>

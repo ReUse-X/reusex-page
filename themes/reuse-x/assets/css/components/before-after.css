@@ -1,22 +1,7 @@
 /* before-after — the "after" picture is clipped by --before-after-pos. */
 .before-after__stage { position: relative; }
 .before-after__before, .before-after__after { position: relative; }
-.before-after__label {
-  position: absolute;
-  top: var(--space-3);
-  padding: var(--space-1) var(--space-2);
-  border-radius: var(--radius-sm);
-  background: var(--color-chrome);
-  color: var(--color-on-chrome);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: var(--tracking-caps);
-  text-transform: uppercase;
-}
-.before-after__before .before-after__label { left: var(--space-3); }
-.before-after__after .before-after__label { right: var(--space-3); }
 .before-after__handle, .before-after__range { display: none; }
-.before-after figcaption { margin-top: var(--space-2); font-size: var(--font-size-lg); color: var(--color-text-muted); }
 
 /* Enhanced (JS): stack the pictures and clip. */
 .before-after--active {

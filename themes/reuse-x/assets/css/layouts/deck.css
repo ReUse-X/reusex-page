@@ -40,15 +40,8 @@
 }
 .slide__actions { margin-top: var(--space-3); }
 
-/* Elements condensed for a slide: the full versions live on their pages. */
-.slide {
-  & .person__bio, & .person__link { display: none; }
-  & .people { grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); }
-  & .person__portrait img { aspect-ratio: 1; }
-  & .person__body { padding: var(--space-3); gap: var(--space-1); }
-  & .person__name { font-size: var(--font-size-lg); }
-  & .step__body { padding-bottom: var(--space-4); }
-}
+/* Elements condense themselves inside slides with in-[.slide]: utilities. */
+.slide .step__body { padding-bottom: var(--space-4); }
 
 /* Title slide: the navy chrome. */
 .slide--title .slide__canvas {

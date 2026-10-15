@@ -1,9 +1,12 @@
 {{< faq >}}
 ### Pilot questions
-{{< question title="How long does the on-site scan take?" >}}
+{{< question >}}
+### How long does the on-site scan take?
 Mobile LiDAR captures a building's geometry in hours, not weeks.
 {{< /question >}}
-{{< question title="What does the building owner need to prepare?" >}}
+
+{{< question >}}
+### What does the building owner need to prepare?
 - Access to every room on the scan day
 - A contact person on site
 {{< /question >}}

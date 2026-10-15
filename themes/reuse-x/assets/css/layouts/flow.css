@@ -27,6 +27,8 @@
   & > .element:last-child { margin-bottom: 0; }
 
   /* Markdown lists etc. */
-  & > :is(ul, ol) { padding-left: var(--space-5); }
+  & > ul:not(.element) { list-style: disc; padding-left: var(--space-5); }
+  & > ol:not(.element) { list-style: decimal; padding-left: var(--space-5); }
+  & > :is(ul, ol) li + li { margin-top: var(--space-1); }
   & > blockquote { border-left: 3px solid var(--color-accent); padding-left: var(--space-4); color: var(--color-text-muted); }
 }

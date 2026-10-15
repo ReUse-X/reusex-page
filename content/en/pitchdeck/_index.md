@@ -50,10 +50,25 @@ ReUseX — From Building to Circular Inventory in Hours
 Four Steps From Building to Circular Data
 
 {{< steps >}}
-{{< step title="Scan" >}}Mobile LiDAR scan of the existing building — fast, low-cost, non-destructive{{< /step >}}
-{{< step title="Segment" >}}AI automatically identifies and classifies structural and non-structural elements{{< /step >}}
-{{< step title="Model" >}}Structured 3D inventory with material properties, quantities, and condition data{{< /step >}}
-{{< step title="Share" >}}Cloud-based platform connects designers, contractors, and material markets{{< /step >}}
+{{< step >}}
+### Scan
+Mobile LiDAR scan of the existing building — fast, low-cost, non-destructive
+{{< /step >}}
+
+{{< step >}}
+### Segment
+AI automatically identifies and classifies structural and non-structural elements
+{{< /step >}}
+
+{{< step >}}
+### Model
+Structured 3D inventory with material properties, quantities, and condition data
+{{< /step >}}
+
+{{< step >}}
+### Share
+Cloud-based platform connects designers, contractors, and material markets
+{{< /step >}}
 {{< /steps >}}
 {{< /slide >}}
 
@@ -73,9 +88,20 @@ Built on Proven, Scalable Technology
 Real Results With Real Buildings
 
 {{< cards >}}
-{{< card title="Vacant Office Building" link="pilots/pilot-1-vacant-office-building-reuse-scanning/" >}}Full scan and segmentation of a 5,000 m² vacant office — complete element inventory delivered in 3 days{{< /card >}}
-{{< card title="Municipal Building Portfolio" link="pilots/pilot-2-municipal-building-portfolio-resource-screening/" >}}Resource screening across 12 municipal buildings — identified 40% reusable material value{{< /card >}}
-{{< card title="Educational Building Transformation" link="pilots/pilot-3-educational-building-transformation/" >}}Reuse-first redesign enabled by ReUseX data — reduced demolition waste by 60%{{< /card >}}
+{{< card link="pilots/pilot-1-vacant-office-building-reuse-scanning/" >}}
+### Vacant Office Building
+Full scan and segmentation of a 5,000 m² vacant office — complete element inventory delivered in 3 days
+{{< /card >}}
+
+{{< card link="pilots/pilot-2-municipal-building-portfolio-resource-screening/" >}}
+### Municipal Building Portfolio
+Resource screening across 12 municipal buildings — identified 40% reusable material value
+{{< /card >}}
+
+{{< card link="pilots/pilot-3-educational-building-transformation/" >}}
+### Educational Building Transformation
+Reuse-first redesign enabled by ReUseX data — reduced demolition waste by 60%
+{{< /card >}}
 {{< /cards >}}
 {{< /slide >}}
 
@@ -95,10 +121,25 @@ Scalable SaaS With Professional Services
 From Validated MVP to Market Scale
 
 {{< steps >}}
-{{< step title="Foundation" marker="2024" >}}MVP platform, 3 pilot projects, core AI model trained{{< /step >}}
-{{< step title="Validate" marker="2025" >}}10+ client deployments, SaaS platform launched, Series A fundraise{{< /step >}}
-{{< step title="Scale" marker="2026" >}}Nordic market expansion, 50+ active clients, material marketplace beta{{< /step >}}
-{{< step title="Lead" marker="2027" >}}EU market leader in building reuse data, 200+ clients, profitability{{< /step >}}
+{{< step marker="2024" >}}
+### Foundation
+MVP platform, 3 pilot projects, core AI model trained
+{{< /step >}}
+
+{{< step marker="2025" >}}
+### Validate
+10+ client deployments, SaaS platform launched, Series A fundraise
+{{< /step >}}
+
+{{< step marker="2026" >}}
+### Scale
+Nordic market expansion, 50+ active clients, material marketplace beta
+{{< /step >}}
+
+{{< step marker="2027" >}}
+### Lead
+EU market leader in building reuse data, 200+ clients, profitability
+{{< /step >}}
 {{< /steps >}}
 {{< /slide >}}
 
@@ -114,10 +155,21 @@ Experienced Builders Solving a Real Problem
 Measurable Environmental and Economic Value
 
 {{< stats >}}
-{{< stat "60%" >}}Reduction in demolition waste per project{{< /stat >}}
-{{< stat "10×" >}}Faster building material assessments{{< /stat >}}
-{{< stat "40%" >}}Reusable material value unlocked in pilots{{< /stat >}}
-{{< stat "CO₂" >}}Avoided embodied carbon tracked per project{{< /stat >}}
+{{< stat "60%" >}}
+Reduction in demolition waste per project
+{{< /stat >}}
+
+{{< stat "10×" >}}
+Faster building material assessments
+{{< /stat >}}
+
+{{< stat "40%" >}}
+Reusable material value unlocked in pilots
+{{< /stat >}}
+
+{{< stat "CO₂" >}}
+Avoided embodied carbon tracked per project
+{{< /stat >}}
 {{< /stats >}}
 
 - Each ReUseX project creates a permanent, shareable material passport for the built environment

@@ -3,7 +3,7 @@
        slides as cards in sequence. Without JS all slides show in order. */ -}}
 {{- $content := .Content }}
 <div class="deck" data-deck>
-  <h1 class="visually-hidden">{{ partial "brand-text.html" .Title }}</h1>
+  <h1 class="sr-only">{{ partial "brand-text.html" .Title }}</h1>
   <div class="deck__stage">
     {{ $content }}
   </div>

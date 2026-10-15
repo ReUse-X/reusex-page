@@ -1,29 +1,47 @@
-<footer class="site-footer">
-  <div class="site-footer__inner">
-    <div class="site-footer__about">
-      <a class="site-footer__brand" href="{{ site.Home.RelPermalink }}">{{ partial "wordmark.html" . }}</a>
+{{- /* Site footer: about + socials (data/socials.yaml) + the footer menu
+       columns from hugo.toml. */ -}}
+<footer class="site-footer bg-chrome pt-12 pb-6 text-lg text-on-chrome-muted">
+  <div class="page-width grid grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] gap-8">
+
+    <div class="grid max-w-md content-start gap-4 sm:col-span-2">
+      <a class="text-on-chrome no-underline hover:text-on-chrome" href="{{ site.Home.RelPermalink }}">
+        {{ partial "wordmark.html" . }}
+      </a>
       {{ with site.Params.footer_text }}<p>{{ . }}</p>{{ end }}
-      {{ with hugo.Data.socials }}
-      <ul class="site-footer__socials">
+      {{- with hugo.Data.socials }}
+      <ul class="flex gap-2">
         {{- range . }}
-        <li><a href="{{ .url }}" rel="noopener" aria-label="{{ .name }}">{{ partial "icon.html" .icon }}</a></li>
+        <li>
+          <a href="{{ .url }}" rel="noopener" aria-label="{{ .name }}"
+             class="grid size-tap place-items-center rounded-md border border-chrome-border text-on-chrome-muted hover:text-on-chrome">
+            {{ partial "icon.html" .icon }}
+          </a>
+        </li>
         {{- end }}
       </ul>
-      {{ end }}
+      {{- end }}
     </div>
-    <nav class="site-footer__nav" aria-label="{{ i18n "footer_nav" }}">
+
+    <nav class="contents" aria-label="{{ i18n "footer_nav" }}">
       {{- range site.Menus.footer }}
-      <div class="site-footer__column">
-        <h2 class="site-footer__heading">{{ .Name }}</h2>
-        <ul>
+      <div>
+        <h2 class="mb-3 font-sans text-xs tracking-caps text-on-chrome">{{ .Name }}</h2>
+        <ul class="grid gap-1">
           {{- range .Children }}
             {{- $name := .Name }}
-            {{- with .Page }}<li><a href="{{ .RelPermalink }}">{{ $name }}</a></li>{{ end }}
+            {{- with .Page }}
+          <li>
+            <a href="{{ .RelPermalink }}" class="inline-flex min-h-tap items-center text-on-chrome-muted no-underline hover:text-on-chrome hover:underline">{{ $name }}</a>
+          </li>
+            {{- end }}
           {{- end }}
         </ul>
       </div>
       {{- end }}
     </nav>
+
   </div>
-  <p class="site-footer__legal">© {{ now.Year }} {{ site.Title }}. {{ i18n "all_rights" }}</p>
+  <p class="page-width mt-12 border-t border-chrome-border pt-4 text-sm">
+    © {{ now.Year }} {{ site.Title }}. {{ i18n "all_rights" }}
+  </p>
 </footer>

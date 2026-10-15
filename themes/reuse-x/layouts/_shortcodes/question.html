@@ -1,18 +1,21 @@
 {{- /*
-  question — one question inside faq, with its answer. The answer is hidden
-  until the question is clicked; browser find-in-page still finds it.
+  question — one question inside faq. The first line is the question, the
+  rest is the answer (hidden until opened; find-in-page still finds it).
 
-  Params:  title            the question (required)
-           id               optional anchor (#id) to link to the question
-  Inner:   the answer, Markdown (required)
-
-  {{< question title="What does the building owner need to prepare?" >}}
+  {{< question id="prepare" >}}
+  ### What does the building owner need to prepare?
   Access to every room and any existing drawings.
   {{< /question >}}
+
+  id   anchor (#prepare) to link to this question   optional
 */ -}}
-{{- partial "validate.html" (dict "ctx" . "named" (slice "title" "id") "required" (slice "title") "inner" "required") -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "id") "inner" "required") -}}
 {{- with .Parent }}{{ if ne .Name "faq" }}{{ errorf "%s: {{< question >}} must be inside {{< faq >}}" $.Position }}{{ end }}{{ else }}{{ errorf "%s: {{< question >}} must be inside {{< faq >}}" .Position }}{{ end -}}
-<details class="faq__item"{{ with .Get "id" }} id="{{ . }}"{{ end }}>
-<summary class="faq__question"><span class="faq__title">{{ partial "brand-text.html" (.Get "title") }}</span>{{ partial "icon.html" "chevron-down" }}</summary>
-<div class="faq__answer">{{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}</div>
+{{- $parts := partial "heading-split.html" (dict "html" (partial "markdown.html" (dict "page" .Page "inner" .Inner)) "ctx" .) -}}
+<details class="group/q border-t border-border-strong"{{ with .Get "id" }} id="{{ . }}"{{ end }}>
+  <summary class="flex min-h-tap cursor-pointer list-none items-center justify-between gap-4 py-4 font-display text-h4 leading-tight font-medium uppercase hover:text-accent-deep [&::-webkit-details-marker]:hidden">
+    <span>{{ partial "brand-text.html" $parts.title }}</span>
+    <span class="flex-none text-accent-deep transition-transform group-open/q:rotate-180">{{ partial "icon.html" "chevron-down" }}</span>
+  </summary>
+  <div class="md pb-5 text-text-muted">{{ $parts.body }}</div>
 </details>

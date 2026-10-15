@@ -34,4 +34,4 @@
     {{- if or (not $default) (le . 1200) }}{{ $default = $r }}{{ end }}
   {{- end }}
 <img src="{{ $default.RelPermalink }}" srcset="{{ delimit $srcset ", " }}" sizes="{{ $sizes }}" width="{{ $default.Width }}" height="{{ $default.Height }}" alt="{{ .alt }}"{{ with .class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="async"{{ if .eager }} fetchpriority="high"{{ end }}>
-{{- end }}
+{{- end -}}

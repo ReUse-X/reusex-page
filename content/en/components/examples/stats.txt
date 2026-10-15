@@ -1,5 +1,13 @@
 {{< stats >}}
-{{< stat "40 %" >}}of all waste is construction and demolition{{< /stat >}}
-{{< stat "50 %" >}}of Europe's material use is building-related{{< /stat >}}
-{{< stat "72 %" >}}scan coverage in a typical pilot{{< /stat >}}
+{{< stat "40 %" >}}
+of all waste is construction and demolition
+{{< /stat >}}
+
+{{< stat "50 %" >}}
+of Europe's material use is building-related
+{{< /stat >}}
+
+{{< stat "72 %" >}}
+scan coverage in a typical pilot
+{{< /stat >}}
 {{< /stats >}}

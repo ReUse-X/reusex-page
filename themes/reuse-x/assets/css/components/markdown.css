@@ -1,0 +1,10 @@
+/* Markdown inside elements (class="md"): rhythm and lists. Tailwind's reset
+   strips list styles and margins; utilities can't reach rendered Markdown. */
+.md {
+  & > * + * { margin-top: var(--space-3); }
+  & > :is(h2, h3, h4) + * { margin-top: var(--space-2); }
+  & ul { list-style: disc; padding-left: var(--space-5); }
+  & ol { list-style: decimal; padding-left: var(--space-5); }
+  & li + li { margin-top: var(--space-1); }
+  & li::marker { color: var(--color-text-muted); }
+}

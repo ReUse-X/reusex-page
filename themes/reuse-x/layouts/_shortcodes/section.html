@@ -1,16 +1,15 @@
 {{- /*
-  section — a band of the page: heading, prose and elements.
-  The template decides its background (bands alternate automatically).
-
-  Params:  id     optional anchor for links (#id); defaults to none
-  Inner:   Markdown + elements (required)
+  section — a band of the page: heading, prose and other elements.
+  Band backgrounds alternate automatically.
 
   {{< section id="how" >}}
   ## How it works
   Text, lists and other elements.
   {{< /section >}}
+
+  id   anchor for links to this band (#how)   optional
 */ -}}
 {{- partial "validate.html" (dict "ctx" . "named" (slice "id") "inner" "required") -}}
 <section class="band band--plain flow"{{ with .Get "id" }} id="{{ . }}"{{ end }}>
-{{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
+  {{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
 </section>

@@ -1,17 +1,20 @@
 {{- /*
-  stat — one figure inside stats. A trailing unit (%, m², t, …) is set
-  smaller automatically.
+  stat — one figure inside stats. A trailing unit (%, m², t …) is set
+  smaller automatically. The content is the label.
 
-  Params:  1st positional   the figure, e.g. "72 %", "1,000+", "3.2 t" (required)
-  Inner:   the label, a few words of Markdown (required)
+  {{< stat "54 %" >}}
+  reused or preserved
+  {{< /stat >}}
 
-  {{< stat "54 %" >}}reused or preserved{{< /stat >}}
+  1st value   the figure, e.g. "72 %", "1,000+", "3.2 t" (required)
 */ -}}
 {{- partial "validate.html" (dict "ctx" . "positional" 1 "required" (slice "value") "inner" "required") -}}
 {{- with .Parent }}{{ if ne .Name "stats" }}{{ errorf "%s: {{< stat >}} must be inside {{< stats >}}" $.Position }}{{ end }}{{ else }}{{ errorf "%s: {{< stat >}} must be inside {{< stats >}}" .Position }}{{ end -}}
 {{- $value := .Get 0 -}}
-{{- $m := findRESubmatch `^([^\d]*[\d.,]+\+?)\s*(.*)$` $value -}}
-<div class="stat">
-<p class="stat__value">{{ with $m }}{{ index (index . 0) 1 }}{{ with index (index . 0) 2 }}<span class="stat__unit">{{ . }}</span>{{ end }}{{ else }}{{ $value }}{{ end }}</p>
-<p class="stat__label">{{ .Inner | strings.TrimSpace | .Page.RenderString }}</p>
+{{- $m := index (findRESubmatch `^([^\d]*[\d.,]+\+?)\s*(.*)$` $value 1) 0 -}}
+<div class="stat grid content-start gap-2 rounded-md border border-border bg-(--panel-bg) p-5">
+  <p class="font-display text-h2 leading-none font-medium tabular-nums">
+    {{- with $m }}{{ index . 1 }}{{ with index . 2 }}<span class="ml-[0.15em] text-[0.5em]">{{ . }}</span>{{ end }}{{ else }}{{ $value }}{{ end -}}
+  </p>
+  <p class="text-sm leading-normal font-bold tracking-caps text-text-muted uppercase">{{ .Inner | strings.TrimSpace | .Page.RenderString }}</p>
 </div>

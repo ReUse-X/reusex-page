@@ -15,7 +15,12 @@
   background: var(--band-default-bg);
   color: var(--band-default-text);
 }
-.landing > .band--plain:nth-child(odd of .band--plain) { background: var(--band-alt-bg); color: var(--band-alt-text); }
+.landing > .band--plain:nth-child(odd of .band--plain) {
+  background: var(--band-alt-bg);
+  color: var(--band-alt-text);
+  /* Panels (cards, stats, people …) contrast with whichever band they sit on. */
+  --panel-bg: var(--color-surface);
+}
 
 .band--intro {
   padding-block: var(--site-space-section) var(--space-6);

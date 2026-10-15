@@ -1,16 +1,15 @@
 {{- /*
-  cards — a grid of card elements. Lays itself out by count and screen
-  width. Any Markdown before the first card is shown as the grid's intro.
-
-  Params:  none
-  Inner:   card elements (required)
+  cards — a grid of card elements; lays itself out by count and width.
+  Markdown before the first card is shown above the grid.
 
   {{< cards >}}
-  {{< card title="Fragmented data" icon="puzzle" >}}Data is scattered across …{{< /card >}}
-  {{< card title="High costs" icon="currency" link="pilots/" >}}Manual surveys …{{< /card >}}
+  {{< card icon="puzzle" >}}
+  ### Fragmented data
+  Building information is scattered across drawings and reports.
+  {{< /card >}}
   {{< /cards >}}
 */ -}}
 {{- partial "validate.html" (dict "ctx" . "inner" "required") -}}
-<div class="element element--cards cards">
-{{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
+<div class="element grid grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))] gap-4 [&>:not(.card)]:col-span-full [&>:not(.card)]:max-w-site-prose">
+  {{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
 </div>

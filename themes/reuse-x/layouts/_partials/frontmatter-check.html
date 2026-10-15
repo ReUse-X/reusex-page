@@ -6,4 +6,4 @@
   {{- if not (in $allowed $k) }}
     {{- warnf "%s: front matter key %q is not part of the content model (allowed: title, description, layout, draft, date, aliases, weight)" $.File.Path $k }}
   {{- end }}
-{{- end }}
+{{- end -}}

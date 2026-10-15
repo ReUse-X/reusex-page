@@ -1,26 +1,37 @@
 {{- /*
-  card — one item inside cards: a title, short Markdown text, an optional
-  icon and an optional link (the whole card becomes clickable).
+  card — one item inside cards. The first line is its heading.
 
-  Params:  title            the title (required)
-           image            picture shown at the top of the card, optional
-           alt              alt text for image (required with image)
-           icon             icon name from the theme's icon registry
-           link             page path, app:…, or https://…
-  Inner:   Markdown text (optional)
-
-  {{< card title="On-site registration" icon="phone" link="how-it-works/" >}}
+  {{< card icon="tablet" link="how-it-works/" >}}
+  ### On-site registration
   Scan with an iPad and tag components as you go.
   {{< /card >}}
+
+  icon   icon name (see _partials/icon.html)       optional
+  image  picture at the top of the card            optional (needs alt)
+  alt    alt text for the picture
+  link   page path, app:…, or https://…            optional — the whole card becomes clickable
 */ -}}
-{{- partial "validate.html" (dict "ctx" . "named" (slice "title" "image" "alt" "icon" "link") "required" (slice "title")) -}}
-{{- $title := .Get "title" -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "image" "alt" "icon" "link") "inner" "required") -}}
 {{- with .Parent }}{{ if ne .Name "cards" }}{{ errorf "%s: {{< card >}} must be inside {{< cards >}}" $.Position }}{{ end }}{{ else }}{{ errorf "%s: {{< card >}} must be inside {{< cards >}}" .Position }}{{ end -}}
-{{- $link := "" -}}
-{{- with .Get "link" }}{{ $link = (partial "link.html" (dict "url" . "page" $.Page "position" $.Position)).href }}{{ end -}}
-<article class="card{{ if $link }} card--link{{ end }}{{ if .Get "image" }} card--image{{ end }}">
-{{- with .Get "image" }}<div class="card__image">{{ partial "image.html" (dict "src" . "alt" ($.Get "alt") "page" $.Page "sizes" "(min-width: 60rem) 24rem, 100vw" "position" $.Position) }}</div>{{ end }}
-{{- with .Get "icon" }}<span class="card__icon">{{ partial "icon.html" . }}</span>{{ end }}
-<h3 class="card__title">{{ if $link }}<a href="{{ $link }}">{{ partial "brand-text.html" $title }}</a>{{ else }}{{ partial "brand-text.html" $title }}{{ end }}</h3>
-{{- with strings.TrimSpace .Inner }}<div class="card__text">{{ partial "markdown.html" (dict "page" $.Page "inner" $.Inner) }}</div>{{ end }}
+{{- $parts := partial "heading-split.html" (dict "html" (partial "markdown.html" (dict "page" .Page "inner" .Inner)) "ctx" .) -}}
+{{- $href := "" -}}
+{{- with .Get "link" }}{{ $href = (partial "link.html" (dict "url" . "page" $.Page "position" $.Position)).href }}{{ end -}}
+<article class="card relative grid content-start gap-3 overflow-hidden rounded-lg border border-border bg-(--panel-bg) p-5
+                {{- if $href }} transition-colors hover:border-accent focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-border-focus{{ end }}
+                {{- if .Get "image" }} pt-0{{ end }}">
+  {{- with .Get "image" }}
+  <div class="-mx-5 mb-2 border-b border-border [&_img]:aspect-[16/10] [&_img]:w-full [&_img]:object-cover">
+    {{ partial "image.html" (dict "src" . "alt" ($.Get "alt") "page" $.Page "sizes" "(min-width: 64rem) 24rem, 100vw" "position" $.Position) }}
+  </div>
+  {{- end }}
+  {{- with .Get "icon" }}
+  <span class="grid size-10 place-items-center rounded-md bg-accent-muted text-accent-deep">{{ partial "icon.html" . }}</span>
+  {{- end }}
+  <h3 class="text-h4">
+    {{- if $href }}<a href="{{ $href }}" class="text-inherit no-underline after:absolute after:inset-0 focus-visible:outline-none">{{ partial "brand-text.html" $parts.title }}</a>
+    {{- else }}{{ partial "brand-text.html" $parts.title }}{{ end -}}
+  </h3>
+  {{- with $parts.body }}
+  <div class="md text-text-muted">{{ . }}</div>
+  {{- end }}
 </article>

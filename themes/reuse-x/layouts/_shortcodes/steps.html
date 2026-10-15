@@ -1,16 +1,16 @@
 {{- /*
-  steps — an ordered sequence: a process, a timeline or a roadmap.
-  Steps are numbered automatically unless they carry their own marker.
-
-  Params:  none
-  Inner:   step elements; Markdown before the first step is the intro
+  steps — an ordered sequence: a process, a timeline or a roadmap. Steps are
+  numbered automatically unless they carry a marker or an icon. Markdown
+  before the first step is shown above.
 
   {{< steps >}}
-  {{< step title="Scan" >}}Walk the building with an iPad LiDAR scanner.{{< /step >}}
-  {{< step title="Segment" marker="AI" >}}Every point is labelled.{{< /step >}}
+  {{< step >}}
+  ### Scan
+  Walk the building with an iPad LiDAR scanner.
+  {{< /step >}}
   {{< /steps >}}
 */ -}}
 {{- partial "validate.html" (dict "ctx" . "inner" "required") -}}
-<div class="element element--steps steps">
-{{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
+<div class="element steps grid grid-cols-[auto_1fr] gap-x-4 max-sm:gap-x-3 [&>:not(.step)]:col-span-full [&>:not(.step)]:mb-5 [&>:not(.step)]:max-w-site-prose">
+  {{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
 </div>

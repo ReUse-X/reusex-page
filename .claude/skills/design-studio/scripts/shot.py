@@ -145,9 +145,14 @@ QA_JS = """
     .map(i => i.getAttribute('src'));
   const hugoError = !!document.querySelector('.hugo-error, #hugo-error, [data-hugo-error]')
     || /Failed to render|execute of template failed/.test(document.body ? document.body.innerText : '');
+  // Element HTML that leaked into a Markdown code block (a blank line in an
+  // element's output ends the HTML block — see the skill's element checklist).
+  const leakedHtml = [...document.querySelectorAll('pre code')]
+    .filter(c => !c.closest('.example__source') && /<[/]?(div|section|figure|span|img|a)\b/.test(c.textContent))
+    .map(c => c.textContent.trim().slice(0, 60));
   const brokenLinks = [...document.querySelectorAll('a[href^="#broken-link"]')]
     .map(a => a.getAttribute('href').replace('#broken-link/', ''));
-  return { overflow, offenders, brokenImgs, brokenLinks, hugoError,
+  return { overflow, offenders, brokenImgs, brokenLinks, leakedHtml, hugoError,
            theme: doc.getAttribute('data-theme') };
 }
 """
@@ -177,7 +182,7 @@ PROBE_JS = """
     const [a, b] = [lum(fg), lum(bg)].sort((x, y) => y - x);
     return {
       el: el.tagName.toLowerCase() + (el.id ? '#' + el.id : ''),
-      text: (el.innerText || el.getAttribute('aria-label') || '').trim().slice(0, 30),
+      text: (el.innerText || el.getAttribute('aria-label') || '').trim().replace(/\\s+/g, ' ').slice(0, 30),
       size: `${Math.round(r.width)}x${Math.round(r.height)}`,
       font: cs.fontSize + '/' + cs.fontWeight,
       fg: 'rgb(' + fg.map(Math.round) + ')', bg: 'rgb(' + bg + ')',
@@ -357,6 +362,8 @@ def main() -> int:
                             problems.append("Hugo template error rendered in page (see serve.sh log)")
                         if qa["overflow"] > 1:
                             problems.append(f"horizontal overflow {qa['overflow']}px: {', '.join(qa['offenders'])}")
+                        for snippet in qa["leakedHtml"]:
+                            problems.append(f"element HTML rendered as a code block (blank line in an element's output?): {snippet!r}")
                         for href in qa["brokenLinks"]:
                             problems.append(f"broken link (page does not exist): {href}")
                         for src in qa["brokenImgs"]:

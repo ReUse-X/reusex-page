@@ -1,18 +1,16 @@
 {{- /*
-  logos — the partner logo strip, from data/partners.yaml. Each logo has a
-  light- and a dark-background version; the right one is shown per theme.
-
-  Params:  none        Inner: none
+  logos — the partner logo strip from data/partners.yaml. Shows each logo's
+  light- or dark-background version to suit the theme.
 
   {{< logos >}}
 */ -}}
 {{- partial "validate.html" (dict "ctx" . "inner" "forbidden") -}}
-<ul class="element element--logos logos">
-{{- range hugo.Data.partners }}
-<li class="logos__item">
-{{- $img := partial "image.html" (dict "src" .logo "alt" .name "page" $.Page "sizes" "12rem" "class" "logos__img logos__img--light" "position" $.Position) }}
-{{- $dark := partial "image.html" (dict "src" (.logo_on_dark | default .logo) "alt" .name "page" $.Page "sizes" "12rem" "class" "logos__img logos__img--dark" "position" $.Position) }}
-{{- if .url }}<a href="{{ .url }}" rel="noopener">{{ $img }}{{ $dark }}</a>{{ else }}{{ $img }}{{ $dark }}{{ end }}
-</li>
-{{- end }}
+<ul class="element flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
+  {{- range hugo.Data.partners }}
+  {{- $light := partial "image.html" (dict "src" .logo "alt" .name "page" $.Page "sizes" "12rem" "class" "mx-auto max-h-14 w-auto opacity-85 dark:hidden" "position" $.Position) }}
+  {{- $dark := partial "image.html" (dict "src" (.logo_on_dark | default .logo) "alt" .name "page" $.Page "sizes" "12rem" "class" "mx-auto hidden max-h-14 w-auto opacity-85 dark:block" "position" $.Position) }}
+  <li class="flex-[0_1_10rem]">
+    {{- if .url }}<a href="{{ .url }}" rel="noopener">{{ $light }}{{ $dark }}</a>{{ else }}{{ $light }}{{ $dark }}{{ end -}}
+  </li>
+  {{- end }}
 </ul>

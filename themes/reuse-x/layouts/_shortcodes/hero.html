@@ -1,34 +1,33 @@
 {{- /*
-  hero — the page opener: main heading, lead text, actions, and a picture.
+  hero — the page opener on the navy band: main heading, lead, buttons, picture.
   Put it first on the page; the page then shows no separate title.
 
-  Params:  image    picture next to the page (page bundle), optional
-           alt      alt text for image (required with image)
-           kind     what the picture is: photo (default) | scan | screenshot
-           action   label of the main button      link   its target
-           action2  label of a secondary button   link2  its target
-  Inner:   Markdown — a # heading and a short lead paragraph (required)
-  Links:   page paths (contact/), app:…, https://…, mailto:…
-
-  {{< hero image="scan.jpg" alt="Point cloud of an office floor" kind="scan"
-           action="Book a pilot" link="contact/" action2="Learn more" link2="solution/" >}}
+  {{< hero
+      image="images/hero.jpg" alt="Point cloud of an office floor" kind="scan"
+      action="Book a pilot" link="contact/"
+      action2="Learn more" link2="solution/" >}}
   # Turn existing buildings into circularity-ready data
   AI-powered resource mapping from LiDAR scans.
   {{< /hero >}}
+
+  image    picture next to the text                  optional (needs alt)
+  alt      alt text for the picture
+  kind     photo | scan | screenshot                 default photo
+  action   main button label    link    its target   optional
+  action2  second button label  link2   its target   optional
 */ -}}
 {{- partial "validate.html" (dict "ctx" . "named" (slice "image" "alt" "kind" "action" "link" "action2" "link2") "enums" (dict "kind" (slice "photo" "scan" "screenshot")) "inner" "required") -}}
 {{- .Page.Store.Set "hero" true -}}
-{{- $kind := .Get "kind" | default "photo" -}}
-<section class="band band--hero element--hero flow">
-<div class="element hero">
-<div class="hero__text">
-{{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
-{{- partial "actions.html" (dict "ctx" . "class" "hero__actions") }}
-</div>
-{{- with .Get "image" }}
-<figure class="hero__media media-frame media-frame--{{ $kind }}">
-{{ partial "image.html" (dict "src" . "alt" ($.Get "alt") "page" $.Page "eager" true "sizes" "(min-width: 60rem) 45vw, 100vw" "position" $.Position) }}
-</figure>
-{{- end }}
-</div>
+<section class="band band--hero flow bg-chrome py-[clamp(3rem,2rem+6vw,6.5rem)] text-on-chrome">
+  <div class="element grid items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
+    <div class="md grid gap-5 [&>h1]:text-hero [&>h1]:text-on-chrome [&>p]:max-w-xl [&>p]:text-lead [&>p]:text-on-chrome-muted">
+      {{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
+      {{- partial "actions.html" (dict "ctx" . "variant" "inverse") }}
+    </div>
+    {{- with .Get "image" }}
+    <figure class="{{ partial "frame.html" ($.Get "kind") }} border-chrome-border shadow-lg">
+      {{ partial "image.html" (dict "src" . "alt" ($.Get "alt") "page" $.Page "eager" true "sizes" "(min-width: 64rem) 45vw, 100vw" "position" $.Position) }}
+    </figure>
+    {{- end }}
+  </div>
 </section>

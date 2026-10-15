@@ -1,5 +1,0 @@
-/* Button row used by hero, cta and others. */
-.actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
-@media (max-width: 30rem) {
-  .actions { flex-direction: column; align-items: stretch; }
-}

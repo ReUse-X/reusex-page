@@ -1,0 +1,9 @@
+{{- /* Classes for the frame around a picture, by what the picture is.
+       scan: point clouds are additive light — always on the near-black 3D
+       canvas, in both themes (product rule). */ -}}
+{{- $kinds := dict
+  "photo"      "border-border bg-surface-sunken"
+  "screenshot" "border-border bg-surface-sunken shadow-md"
+  "scan"       "border-chrome-border bg-canvas"
+}}
+{{- return (printf "overflow-hidden rounded-lg border %s [&_img]:w-full" (index $kinds (. | default "photo"))) -}}

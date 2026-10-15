@@ -1,0 +1,16 @@
+{{- /*
+  Split rendered Markdown into its first heading and the rest — so elements
+  can take their title from a `### Heading` line instead of a title= param.
+
+    $parts := partial "heading-split.html" (dict "html" $md "ctx" .)
+    $parts.title  → inner HTML of the first heading
+    $parts.body   → everything after it
+
+  Errors (with file:line) when the content does not start with a heading.
+*/ -}}
+{{- $m := findRESubmatch `(?s)^\s*<h[1-6][^>]*>(.*?)</h[1-6]>(.*)$` (string .html) 1 -}}
+{{- if not $m -}}
+  {{- errorf "%s: {{< %s >}} must start with a Markdown heading (### Title) on its first line" .ctx.Position .ctx.Name -}}
+{{- end -}}
+{{- $m = index $m 0 -}}
+{{- return (dict "title" (index $m 1 | safeHTML) "body" (index $m 2 | strings.TrimSpace | safeHTML)) -}}
