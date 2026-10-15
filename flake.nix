@@ -100,6 +100,15 @@
               ''
               + self.checks.${system}.pre-commit-check.shellHook;
           }; # end of default shell
+
+          # Minimal shell for CI: build + checks only (no browsers, no CLIs).
+          ci = pkgs.mkShell {
+            packages = with pkgs; [
+              hugo
+              python3
+              lychee
+            ];
+          };
         }; # end of devShells
       }
     ); # end of outputs
