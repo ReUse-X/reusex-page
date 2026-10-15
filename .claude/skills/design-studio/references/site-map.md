@@ -61,6 +61,21 @@ hero, cta) is itself a `.flow`. Consequences:
 - Band backgrounds alternate automatically (`.band--plain` nth-child);
   `hero` (navy), `cta` (accent) and canvas-type media own their look.
 
+## Adding a new page
+
+1. Section-type page (has its own URL and may get children, e.g. `/faq/`):
+   `content/en/<name>/_index.md` → `landing` layout by default. Single
+   article (a pilot, a news item): a leaf bundle `content/en/<section>/<slug>/index.md`
+   → `article` layout. Start from `hugo new content/en/<name>/_index.md`
+   (the archetype follows the content model).
+2. Navigation is a separate decision: add it to `[menus.main]` (top bar,
+   keep it short) or as a child of a `[menus.footer]` column in
+   `hugo.toml` — or nowhere, if it is only linked from other pages. Menu
+   labels come from the menu entry's `name`, not the page title.
+3. Renamed/moved page → `aliases: [/old/path/]`, then `serve.sh restart`
+   (aliases, like menu and other `hugo.toml` changes, are only picked up
+   reliably after a restart) and `check_old_urls.sh`.
+
 ## Writing a new element (checklist)
 
 1. `layouts/_shortcodes/<name>.html`, starting with the doc comment
@@ -77,7 +92,20 @@ hero, cta) is itself a `.flow`. Consequences:
 6. CSS in `assets/css/components/<name>.css`, imported in `main.css`;
    tokens only (`token_lint.py`).
 7. Add a snippet `content/en/components/examples/<name>.txt` and an
-   `{{< example "<name>" >}}` line on the gallery page.
+   `{{< example "<name>" >}}` line on the gallery page. In the gallery the
+   source panel is `#example-<name>` and the rendered element is its next
+   sibling: shoot it with `--selector "#example-<name> + .<name>"`.
+8. Container + item elements (cards/card, steps/step, stats/stat,
+   faq/question): only the container carries `element`; each item checks
+   its parent with the guard copied from `card.html`
+   (`with .Parent … ne .Name "cards" … errorf`).
+9. Icons: add new ones to the registry in `_partials/icon.html` (24×24,
+   stroke `currentColor`, same 1.75 stroke weight); an unknown name errors
+   and lists the known ones.
+10. Interactive states: shoot them with `--js` (e.g. open every
+    `<details>`, `goToSlide(4)`) and real keyboard focus with
+    `--keys "Tab Tab Enter"`; check the focus ring is visible on every band
+    (dark bands override `--site-focus-ring`).
 
 ## Naming rule (product name)
 
@@ -106,3 +134,9 @@ template.
   motion, so silent video clips show controls instead of autoplaying.
 - **Old URLs:** `references/old-urls.txt` + `scripts/check_old_urls.sh`;
   renamed or retired pages need `aliases:`.
+- **Second server / worktrees:** `PORT=1315 serve.sh` runs another server;
+  pass its URL to `shot.py --base …` and `check_old_urls.sh <url>`. Run the
+  scripts *inside* the dev shell: run outside it they re-enter
+  `nix develop`, and from a git **worktree** the git-hooks shellHook then
+  rewrites the shared `core.hooksPath` — repair with
+  `git config core.hooksPath .beads/hooks`.

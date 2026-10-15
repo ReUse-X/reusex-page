@@ -140,7 +140,7 @@ def main() -> int:
     if a.summary:
         for f, c in per_file.most_common():
             print(f"{c:5d}  {f}")
-    print(f"token_lint: {total} finding(s) in {len(per_file)} file(s)", file=sys.stderr)
+    print(f"token_lint: {total} finding(s) in {len(per_file)} of {len(files)} file(s) scanned", file=sys.stderr)
     return 1 if total else 0
 
 

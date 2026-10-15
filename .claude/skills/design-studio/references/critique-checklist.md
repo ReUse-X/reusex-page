@@ -24,8 +24,8 @@ worst issues, not every nit.
 ## Hierarchy (squint test)
 - Blur your eyes: 1st, 2nd, 3rd thing — does that match importance?
 - One dominant element per band; competing focal points are a defect.
-- Section bands alternate with intent (colorScheme 1/2/3), not at random —
-  and actually look different (schemes 2 and 3 currently share a colour).
+- Bands read as distinct (the template alternates them); a page that is
+  one long undivided band needs `section` elements.
 
 ## Layout and alignment
 - One container width and left edge across bands; nothing a few px off.
@@ -47,7 +47,8 @@ worst issues, not every nit.
 - Buttons share height/padding/radius; primary vs secondary obvious.
 - Cards in a row have equal height and aligned content.
 - Icons one set, one stroke weight, aligned with text.
-- Hover/focus visible on links and buttons.
+- Hover/focus visible on links and buttons — check focus with
+  `shot.py --keys "Tab Tab"`, including on dark bands.
 
 ## Content
 - Real, specific copy; no lorem ipsum, no "Feature 1", no placeholder links

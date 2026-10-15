@@ -1,0 +1,18 @@
+{{- /*
+  faq — frequently asked questions: a list of question elements, each
+  closed by default and opened by clicking its question (native
+  <details>/<summary>, no JavaScript). Markdown before the first question
+  is the list's intro.
+
+  Params:  none
+  Inner:   question elements (required)
+
+  {{< faq >}}
+  {{< question title="How long does a scan take?" >}}Hours, not weeks.{{< /question >}}
+  {{< question title="What do we receive?" >}}A 3D model and an inventory.{{< /question >}}
+  {{< /faq >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "inner" "required") -}}
+<div class="element element--faq faq">
+{{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
+</div>

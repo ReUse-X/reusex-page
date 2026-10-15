@@ -1,0 +1,18 @@
+{{- /*
+  question — one question inside faq, with its answer. The answer is hidden
+  until the question is clicked; browser find-in-page still finds it.
+
+  Params:  title            the question (required)
+           id               optional anchor (#id) to link to the question
+  Inner:   the answer, Markdown (required)
+
+  {{< question title="What does the building owner need to prepare?" >}}
+  Access to every room and any existing drawings.
+  {{< /question >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "title" "id") "required" (slice "title") "inner" "required") -}}
+{{- with .Parent }}{{ if ne .Name "faq" }}{{ errorf "%s: {{< question >}} must be inside {{< faq >}}" $.Position }}{{ end }}{{ else }}{{ errorf "%s: {{< question >}} must be inside {{< faq >}}" .Position }}{{ end -}}
+<details class="faq__item"{{ with .Get "id" }} id="{{ . }}"{{ end }}>
+<summary class="faq__question"><span class="faq__title">{{ partial "brand-text.html" (.Get "title") }}</span>{{ partial "icon.html" "chevron-down" }}</summary>
+<div class="faq__answer">{{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}</div>
+</details>

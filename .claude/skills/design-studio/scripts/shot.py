@@ -9,16 +9,17 @@ renders right now, so an edit is visible on the next shot (~1-3 s per page).
 One Chromium is launched for the whole run. Every shot:
   - forces the theme via localStorage *before* the page's own theme script
     runs (data-theme="light"|"dark") and matches prefers-color-scheme,
-  - waits for `load` + web fonts + the Tailwind Play CDN's injected <style>
-    (it compiles classes at runtime; an early shot is unstyled). NOT
-    networkidle: the hero <video> streams and never goes idle (60 s+ per shot),
-  - disables animations/transitions (the fade-in-on-scroll would otherwise
-    leave half-transparent content in a full-page shot),
+  - waits for `load` and web fonts (not networkidle: video streams never go
+    idle),
+  - forces every lazy image to load and decode (headless Chromium skips
+    off-screen images), disables animations/transitions, emulates
+    reduced motion (silent video clips therefore show controls),
   - runs QA checks and prints them as CHECK lines; exit status 3 if any fail:
-      * console errors / page errors / failed requests (404 images, fonts …)
+      * console errors / page errors / failed requests / HTTP >= 400
       * Hugo error overlay (template error) present in the page
-      * horizontal overflow (document wider than the viewport)
-      * broken <img> (naturalWidth 0)
+      * horizontal overflow (document wider than the viewport; the deepest
+        offending elements are named)
+      * broken <img> and broken internal links (#broken-link/… markers)
 
 Usage:
   shot.py [PATH ...] [options]
@@ -31,15 +32,23 @@ Usage:
     --vp V          desktop | tablet | mobile | all (default: desktop,mobile)
                     comma-separated is fine: --vp desktop,tablet
     --full          full-page screenshot (default: first viewport only)
-    --selector CSS  screenshot just that element (first match), e.g. "footer"
+    --selector CSS  screenshot just the FIRST match, e.g. "footer"; in the
+                    components gallery the rendered element is the sibling
+                    after the snippet: "#example-faq + .faq"
     --each CSS      screenshot EVERY match separately (-01, -02, …), e.g.
                     "main > section" — the way to review a long page on
                     mobile; a --full mobile shot gets shrunk to illegibility
     --scroll-to CSS scroll the element into view before a viewport shot
-    --js CODE       evaluate JS in the page before the shot (e.g. open the
-                    mobile menu, or a pitch-deck slide: "goToSlide(4)")
+    --js CODE       evaluate JS in the page before the shot, e.g. open every
+                    <details>: "document.querySelectorAll('details')
+                    .forEach(d => d.open = true)", or a slide: "goToSlide(4)"
+                    (deep links work too: shot.py "pitchdeck/#slide-4")
+    --keys KEYS     press real keys before the shot, space-separated
+                    Playwright key names, e.g. "Tab Tab Enter" — the way to
+                    check :focus-visible rings and keyboard behaviour
     --out DIR       output directory (default: .screenshots/ in the repo)
-    --base URL      server URL (default: ask serve.sh, starting it if needed)
+    --base URL      server URL (default: ask serve.sh, starting it if needed;
+                    use with PORT=… serve.sh for a second server)
     --no-checks     skip the QA checks
     --probe CSS     print measurements for every match instead of guessing:
                     size (tap targets), font-size, colour, effective
@@ -228,6 +237,7 @@ def main() -> int:
     ap.add_argument("--probe")
     ap.add_argument("--scroll-to")
     ap.add_argument("--js")
+    ap.add_argument("--keys")
     ap.add_argument("--out")
     ap.add_argument("--base")
     ap.add_argument("--no-checks", action="store_true")
@@ -298,6 +308,10 @@ def main() -> int:
                             page.wait_for_timeout(300)
                         except Exception as e:  # noqa: BLE001
                             problems.append(f"--js failed: {str(e)[:200]}")
+                    if a.keys:
+                        for key in a.keys.split():
+                            page.keyboard.press(key)
+                        page.wait_for_timeout(100)
                     if a.scroll_to:
                         if page.locator(a.scroll_to).count():
                             page.locator(a.scroll_to).first.scroll_into_view_if_needed()

@@ -41,8 +41,8 @@ go in beads — never in spec/plan Markdown files (see CLAUDE.md).
   spacing, colour, columns and band background are never parameters.
 - **Reuse before inventing:** check the elements in
   `themes/reuse-x/layouts/_shortcodes/` (doc comment at the top of each) and
-  the `/components/` gallery. A new element follows the checklist in the
-  site map.
+  the `/components/` gallery. A new element or a new page follows its
+  checklist in the site map.
 - **Colours and sizes come from tokens only.** Product tokens
   (`assets/css/tokens.css`) are vendored and never edited — refresh with
   `scripts/sync-tokens.sh`. Site-only tokens go in `site-tokens.css`, built
@@ -85,7 +85,8 @@ python3 .claude/skills/design-studio/scripts/shot.py people/ --probe ".person__l
 
 Default: light + dark × desktop (1440) + mobile (390), first viewport.
 `--selector` for one element, `--each` for every match as its own image,
-`--scroll-to`, `--js` to drive the page first. **On mobile use `--each`,
+`--scroll-to`, `--js` to drive the page first, `--keys "Tab Tab"` for real
+keyboard focus, `--base <url>` for a second server (`PORT=… serve.sh`). **On mobile use `--each`,
 not `--full`** (a full-length phone shot is shrunk to illegibility).
 `--probe` measures size, font, colours and contrast instead of guessing.
 Then **open every PNG with the Read tool and actually look.** `CHECK FAIL`

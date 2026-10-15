@@ -59,3 +59,8 @@
   --band-accent-bg: var(--color-accent-muted);
   --band-accent-text: var(--color-text);
 }
+
+/* On the dark chrome and accent bands the default steel-blue focus ring is
+   below 3:1; use the band's own text colour there. */
+.site-header, .site-footer, .band--hero { --site-focus-ring: 2px solid var(--color-on-chrome); }
+.band--cta { --site-focus-ring: 2px solid var(--band-accent-text); }
