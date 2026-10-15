@@ -25,7 +25,6 @@
 @import "./tokens.css";
 @import "./site-tokens.css";
 
-@import "./base/fonts.css" layer(base);
 @import "./base/reset.css" layer(base);
 @import "./base/typography.css" layer(base);
 

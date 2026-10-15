@@ -35,6 +35,14 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v31
 
+      # The site's URL as GitHub Pages serves it: https://reuse-x.github.io/reusex-page/
+      # until the custom domain is set in the repo's Pages settings, then
+      # https://reuse-x.com/ — no code change needed when DNS goes live.
+      - name: Setup Pages
+        id: pages
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@v5
+
       - name: Lint content and tokens
         run: |
           nix develop .#ci -c python3 .claude/skills/design-studio/scripts/content_lint.py
@@ -49,10 +57,20 @@ jobs:
       - name: Build with Hugo
         env:
           HUGO_ENVIRONMENT: production
-        run: nix develop .#ci -c hugo --minify --gc --panicOnWarning
+        run: >
+          nix develop .#ci -c hugo --minify --gc --panicOnWarning
+          ${{ steps.pages.outputs.base_url && format('--baseURL {0}/', steps.pages.outputs.base_url) || '' }}
 
       - name: Check links
-        run: nix develop .#ci -c lychee --offline --no-progress --root-dir "$PWD/public" 'public/**/*.html'
+        env:
+          # e.g. /reusex-page on the default Pages URL, empty on reuse-x.com
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: |
+          remap=()
+          if [ -n "$BASE_PATH" ]; then
+            remap=(--remap "file://$PWD/public${BASE_PATH}(/|\$) file://$PWD/public/")
+          fi
+          nix develop .#ci -c lychee --offline --no-progress --root-dir "$PWD/public" "${remap[@]}" 'public/**/*.html'
 
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'

@@ -33,9 +33,13 @@
   `bg-(--tone-good-bg)`.
 - **JS:** vanilla modules bundled by `js.Build` from `assets/js/main.js`.
 - **Fonts:** Oswald + Archivo, self-hosted in `themes/reuse-x/static/fonts/`
-  (OFL, licences next to them); `css.Build` treats `/fonts/*` as external.
-- **Hosting:** GitHub Pages at `https://reuse-x.com/` (root, no path
-  prefix), `static/CNAME`. The app is `https://app.reuse-x.com/`
+  (OFL, licences next to them); `@font-face` lives in `_partials/fonts.html`
+  so the URLs go through `relURL`.
+- **Hosting:** GitHub Pages, built by `.github/workflows/deploy-hugo.yml`
+  with the base URL GitHub reports — `https://reuse-x.github.io/reusex-page/`
+  until the custom domain `reuse-x.com` is set in the repo's Pages settings
+  (no `CNAME` file needed with workflow deploys). Templates must therefore
+  work under a sub-path: always `relURL`/`.RelPermalink`, never `/…`. The app is `https://app.reuse-x.com/`
   (`params.app_url`).
 - **Languages:** English in `content/en/`; Danish configured in `hugo.toml`
   but disabled until `content/da/` exists. UI strings in

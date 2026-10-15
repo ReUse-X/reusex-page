@@ -74,7 +74,9 @@ bash .claude/skills/design-studio/scripts/check_old_urls.sh       # old URLs sti
 Don't run `hugo` to check a change — the live server re-renders in under a
 second. CI (`.github/workflows/deploy-hugo.yml`) builds with the flake's
 Hugo (`nix develop .#ci`), runs the lints and a link check, and deploys
-`main` to GitHub Pages at https://reuse-x.com/.
+`main` to GitHub Pages (https://reuse-x.github.io/reusex-page/ until the
+reuse-x.com DNS is in place — then set the custom domain in the repo's Pages
+settings).
 
 ## Architecture Overview
 
