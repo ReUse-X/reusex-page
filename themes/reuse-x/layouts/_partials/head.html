@@ -4,6 +4,8 @@
 {{- $description := or .Description site.Params.description }}
 <meta name="description" content="{{ $description }}">
 <link rel="canonical" href="{{ .Permalink }}">
+{{- /* Interim favicon (the wordmark's X) until the logo exists — bead reusex-page-k4m. */}}
+<link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
 <meta property="og:title" content="{{ .Title }}">
 <meta property="og:description" content="{{ $description }}">
 <meta property="og:url" content="{{ .Permalink }}">
