@@ -1,0 +1,3 @@
+{{< quote author="Name Surname" role="Organisation" >}}
+A short quote or testimonial goes here.
+{{< /quote >}}

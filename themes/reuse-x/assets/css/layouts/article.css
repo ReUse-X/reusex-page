@@ -1,0 +1,12 @@
+/* article — one readable column. */
+.article {
+  --flow-content: var(--site-width-prose);
+  padding-block: var(--site-space-section);
+}
+.article__header {
+  margin-bottom: var(--space-6);
+  display: grid;
+  gap: var(--space-3);
+}
+.article__section { text-decoration: none; }
+.article__meta { font-size: var(--font-size-lg); color: var(--color-text-muted); }

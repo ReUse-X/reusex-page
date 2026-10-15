@@ -1,0 +1,13 @@
+/* example — the components gallery's snippet panel. */
+.example { border-top: 1px solid var(--color-border-strong); padding-top: var(--space-5); }
+.example__name { font-size: var(--site-font-size-h3); text-transform: none; font-family: var(--font-mono); }
+.example__source {
+  margin-top: var(--space-3);
+  padding: var(--space-4);
+  overflow-x: auto;
+  background: var(--color-chrome);
+  color: var(--color-on-chrome);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+}

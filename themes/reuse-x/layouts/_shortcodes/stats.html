@@ -1,0 +1,15 @@
+{{- /*
+  stats — a row of key figures (the product's KPI card recipe).
+
+  Params:  none
+  Inner:   stat elements; Markdown before the first stat is the intro
+
+  {{< stats >}}
+  {{< stat "40 %" >}}of all waste is construction & demolition{{< /stat >}}
+  {{< stat "1,000+" >}}buildings to transform in Aarhus alone{{< /stat >}}
+  {{< /stats >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "inner" "required") -}}
+<div class="element element--stats stats">
+{{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
+</div>

@@ -141,7 +141,3 @@ main { flex: 1; }
   border-top: 1px solid var(--color-chrome-border);
   font-size: var(--font-size-sm);
 }
-
-/* Default page wrapper until the landing/article layouts exist. */
-.page-body { padding-block: var(--site-space-section); width: min(100% - 2 * var(--site-gutter), var(--site-width)); margin-inline: auto; }
-.page-header { margin-bottom: var(--space-6); }

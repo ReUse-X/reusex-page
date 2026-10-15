@@ -1,0 +1,33 @@
+/* stats — KPI figures: big Oswald number, small unit, caps label beneath. */
+.stats {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  & > :not(.stat) { grid-column: 1 / -1; max-width: var(--site-width-prose); }
+}
+.stat {
+  padding: var(--space-5);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+}
+.band--plain:nth-child(odd of .band--plain) .stat { background: var(--color-surface); }
+.stat__value {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--site-font-size-h2);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.stat__unit { font-size: 0.5em; margin-left: 0.15em; }
+.stat__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  line-height: var(--line-height-normal);
+}

@@ -1,0 +1,6 @@
+{{< checklist >}}
+### What a pilot delivers
+- A reuse-ready 3D model of the building
+- A component inventory with quantities and condition
+- Exports for Rhino, Speckle and spreadsheets
+{{< /checklist >}}

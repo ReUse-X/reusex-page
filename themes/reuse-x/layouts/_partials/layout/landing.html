@@ -1,0 +1,13 @@
+{{- /* landing — full-bleed bands (home and section pages). Prose between
+       elements sits in the content column; bands span the viewport and
+       alternate backgrounds automatically. */ -}}
+{{- $content := .Content }}
+<div class="landing flow">
+  {{- if not (.Store.Get "hero") }}
+  <header class="band band--intro">
+    <h1>{{ partial "brand-text.html" .Title }}</h1>
+    {{- with .Description }}<p class="lead">{{ . }}</p>{{ end }}
+  </header>
+  {{- end }}
+  {{ $content }}
+</div>

@@ -1,0 +1,18 @@
+{{- /*
+  logos — the partner logo strip, from data/partners.yaml. Each logo has a
+  light- and a dark-background version; the right one is shown per theme.
+
+  Params:  none        Inner: none
+
+  {{< logos >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "inner" "forbidden") -}}
+<ul class="element element--logos logos">
+{{- range hugo.Data.partners }}
+<li class="logos__item">
+{{- $img := partial "image.html" (dict "src" .logo "alt" .name "page" $.Page "sizes" "12rem" "class" "logos__img logos__img--light" "position" $.Position) }}
+{{- $dark := partial "image.html" (dict "src" (.logo_on_dark | default .logo) "alt" .name "page" $.Page "sizes" "12rem" "class" "logos__img logos__img--dark" "position" $.Position) }}
+{{- if .url }}<a href="{{ .url }}" rel="noopener">{{ $img }}{{ $dark }}</a>{{ else }}{{ $img }}{{ $dark }}{{ end }}
+</li>
+{{- end }}
+</ul>

@@ -1,0 +1,29 @@
+{{- /*
+  publication — a paper, thesis or report, with its abstract.
+
+  Params:  title     (required)
+           authors   e.g. "Povl Filip Sonne-Frederiksen"
+           kind      e.g. "PhD dissertation", "Journal article"
+           details   one line of metadata, e.g. "English · 210 pages · 2024"
+           link      where to read it (https://…, a page path or a file)
+           action    button label (default "Read the publication")
+  Inner:   the abstract, Markdown (optional)
+
+  {{< publication title="3D Mapping of Vacant Buildings for Reuse"
+      authors="Povl Filip Sonne-Frederiksen" kind="PhD dissertation"
+      link="https://…/Dissertation.pdf" >}}
+  Abstract text …
+  {{< /publication >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "title" "authors" "kind" "details" "link" "action") "required" (slice "title")) -}}
+<article class="element element--publication publication">
+{{- with .Get "kind" }}<p class="eyebrow publication__kind">{{ . }}</p>{{ end }}
+<h3 class="publication__title">{{ partial "brand-text.html" (.Get "title") }}</h3>
+{{- with .Get "authors" }}<p class="publication__authors">{{ . }}</p>{{ end }}
+{{- with strings.TrimSpace .Inner }}<div class="publication__abstract">{{ partial "markdown.html" (dict "page" $.Page "inner" $.Inner) }}</div>{{ end }}
+{{- with .Get "details" }}<p class="publication__details">{{ . }}</p>{{ end }}
+{{- with .Get "link" }}
+{{- $l := partial "link.html" (dict "url" . "page" $.Page "position" $.Position) }}
+<div class="actions"><a class="button button--primary" href="{{ $l.href }}">{{ $.Get "action" | default (i18n "read_publication") }}{{ partial "icon.html" (cond $l.external "external" "arrow-right") }}</a></div>
+{{- end }}
+</article>

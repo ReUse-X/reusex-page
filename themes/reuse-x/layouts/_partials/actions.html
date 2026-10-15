@@ -1,0 +1,21 @@
+{{- /* Buttons from an element's action/link and action2/link2 params.
+       partial "actions.html" (dict "ctx" . "class" "x__actions") */ -}}
+{{- $ctx := .ctx -}}
+{{- $buttons := slice -}}
+{{- range $i, $p := slice (slice "action" "link") (slice "action2" "link2") -}}
+  {{- $label := $ctx.Get (index $p 0) -}}
+  {{- $url := $ctx.Get (index $p 1) -}}
+  {{- if and $label (not $url) }}{{ errorf "%s: %s=%q needs %s=\"…\"" $ctx.Position (index $p 0) $label (index $p 1) }}{{ end -}}
+  {{- if and $url (not $label) }}{{ errorf "%s: %s=%q needs %s=\"…\" (the button label)" $ctx.Position (index $p 1) $url (index $p 0) }}{{ end -}}
+  {{- with $label -}}
+    {{- $l := partial "link.html" (dict "url" $url "page" $ctx.Page "position" $ctx.Position) -}}
+    {{- $buttons = $buttons | append (dict "label" . "href" $l.href "primary" (eq $i 0)) -}}
+  {{- end -}}
+{{- end -}}
+{{- with $buttons }}
+<div class="actions{{ with $.class }} {{ . }}{{ end }}">
+{{- range . }}
+<a class="button {{ if .primary }}button--primary{{ else }}button--secondary{{ end }}" href="{{ .href }}">{{ .label }}{{ if .primary }}{{ partial "icon.html" "arrow-right" }}{{ end }}</a>
+{{- end }}
+</div>
+{{- end -}}

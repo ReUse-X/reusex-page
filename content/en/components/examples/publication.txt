@@ -1,0 +1,3 @@
+{{< publication title="3D Mapping of Vacant Buildings for Reuse" authors="Povl Filip Sonne-Frederiksen" kind="PhD dissertation" details="English · Royal Danish Academy" link="https://adk.elsevierpure.com/files/85372081/Dissertation.pdf" >}}
+The abstract, in Markdown.
+{{< /publication >}}

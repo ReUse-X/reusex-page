@@ -1,0 +1,34 @@
+{{- /*
+  media — a picture with text beside it, or a lone figure with a caption.
+  Consecutive media elements alternate sides automatically.
+
+  Params:  image    picture next to the page (required)
+           alt      alt text (required)
+           kind     photo (default) | scan | screenshot — scans and point
+                    clouds are always shown on the dark 3D canvas
+           caption  short caption under the picture, optional
+  Inner:   Markdown text shown beside the picture (optional; without it the
+           picture is shown full width as a figure — then self-close the
+           element: {{< media image="…" alt="…" caption="…" />}})
+
+  {{< media image="segmentation.png" alt="Segmented office" kind="scan" >}}
+  ### AI-based segmentation
+  Every point is labelled: wall, floor, window, door …
+  {{< /media >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "image" "alt" "kind" "caption") "required" (slice "image" "alt") "enums" (dict "kind" (slice "photo" "scan" "screenshot"))) -}}
+{{- $kind := .Get "kind" | default "photo" -}}
+{{- $hasText := gt (len (strings.TrimSpace .Inner)) 0 -}}
+<div class="element element--media media{{ if not $hasText }} media--figure{{ end }}">
+<figure class="media__figure">
+<div class="media-frame media-frame--{{ $kind }}">
+{{ partial "image.html" (dict "src" (.Get "image") "alt" (.Get "alt") "page" .Page "sizes" (cond $hasText "(min-width: 60rem) 50vw, 100vw" "(min-width: 74rem) 74rem, 100vw") "position" .Position) }}
+</div>
+{{- with .Get "caption" }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+</figure>
+{{- if $hasText }}
+<div class="media__text">
+{{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
+</div>
+{{- end }}
+</div>

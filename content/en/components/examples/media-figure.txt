@@ -1,0 +1,1 @@
+{{< media image="images/FromScanTo3D_1.jpg" alt="From scan to 3D model" caption="A lone picture with a caption — no text inside, so the element is self-closed." />}}

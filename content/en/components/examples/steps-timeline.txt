@@ -1,0 +1,5 @@
+{{< steps >}}
+{{< step title="Needs, standards and compliance" marker="2026" >}}User needs analysis with resource mappers.{{< /step >}}
+{{< step title="Pilots and model improvement" marker="2027" >}}Run pilots across building types.{{< /step >}}
+{{< step title="Platform launch" icon="check" >}}Steps can show an icon instead of a number.{{< /step >}}
+{{< /steps >}}

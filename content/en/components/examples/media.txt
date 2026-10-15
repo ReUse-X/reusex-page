@@ -1,0 +1,10 @@
+{{< media image="images/AI-poweredResourceMapping_1.png" alt="Segmented point cloud of an office with walls, floor and windows in label colours" kind="scan" >}}
+### AI-based segmentation
+Every point of the scan is labelled — wall, floor, window, door — so
+components can be counted and measured.
+{{< /media >}}
+
+{{< media image="images/ReUseX_Platform.jpg" alt="The ReUseX platform showing a component inventory" kind="screenshot" >}}
+### Cloud-based platform
+Inventories, quantities and exports in one place.
+{{< /media >}}

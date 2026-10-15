@@ -1,0 +1,4 @@
+{{< cta action="Book a pilot" link="contact/" action2="How it works" link2="how-it-works/" >}}
+## Ready to map your building?
+Start with a paid pilot on one building.
+{{< /cta >}}

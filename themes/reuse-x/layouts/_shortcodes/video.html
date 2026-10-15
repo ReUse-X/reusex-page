@@ -1,0 +1,25 @@
+{{- /*
+  video — a video file next to the page (page bundle) or in assets/.
+
+  Params:  src       the video file, .mp4 (required)
+           poster    still image shown before playback (recommended)
+           title     what the video shows — used as its accessible name (required)
+           kind      film (default: controls, no autoplay) | clip (short silent
+                     loop that plays inline; paused for reduced-motion users)
+           caption   short caption, optional
+  Inner:   none
+
+  {{< video src="scan.mp4" poster="scan.jpg" title="Scanning an office with an iPad" kind="clip" >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "src" "poster" "title" "kind" "caption") "required" (slice "src" "title") "enums" (dict "kind" (slice "film" "clip")) "inner" "forbidden") -}}
+{{- $src := or (.Page.Resources.Get (.Get "src")) (resources.Get (.Get "src")) -}}
+{{- if not $src }}{{ errorf "%s: video %q not found next to the page or in assets/" .Position (.Get "src") }}{{ end -}}
+{{- $poster := "" -}}
+{{- with .Get "poster" }}{{ with or ($.Page.Resources.Get .) (resources.Get .) }}{{ $poster = (.Resize "1600x webp q78").RelPermalink }}{{ else }}{{ errorf "%s: poster %q not found" $.Position . }}{{ end }}{{ end -}}
+{{- $clip := eq (.Get "kind") "clip" -}}
+<figure class="element element--video video">
+<div class="media-frame">
+<video src="{{ $src.RelPermalink }}"{{ with $poster }} poster="{{ . }}"{{ end }} aria-label="{{ .Get "title" }}" preload="metadata" playsinline{{ if $clip }} muted loop autoplay data-clip{{ else }} controls{{ end }}></video>
+</div>
+{{- with .Get "caption" }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+</figure>

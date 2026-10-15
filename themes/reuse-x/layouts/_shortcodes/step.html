@@ -1,0 +1,23 @@
+{{- /*
+  step — one item inside steps.
+
+  Params:  title            the step title (required)
+           marker           what the marker shows instead of the number,
+                            e.g. a year "2026" or "Q3 2026"
+           icon             icon from the theme's registry instead of a number
+  Inner:   Markdown text (optional)
+
+  {{< step title="Pilots and model improvement" marker="2026" >}}
+  Run multiple pilots across building types.
+  {{< /step >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "title" "marker" "icon") "required" (slice "title")) -}}
+{{- $title := .Get "title" -}}
+{{- with .Parent }}{{ if ne .Name "steps" }}{{ errorf "%s: {{< step >}} must be inside {{< steps >}}" $.Position }}{{ end }}{{ else }}{{ errorf "%s: {{< step >}} must be inside {{< steps >}}" .Position }}{{ end -}}
+<div class="step{{ if or (.Get "marker") (.Get "icon") }} step--marked{{ end }}">
+<div class="step__marker" aria-hidden="true">{{ with .Get "icon" }}{{ partial "icon.html" . }}{{ else }}{{ with $.Get "marker" }}{{ . }}{{ end }}{{ end }}</div>
+<div class="step__body">
+<h3 class="step__title">{{ with .Get "marker" }}<span class="visually-hidden">{{ . }}: </span>{{ end }}{{ partial "brand-text.html" $title }}</h3>
+{{- with strings.TrimSpace .Inner }}<div class="step__text">{{ partial "markdown.html" (dict "page" $.Page "inner" $.Inner) }}</div>{{ end }}
+</div>
+</div>

@@ -1,0 +1,54 @@
+# People shown on the People page and in the pitch deck (one source).
+# portrait: file in assets/people/. group: team | board.
+# draft: true → not shown on the published site (placeholder content).
+- id: jan-buthke
+  name: Jan Buthke
+  role: CEO
+  group: team
+  portrait: people/jan-buthke.jpg
+  bio: Head of LINK IO and initiator of the PhD project that forms the foundation of ReUseX. Holds the strategic and commercial threads.
+  linkedin: https://www.linkedin.com/in/jan-buthke/
+- id: soren-arildskov
+  name: Søren Arildskov
+  role: CCO
+  group: team
+  portrait: people/soren-arildskov.jpg
+  bio: Architect MAA with a career in strategic business development at AART, Juul Frost and Gottlieb Paludan. Knows the market and the right doors to knock on.
+  linkedin: https://www.linkedin.com/in/s%C3%B8ren-arildskov-4b2a054/
+- id: povl-filip-sonne-frederiksen
+  name: Povl Filip Sonne-Frederiksen
+  role: CTO
+  group: team
+  portrait: people/povl-filip-sonne-frederiksen.jpg
+  bio: PhD in '3D Mapping of Vacant Buildings for Reuse' — the inventor of the technology behind ReUseX. Architect and software developer in one.
+  linkedin: https://www.linkedin.com/in/sonne-frederiksen/
+- id: christian-kongsgaard
+  name: Christian Kongsgaard
+  role: Platform Developer
+  group: team
+  portrait: people/christian-kongsgaard.jpg
+  bio: Architectural engineer and fullstack developer, creator of the open standards EPDx and LCAx. Responsible for platform, backend and API.
+  linkedin: https://www.linkedin.com/in/christian-kongsgaard/
+- id: thomas-titanium
+  name: Thomas Titanium
+  role: iOS App Developer
+  group: team
+  portrait: people/thomas-titanium.jpg
+  bio: Experienced developer with strong competencies in app development and security. Responsible for the ReUseX scan app for iPhone and iPad.
+  linkedin: https://www.linkedin.com/in/thomas-titanium-150468/
+
+# Board — bios are placeholder text in the old site (bead reusex-page-3h7).
+- id: jan-buthke-board
+  name: Jan Buthke
+  group: board
+  draft: true
+  portrait: people/jan-buthke.jpg
+  bio: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+  linkedin: https://www.linkedin.com/in/jan-buthke/
+- id: kristina-jordt-adsersen
+  name: Kristina Jordt Adsersen
+  group: board
+  draft: true
+  portrait: people/kristina-jordt-adsersen.jpg
+  bio: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+  linkedin: https://www.linkedin.com/in/mutopia/

@@ -1,0 +1,39 @@
+/* people — portrait cards. */
+.people {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 13.5rem), 1fr));
+}
+.person {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.band--plain:nth-child(odd of .band--plain) .person { background: var(--color-surface); }
+.person__portrait img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.person__body { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4); }
+.person__name { font-size: var(--site-font-size-h4); }
+.person__role {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-accent-deep);
+}
+.person__bio { font-size: var(--font-size-lg); color: var(--color-text-muted); }
+.person__link {
+  margin-top: auto;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--site-tap-target);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  & .icon { width: 1.25rem; height: 1.25rem; }
+}

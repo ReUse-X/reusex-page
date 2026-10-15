@@ -1,0 +1,34 @@
+{{- /*
+  hero — the page opener: main heading, lead text, actions, and a picture.
+  Put it first on the page; the page then shows no separate title.
+
+  Params:  image    picture next to the page (page bundle), optional
+           alt      alt text for image (required with image)
+           kind     what the picture is: photo (default) | scan | screenshot
+           action   label of the main button      link   its target
+           action2  label of a secondary button   link2  its target
+  Inner:   Markdown — a # heading and a short lead paragraph (required)
+  Links:   page paths (contact/), app:…, https://…, mailto:…
+
+  {{< hero image="scan.jpg" alt="Point cloud of an office floor" kind="scan"
+           action="Book a pilot" link="contact/" action2="Learn more" link2="solution/" >}}
+  # Turn existing buildings into circularity-ready data
+  AI-powered resource mapping from LiDAR scans.
+  {{< /hero >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "image" "alt" "kind" "action" "link" "action2" "link2") "enums" (dict "kind" (slice "photo" "scan" "screenshot")) "inner" "required") -}}
+{{- .Page.Store.Set "hero" true -}}
+{{- $kind := .Get "kind" | default "photo" -}}
+<section class="band band--hero element--hero flow">
+<div class="element hero">
+<div class="hero__text">
+{{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
+{{- partial "actions.html" (dict "ctx" . "class" "hero__actions") }}
+</div>
+{{- with .Get "image" }}
+<figure class="hero__media media-frame media-frame--{{ $kind }}">
+{{ partial "image.html" (dict "src" . "alt" ($.Get "alt") "page" $.Page "eager" true "sizes" "(min-width: 60rem) 45vw, 100vw" "position" $.Position) }}
+</figure>
+{{- end }}
+</div>
+</section>

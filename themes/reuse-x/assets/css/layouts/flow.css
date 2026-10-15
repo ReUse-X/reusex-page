@@ -1,0 +1,32 @@
+/*
+ * Flow — the "breakout grid" every page and band is built on.
+ * Children sit in the content column; plain Markdown (not .element) is held
+ * to a readable measure; .band children span the full viewport width.
+ * Content never chooses any of this: it follows from what an element is.
+ */
+.flow {
+  --flow-content: var(--site-width);
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(var(--site-gutter), 1fr)
+    [content-start] min(100% - 2 * var(--site-gutter), var(--flow-content))
+    [content-end] minmax(var(--site-gutter), 1fr) [full-end];
+  align-content: start;
+
+  & > * { grid-column: content; }
+  & > :not(.element, .band) { max-width: var(--site-width-prose); }
+  & > .band { grid-column: full; }
+
+  /* Rhythm */
+  & > * + * { margin-top: var(--space-4); }
+  & > :is(h2, h3, h4) { margin-top: var(--space-6); }
+  & > :is(h2, h3, h4) + * { margin-top: var(--space-3); }
+  & > :is(h2, h3, h4):first-child { margin-top: 0; }
+  & > .element { margin-block: var(--space-6); }
+  & > .element:first-child { margin-top: 0; }
+  & > .element:last-child { margin-bottom: 0; }
+
+  /* Markdown lists etc. */
+  & > :is(ul, ol) { padding-left: var(--space-5); }
+  & > blockquote { border-left: 3px solid var(--color-accent); padding-left: var(--space-4); color: var(--color-text-muted); }
+}

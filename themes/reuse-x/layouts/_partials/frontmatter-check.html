@@ -1,0 +1,9 @@
+{{- /* Front matter holds page identity only (≤10 lines, fixed keys). Unknown
+       keys are reported in the server log; content_lint.py enforces the same
+       in CI. Hugo adds some keys itself (iscjklanguage, lastmod, …). */ -}}
+{{- $allowed := slice "title" "description" "layout" "draft" "date" "aliases" "weight" "translationkey" "summary" "iscjklanguage" "lastmod" "publishdate" "expirydate" "linktitle" }}
+{{- range $k, $_ := .Params }}
+  {{- if not (in $allowed $k) }}
+    {{- warnf "%s: front matter key %q is not part of the content model (allowed: title, description, layout, draft, date, aliases, weight)" $.File.Path $k }}
+  {{- end }}
+{{- end }}

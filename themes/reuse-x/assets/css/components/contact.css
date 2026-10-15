@@ -1,0 +1,19 @@
+/* contact — details panel. */
+.contact {
+  display: grid;
+  gap: var(--space-5);
+  max-width: 40rem;
+  padding: var(--space-6);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+.contact__text { display: grid; gap: var(--space-3); }
+.contact__list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+  & li { display: flex; align-items: center; gap: var(--space-3); min-height: var(--site-tap-target); }
+  & .icon { flex: none; color: var(--color-accent-deep); }
+}

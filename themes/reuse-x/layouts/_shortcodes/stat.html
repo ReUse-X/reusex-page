@@ -1,0 +1,17 @@
+{{- /*
+  stat — one figure inside stats. A trailing unit (%, m², t, …) is set
+  smaller automatically.
+
+  Params:  1st positional   the figure, e.g. "72 %", "1,000+", "3.2 t" (required)
+  Inner:   the label, a few words of Markdown (required)
+
+  {{< stat "54 %" >}}reused or preserved{{< /stat >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "positional" 1 "required" (slice "value") "inner" "required") -}}
+{{- with .Parent }}{{ if ne .Name "stats" }}{{ errorf "%s: {{< stat >}} must be inside {{< stats >}}" $.Position }}{{ end }}{{ else }}{{ errorf "%s: {{< stat >}} must be inside {{< stats >}}" .Position }}{{ end -}}
+{{- $value := .Get 0 -}}
+{{- $m := findRESubmatch `^([^\d]*[\d.,]+\+?)\s*(.*)$` $value -}}
+<div class="stat">
+<p class="stat__value">{{ with $m }}{{ index (index . 0) 1 }}{{ with index (index . 0) 2 }}<span class="stat__unit">{{ . }}</span>{{ end }}{{ else }}{{ $value }}{{ end }}</p>
+<p class="stat__label">{{ .Inner | strings.TrimSpace | .Page.RenderString }}</p>
+</div>

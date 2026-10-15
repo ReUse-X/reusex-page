@@ -1,0 +1,25 @@
+/* media — picture + text side by side; alternates sides when repeated. */
+.media {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+  @media (min-width: 60rem) {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-7);
+  }
+}
+@media (min-width: 60rem) {
+  .media:nth-child(even of .media:not(.media--figure)) .media__figure { order: 2; }
+}
+.media--figure { display: block; }
+.media__figure figcaption {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+}
+.media__text {
+  display: grid;
+  gap: var(--space-3);
+  & > :is(h2, h3) { margin-bottom: var(--space-1); }
+  & ul { padding-left: var(--space-5); }
+}

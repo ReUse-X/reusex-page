@@ -1,0 +1,25 @@
+{{- /*
+  people — portrait cards for a group from data/people.yaml.
+  People marked draft: true are left out.
+
+  Params:  group   team | board (required)
+  Inner:   none
+
+  {{< people group="team" >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "group") "required" (slice "group") "enums" (dict "group" (slice "team" "board")) "inner" "forbidden") -}}
+{{- $people := where (where hugo.Data.people "group" (.Get "group")) "draft" "!=" true -}}
+{{- if not $people }}{{ warnf "%s: {{< people group=%q >}} — no published people in data/people.yaml" .Position (.Get "group") }}{{ end -}}
+<ul class="element element--people people">
+{{- range $people }}
+<li class="person">
+<div class="person__portrait">{{ partial "image.html" (dict "src" (.portrait | default "people/placeholder.svg") "alt" (printf "Portrait of %s" .name) "page" $.Page "sizes" "(min-width: 60rem) 16rem, 50vw" "position" $.Position) }}</div>
+<div class="person__body">
+<h3 class="person__name">{{ .name }}</h3>
+{{- with .role }}<p class="person__role">{{ . }}</p>{{ end }}
+{{- with .bio }}<p class="person__bio">{{ . }}</p>{{ end }}
+{{- $name := .name }}{{ with .linkedin }}<a class="person__link" href="{{ . }}" rel="noopener" aria-label="LinkedIn – {{ $name }}">{{ partial "icon.html" "linkedin" }}<span>LinkedIn</span></a>{{ end }}
+</div>
+</li>
+{{- end }}
+</ul>

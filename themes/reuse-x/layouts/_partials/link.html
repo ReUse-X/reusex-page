@@ -1,0 +1,34 @@
+{{- /*
+  Resolve a link written in content. Returns a dict: href, external (bool).
+    "contact/" | "/contact" | "contact#form"  → page (language-aware), errors if missing
+    "app:" | "app:projects"                   → site.Params.app_url + path
+    "https://…" | "http://…"                  → external
+    "mailto:…" | "tel:…" | "#anchor"          → as is
+  partial "link.html" (dict "url" "contact/" "page" .Page "position" .Position)
+  No domain is ever hardcoded in content; app links use the app: shortcut.
+*/ -}}
+{{- $url := strings.TrimSpace .url }}
+{{- $href := "" }}
+{{- $external := false }}
+{{- if hasPrefix $url "app:" }}
+  {{- $href = printf "%s%s" (strings.TrimSuffix "/" site.Params.app_url) (cond (eq $url "app:") "/" (printf "/%s" (strings.TrimPrefix "/" (strings.TrimPrefix "app:" $url)))) }}
+  {{- $external = true }}
+{{- else if findRE `^(https?:)?//` $url }}
+  {{- $href = $url }}
+  {{- $external = true }}
+{{- else if or (hasPrefix $url "mailto:") (hasPrefix $url "tel:") (hasPrefix $url "#") }}
+  {{- $href = $url }}
+{{- else }}
+  {{- $parts := split $url "#" }}
+  {{- $path := index $parts 0 | strings.TrimSuffix "/" }}
+  {{- $frag := cond (gt (len $parts) 1) (printf "#%s" (index $parts 1)) "" }}
+  {{- $target := site.GetPage (printf "/%s" (strings.TrimPrefix "/" $path)) }}
+  {{- if and (not $target) .page }}{{ $target = .page.GetPage $path }}{{ end }}
+  {{- with $target }}
+    {{- $href = printf "%s%s" .RelPermalink $frag }}
+  {{- else }}
+    {{- warnf "%s: link %q points to a page that does not exist" (.position | default "link.html") $url }}
+    {{- $href = printf "#broken-link/%s" $url }}
+  {{- end }}
+{{- end }}
+{{- return (dict "href" $href "external" $external) }}

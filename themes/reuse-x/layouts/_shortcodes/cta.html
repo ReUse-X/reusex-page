@@ -1,0 +1,22 @@
+{{- /*
+  cta — the call to action band (always the strong accent band). Use once
+  or twice per page, typically last.
+
+  Params:  action   label of the main button (required)   link   its target (required)
+           action2  label of a secondary button            link2  its target
+  Inner:   Markdown — a ## heading and a sentence or a short list (required)
+
+  {{< cta action="Book a pilot" link="contact/" action2="See pricing" link2="pilots/" >}}
+  ## Ready to map your building?
+  Start with a paid pilot on one building.
+  {{< /cta >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "action" "link" "action2" "link2") "required" (slice "action" "link") "inner" "required") -}}
+<section class="band band--cta element--cta flow">
+<div class="element cta">
+<div class="cta__text">
+{{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
+</div>
+{{- partial "actions.html" (dict "ctx" . "class" "cta__actions") }}
+</div>
+</section>

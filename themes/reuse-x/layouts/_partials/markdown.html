@@ -1,0 +1,7 @@
+{{- /* Render an element's inner Markdown as block content.
+       Usage: partial "markdown.html" (dict "page" .Page "inner" .Inner)
+       (pass .Inner explicitly: Hugo only treats a shortcode as taking inner
+       content if its own template mentions .Inner). Output has no blank
+       lines, so it nests safely inside other elements. */ -}}
+{{- $html := .inner | strings.TrimSpace | .page.RenderString (dict "display" "block") -}}
+{{- replaceRE `\n\s*\n` "\n" $html | safeHTML -}}

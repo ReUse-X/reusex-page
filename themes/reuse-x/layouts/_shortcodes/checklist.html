@@ -1,0 +1,15 @@
+{{- /*
+  checklist — a Markdown list shown as ticked items (benefits, deliverables).
+
+  Params:  none
+  Inner:   a Markdown list, optionally preceded by a heading (required)
+
+  {{< checklist >}}
+  - Reuse-ready 3D model
+  - Component inventory with quantities
+  {{< /checklist >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "inner" "required") -}}
+<div class="element element--checklist checklist">
+{{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
+</div>

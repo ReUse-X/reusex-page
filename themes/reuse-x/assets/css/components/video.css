@@ -1,0 +1,2 @@
+.video video { width: 100%; background: var(--band-canvas-bg); }
+.video figcaption { margin-top: var(--space-2); font-size: var(--font-size-lg); color: var(--color-text-muted); }

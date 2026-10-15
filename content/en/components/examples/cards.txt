@@ -1,0 +1,8 @@
+{{< section >}}
+## Current challenges
+{{< cards >}}
+{{< card title="Fragmented data" icon="puzzle" >}}Building information is scattered across drawings, reports and people's heads.{{< /card >}}
+{{< card title="High survey costs" icon="currency" >}}Manual resource mapping takes days per building.{{< /card >}}
+{{< card title="Missed reuse" icon="warning" link="solution/" >}}Without data, reusable components end up in the skip.{{< /card >}}
+{{< /cards >}}
+{{< /section >}}

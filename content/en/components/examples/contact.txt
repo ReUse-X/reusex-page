@@ -1,0 +1,4 @@
+{{< contact >}}
+## Get in touch
+For all enquiries, please contact us by email.
+{{< /contact >}}

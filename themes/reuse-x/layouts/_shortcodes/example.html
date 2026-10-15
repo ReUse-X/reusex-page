@@ -1,0 +1,23 @@
+{{- /*
+  example — gallery helper (components page only): shows a snippet's source
+  and renders it, from one file so the two can never drift apart.
+
+  Params:  1st positional   snippet name → examples/<name>.txt next to the page
+  Inner:   none
+
+  {{< example "hero" >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "positional" 1 "required" (slice "name") "inner" "forbidden") -}}
+{{- $name := .Get 0 -}}
+{{- $file := .Page.Resources.Get (printf "examples/%s.txt" $name) -}}
+{{- if not $file }}{{ errorf "%s: examples/%s.txt not found next to the page" .Position $name }}{{ end -}}
+{{- $src := $file.Content | strings.TrimSpace -}}
+{{- $hadHero := .Page.Store.Get "hero" -}}
+{{- $out := $src | .Page.RenderString (dict "display" "block") -}}
+{{- .Page.Store.Set "hero" $hadHero -}}
+<div class="element element--example example" id="example-{{ $name }}">
+<p class="eyebrow">Element</p>
+<h2 class="example__name">{{ $name }}</h2>
+<pre class="example__source"><code>{{ $src }}</code></pre>
+</div>
+{{ replaceRE `\n\s*\n` "\n" $out | safeHTML }}

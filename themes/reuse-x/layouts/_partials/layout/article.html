@@ -1,0 +1,11 @@
+{{- /* article — one readable column (pilots, research, plain pages). */ -}}
+{{- $content := .Content }}
+<article class="article flow">
+  <header class="article__header">
+    {{- with .Parent }}{{ if not .IsHome }}<a class="eyebrow article__section" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}{{ end }}
+    <h1>{{ partial "brand-text.html" .Title }}</h1>
+    {{- with .Description }}<p class="lead">{{ . }}</p>{{ end }}
+    {{- if not .Date.IsZero }}<p class="article__meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time></p>{{ end }}
+  </header>
+  {{ $content }}
+</article>

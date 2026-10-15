@@ -1,0 +1,64 @@
+{{- /*
+  Validate a content element's parameters. Every shortcode calls this first,
+  so a typo or a design parameter fails loudly with file:line in the live
+  server's error overlay instead of silently doing nothing.
+
+  partial "validate.html" (dict
+    "ctx"        .                       the shortcode context (required)
+    "named"      (slice "image" "alt")   allowed named params
+    "required"   (slice "image")         named params that must be set
+    "enums"      (dict "kind" (slice "a" "b"))  allowed values per param
+    "positional" 1                       max positional params (default 0)
+    "inner"      "required"              required | forbidden | optional (default)
+  )
+
+  Content says WHAT, templates decide HOW: params that look like design
+  (colour, tone, class, columns, size, …) are always rejected.
+*/ -}}
+{{- $ctx := .ctx }}
+{{- $name := $ctx.Name }}
+{{- $pos := $ctx.Position }}
+{{- $named := .named | default slice }}
+{{- $required := .required | default slice }}
+{{- $enums := .enums | default dict }}
+{{- $maxPositional := .positional | default 0 }}
+{{- $inner := .inner | default "optional" }}
+{{- $design := slice "color" "colour" "tone" "theme" "class" "style" "columns" "cols" "size" "width" "height" "bg" "background" "align" "variant" "layout" "colorscheme" }}
+
+{{- if $ctx.IsNamedParams }}
+  {{- range $k, $v := $ctx.Params }}
+    {{- if in $design (lower $k) }}
+      {{- errorf "%s: {{< %s >}} does not take %q — design is decided by the template, not the content. Allowed: %s" $pos $name $k (delimit $named ", ") }}
+    {{- else if not (in $named $k) }}
+      {{- errorf "%s: {{< %s >}} has no parameter %q. Allowed: %s" $pos $name $k (delimit $named ", ") }}
+    {{- end }}
+    {{- with index $enums $k }}
+      {{- if not (in . $v) }}
+        {{- errorf "%s: {{< %s %s=%q >}} — allowed values: %s" $pos $name $k $v (delimit . ", ") }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- range $required }}
+    {{- if not (isset $ctx.Params .) }}
+      {{- errorf "%s: {{< %s >}} needs %s=\"…\"" $pos $name . }}
+    {{- end }}
+  {{- end }}
+{{- else }}
+  {{- with $ctx.Params }}
+    {{- if gt (len .) $maxPositional }}
+      {{- errorf "%s: {{< %s >}} takes at most %d positional parameter(s), got %d" $pos $name $maxPositional (len .) }}
+    {{- end }}
+  {{- end }}
+  {{- if $required }}
+    {{- if lt (len ($ctx.Params | default slice)) 1 }}
+      {{- errorf "%s: {{< %s >}} needs: %s" $pos $name (delimit $required ", ") }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+{{- $hasInner := gt (len (strings.TrimSpace $ctx.Inner)) 0 }}
+{{- if and (eq $inner "required") (not $hasInner) }}
+  {{- errorf "%s: {{< %s >}} needs content between {{< %s >}} and {{< /%s >}}" $pos $name $name $name }}
+{{- else if and (eq $inner "forbidden") $hasInner }}
+  {{- errorf "%s: {{< %s >}} takes no inner content" $pos $name }}
+{{- end }}

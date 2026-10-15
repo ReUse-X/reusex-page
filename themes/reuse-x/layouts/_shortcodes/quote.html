@@ -1,0 +1,20 @@
+{{- /*
+  quote — a pull quote or testimonial.
+
+  Params:  author   who said it (optional)
+           role     their role or organisation (optional)
+  Inner:   the quote, Markdown (required)
+
+  {{< quote author="Jane Doe" role="Aarhus Kommune" >}}
+  We finally know what is in our buildings.
+  {{< /quote >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "author" "role") "inner" "required") -}}
+<figure class="element element--quote quote">
+<blockquote class="quote__text">
+{{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
+</blockquote>
+{{- with .Get "author" }}
+<figcaption class="quote__by"><span class="quote__author">{{ . }}</span>{{ with $.Get "role" }}<span class="quote__role">{{ . }}</span>{{ end }}</figcaption>
+{{- end }}
+</figure>

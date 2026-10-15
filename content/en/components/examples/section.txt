@@ -1,0 +1,5 @@
+{{< section id="why" >}}
+## A band of the page
+Sections hold a heading, prose and other elements. Their background is
+chosen by the template — consecutive sections alternate automatically.
+{{< /section >}}

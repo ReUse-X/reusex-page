@@ -1,0 +1,23 @@
+{{- /*
+  contact — the company's contact details from data/contact.yaml, with an
+  optional Markdown text in front of them.
+
+  Params:  none
+  Inner:   Markdown, e.g. a heading and a sentence (optional; without it,
+           self-close: {{< contact />}})
+
+  {{< contact >}}
+  ## Get in touch
+  For all enquiries, please contact us by email.
+  {{< /contact >}}
+*/ -}}
+{{- partial "validate.html" (dict "ctx" . "named" slice) -}}
+{{- $c := hugo.Data.contact -}}
+<div class="element element--contact contact">
+{{- with strings.TrimSpace .Inner }}<div class="contact__text">{{ partial "markdown.html" (dict "page" $.Page "inner" $.Inner) }}</div>{{ end }}
+<ul class="contact__list">
+{{- with $c.email }}<li>{{ partial "icon.html" "mail" }}<a href="mailto:{{ . }}">{{ replace . "@" "(at)" }}</a></li>{{ end }}
+{{- with $c.phone }}<li>{{ partial "icon.html" "phone" }}<a href="tel:{{ $c.phone_link | default . }}">{{ . }}</a></li>{{ end }}
+{{- with $c.address }}<li>{{ partial "icon.html" "map-pin" }}<span>{{ . }}</span></li>{{ end }}
+</ul>
+</div>

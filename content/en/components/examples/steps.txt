@@ -1,0 +1,5 @@
+{{< steps >}}
+{{< step title="Scan" >}}Walk the building with an iPad LiDAR scanner.{{< /step >}}
+{{< step title="Segment" >}}AI labels every point: wall, floor, window, door.{{< /step >}}
+{{< step title="Decide" >}}Use the inventory to plan reuse and transformation.{{< /step >}}
+{{< /steps >}}

@@ -97,6 +97,21 @@ TAILWIND_READY_JS = """
   .some(s => s.textContent.includes('--tw-'))
 """
 
+LOAD_ALL_IMAGES_JS = """
+async () => {
+  const imgs = [...document.images];
+  imgs.forEach(i => { i.loading = 'eager'; });
+  await Promise.all(imgs.map(i => i.complete ? null : new Promise(r => {
+    i.addEventListener('load', r, { once: true });
+    i.addEventListener('error', r, { once: true });
+    setTimeout(r, 8000);
+  })));
+  // Headless Chromium skips decoding off-screen images; force it so
+  // full-page and element shots never show empty frames.
+  await Promise.all(imgs.map(i => i.decode ? i.decode().catch(() => null) : null));
+}
+"""
+
 QA_JS = """
 () => {
   const doc = document.documentElement;
@@ -121,7 +136,9 @@ QA_JS = """
     .map(i => i.getAttribute('src'));
   const hugoError = !!document.querySelector('.hugo-error, #hugo-error, [data-hugo-error]')
     || /Failed to render|execute of template failed/.test(document.body ? document.body.innerText : '');
-  return { overflow, offenders, brokenImgs, hugoError,
+  const brokenLinks = [...document.querySelectorAll('a[href^="#broken-link"]')]
+    .map(a => a.getAttribute('href').replace('#broken-link/', ''));
+  return { overflow, offenders, brokenImgs, brokenLinks, hugoError,
            theme: doc.getAttribute('data-theme') };
 }
 """
@@ -272,11 +289,9 @@ def main() -> int:
                     except Exception as e:  # noqa: BLE001 - report, keep going
                         problems.append(f"goto: {e}")
                     page.add_style_tag(content=NO_MOTION_CSS)
-                    # Lazy images below the fold: nudge them in for full-page shots.
-                    if a.full:
-                        page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-                        page.wait_for_timeout(150)
-                        page.evaluate("window.scrollTo(0, 0)")
+                    # Lazy images: force them all to load, so full-page and element
+                    # shots never show empty frames.
+                    page.evaluate(LOAD_ALL_IMAGES_JS)
                     if a.js:
                         try:
                             page.evaluate(a.js)
@@ -302,13 +317,21 @@ def main() -> int:
                         shots = []
                     elif a.selector:
                         png = shots[0] = out / f"{slug(path)}-{slug(sel)}-{theme}-{vp}.png"
+                        page.locator(sel).first.scroll_into_view_if_needed()
+                        page.wait_for_timeout(50)
                         page.locator(sel).first.screenshot(path=str(png))
                     elif a.each:
                         loc = page.locator(sel)
-                        shots = [out / f"{slug(path)}-{slug(sel)}-{i + 1:02d}-{theme}-{vp}.png"
-                                 for i in range(loc.count())]
-                        for i, p in enumerate(shots):
-                            loc.nth(i).screenshot(path=str(p))
+                        shots = []
+                        for i in range(loc.count()):
+                            el = loc.nth(i)
+                            if not el.is_visible() or (el.bounding_box() or {}).get("height", 0) < 2:
+                                continue  # hidden or empty: nothing to look at
+                            p = out / f"{slug(path)}-{slug(sel)}-{i + 1:02d}-{theme}-{vp}.png"
+                            el.scroll_into_view_if_needed()
+                            page.wait_for_timeout(50)
+                            el.screenshot(path=str(p), timeout=10000)
+                            shots.append(p)
                     else:
                         page.screenshot(path=str(png), full_page=a.full)
 
@@ -320,6 +343,8 @@ def main() -> int:
                             problems.append("Hugo template error rendered in page (see serve.sh log)")
                         if qa["overflow"] > 1:
                             problems.append(f"horizontal overflow {qa['overflow']}px: {', '.join(qa['offenders'])}")
+                        for href in qa["brokenLinks"]:
+                            problems.append(f"broken link (page does not exist): {href}")
                         for src in qa["brokenImgs"]:
                             problems.append(f"broken img: {src}")
                     # The Tailwind Play CDN always warns about production use; not ours to fix here.

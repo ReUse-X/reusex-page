@@ -35,6 +35,11 @@ disableLanguages = ['da']
 
 [markup.goldmark.parser.attribute]
   block = true
+# Needed so content elements can nest (a shortcode's rendered HTML passes
+# through its parent's Markdown). Hand-written HTML in content is still not
+# allowed — content_lint.py enforces that.
+[markup.goldmark.renderer]
+  unsafe = true
 
 # ---------------------------------------------------------------------------
 # Navigation — the only place menus are defined. Pages never set menu entries.

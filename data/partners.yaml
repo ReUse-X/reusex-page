@@ -1,0 +1,14 @@
+# Partner logos. logo = for light backgrounds, logo_on_dark = for dark ones
+# (files in assets/partners/). url optional.
+- name: LINK arkitektur
+  logo: partners/link.png
+  logo_on_dark: partners/link-on-dark.png
+- name: Multiconsult
+  logo: partners/multiconsult.png
+  logo_on_dark: partners/multiconsult-on-dark.png
+- name: Aarhus Kommune
+  logo: partners/aarhus-kommune.png
+  logo_on_dark: partners/aarhus-kommune-on-dark.png
+- name: Contechlab
+  logo: partners/contechlab.png
+  logo_on_dark: partners/contechlab-on-dark.png

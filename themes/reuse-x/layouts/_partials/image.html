@@ -1,0 +1,37 @@
+{{- /*
+  Responsive image from a page bundle (or assets/). Alt text is required.
+  partial "image.html" (dict
+    "src" "scan.jpg" "alt" "…" "page" .Page
+    "sizes" "(min-width: 60rem) 50vw, 100vw"   default 100vw
+    "eager" false        true for above-the-fold (hero) images
+    "class" ""           template-chosen class (never from content)
+    "position" .Position for error messages
+  )
+  Raster images are resized to webp at several widths (srcset) with
+  width/height set; SVG passes through.
+*/ -}}
+{{- $pos := .position | default "image.html" }}
+{{- $img := "" }}
+{{- with .page }}{{ $img = .Resources.Get $.src }}{{ end }}
+{{- if not $img }}{{ $img = resources.Get .src }}{{ end }}
+{{- if not $img }}
+  {{- errorf "%s: image %q not found next to the page or in assets/" $pos .src }}
+{{- end }}
+{{- if not .alt }}{{ if ne .alt "" }}{{ errorf "%s: image %q needs alt text (use alt=\"\" only for purely decorative images)" $pos .src }}{{ end }}{{ end }}
+{{- $loading := cond (.eager | default false) "eager" "lazy" }}
+{{- $sizes := .sizes | default "100vw" }}
+{{- if or (eq $img.MediaType.SubType "svg") (eq $img.MediaType.SubType "gif") }}
+<img src="{{ $img.RelPermalink }}" alt="{{ .alt }}"{{ with .class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="async">
+{{- else }}
+  {{- $widths := slice }}
+  {{- range slice 480 800 1200 1600 2400 }}{{ if le . $img.Width }}{{ $widths = $widths | append . }}{{ end }}{{ end }}
+  {{- if not $widths }}{{ $widths = slice $img.Width }}{{ end }}
+  {{- $srcset := slice }}
+  {{- $default := "" }}
+  {{- range $widths }}
+    {{- $r := $img.Resize (printf "%dx webp q78" .) }}
+    {{- $srcset = $srcset | append (printf "%s %dw" $r.RelPermalink .) }}
+    {{- if or (not $default) (le . 1200) }}{{ $default = $r }}{{ end }}
+  {{- end }}
+<img src="{{ $default.RelPermalink }}" srcset="{{ delimit $srcset ", " }}" sizes="{{ $sizes }}" width="{{ $default.Width }}" height="{{ $default.Height }}" alt="{{ .alt }}"{{ with .class }} class="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="async"{{ if .eager }} fetchpriority="high"{{ end }}>
+{{- end }}
