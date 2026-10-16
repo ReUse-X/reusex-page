@@ -1,0 +1,25 @@
+# Infographic recipes. The drawing is the site's module
+# themes/reuse-x/assets/js/infographics/<id>.js (also the live element on the
+# site); media/infographics/<id>.html is the thin wrapper render.py loads.
+# Run: python3 .claude/skills/infographics/scripts/render.py [ids…]
+# Masters → $REUSEX_MEDIA/infographics/<id>/; web files: derive.py.
+
+[[infographic]]
+id = "pipeline"
+title = "From scan to material list"
+alt = "Animation: an iPhone LiDAR scan of a room appears as grey points, the AI colours every point by component — floor, walls, window, door, radiator, table — and a material list builds up beside it"
+duration = 12
+layouts = ["wide", "tall"]   # 16:9 and phone/LinkedIn-portrait
+themes = ["dark"]    # sits on the near-black scan canvas in both site themes
+poster = 9.5
+final = 10.5
+
+[[infographic]]
+id = "timing"
+title = "The decision comes before the data"
+alt = "Animation: a project timeline from idea to demolition. The transform-or-demolish decision falls at feasibility; a manual resource survey arrives just before demolition, too late; a ReUseX scan arrives at the brief, before the decision"
+duration = 10
+layouts = ["wide", "tall"]   # 16:9 and phone/LinkedIn-portrait
+themes = ["light", "dark"]
+poster = 8.5
+final = 8.5

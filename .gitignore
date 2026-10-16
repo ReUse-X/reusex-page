@@ -44,3 +44,6 @@ themes/reuse-x/assets/css/generated/
 
 # Local source material (decks, exports) — never commit; the repo is public
 *.zip
+
+# Python bytecode (skill scripts)
+__pycache__/

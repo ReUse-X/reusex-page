@@ -75,7 +75,9 @@ overlay in the page).
 
 - **Real copy**, specific to building reuse / LiDAR / circularity — no
   lorem ipsum. Missing content (copy, images, video) → file a content bead,
-  don't invent it.
+  don't invent it. Product imagery comes from the `app-capture`,
+  `infographics` and `media-library` skills (web files in `assets/media/`,
+  made by `derive.py` — never hand-edited).
 - **Quality floor:** body contrast ≥ 4.5:1 in *both* themes, visible focus,
   tap targets ≥ 44 px, no horizontal scroll at 390 px, nothing clipped.
 - **Naming rule:** never let the product name render as one uppercase word

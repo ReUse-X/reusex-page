@@ -13,20 +13,51 @@
   image    picture next to the text                  optional (needs alt)
   alt      alt text for the picture
   kind     photo | scan | screenshot                 default photo
+  video    silent loop shown instead of the picture (the picture is its
+           poster and the reduced-motion still)      optional
+  screen   what a phone in front of the picture shows: a silent loop (.mp4)
+           or a picture — the phone breaks out of the picture's frame
+                                                     optional
+  screen_alt  what the phone shows                   with screen
   action   main button label    link    its target   optional
   action2  second button label  link2   its target   optional
 */ -}}
-{{- partial "validate.html" (dict "ctx" . "named" (slice "image" "alt" "kind" "action" "link" "action2" "link2") "enums" (dict "kind" (slice "photo" "scan" "screenshot")) "inner" "required") -}}
+{{- partial "validate.html" (dict "ctx" . "named" (slice "image" "alt" "kind" "video" "screen" "screen_alt" "action" "link" "action2" "link2") "enums" (dict "kind" (slice "photo" "scan" "screenshot")) "inner" "required") -}}
 {{- .Page.Store.Set "hero" true -}}
-<section class="band band--hero flow bg-chrome py-[clamp(3rem,2rem+6vw,6.5rem)] text-on-chrome">
+{{- $screen := "" }}{{ with .Get "screen" }}{{ $screen = or ($.Page.Resources.Get .) (resources.Get .) }}{{ if not $screen }}{{ errorf "%s: hero screen %q not found" $.Position . }}{{ end }}{{ if not ($.Get "screen_alt") }}{{ errorf "%s: hero screen needs screen_alt" $.Position }}{{ end }}{{ end -}}
+<section class="band band--hero flow bg-chrome py-[clamp(3rem,2rem+6vw,6.5rem)] text-on-chrome{{ if $screen }} pb-[clamp(5rem,3rem+8vw,9rem)]{{ end }}">
   <div class="element grid items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
     <div class="md grid gap-5 [&>h1]:text-hero [&>h1]:text-on-chrome [&>p]:max-w-xl [&>p]:text-lead [&>p]:text-on-chrome-muted">
       {{ partial "markdown.html" (dict "page" .Page "inner" .Inner) }}
       {{- partial "actions.html" (dict "ctx" . "variant" "inverse") }}
     </div>
     {{- with .Get "image" }}
-    <figure class="{{ partial "frame.html" ($.Get "kind") }} border-chrome-border shadow-lg">
-      {{ partial "image.html" (dict "src" . "alt" ($.Get "alt") "page" $.Page "eager" true "sizes" "(min-width: 64rem) 45vw, 100vw" "position" $.Position) }}
+    <figure class="hero__visual relative{{ if $screen }} ml-[20%] lg:ml-0{{ end }}">
+      <div class="{{ partial "frame.html" ($.Get "kind") }} border-chrome-border shadow-lg">
+        {{- with $.Get "video" }}
+        {{- $v := or ($.Page.Resources.Get .) (resources.Get .) }}{{ if not $v }}{{ errorf "%s: hero video %q not found" $.Position . }}{{ end }}
+        {{- $img := or ($.Page.Resources.Get ($.Get "image")) (resources.Get ($.Get "image")) }}
+        {{- $poster := $img.Resize "1600x webp q80" }}
+        <video class="block w-full" src="{{ $v.RelPermalink }}" poster="{{ $poster.RelPermalink }}" width="{{ $poster.Width }}" height="{{ $poster.Height }}" aria-label="{{ $.Get "alt" }}" muted loop autoplay playsinline preload="auto" data-clip="ambient"></video>
+        {{- else }}
+        {{ partial "image.html" (dict "src" . "alt" ($.Get "alt") "page" $.Page "eager" true "sizes" "(min-width: 64rem) 45vw, 100vw" "position" $.Position) }}
+        {{- end }}
+      </div>
+      {{- with $screen }}
+      {{- /* A generic phone (no brand), overlapping the frame's lower-left
+             corner — it sits outside the box on purpose. */}}
+      <div class="hero__phone absolute -bottom-[20%] -left-[18%] z-10 w-[32%] min-w-28 max-w-64 rounded-[18%/8.5%] border-[0.45rem] border-canvas bg-canvas shadow-lg ring-1 ring-chrome-border lg:-left-[9%]">
+        <div class="relative aspect-[9/19.5] overflow-hidden rounded-[14%/6.6%] bg-canvas">
+          {{- if eq .MediaType.SubType "mp4" }}
+          {{- $pp := resources.Get (printf "%s-poster.webp" (strings.TrimSuffix ".mp4" ($.Get "screen"))) }}
+          <video class="absolute inset-0 size-full object-cover" src="{{ .RelPermalink }}"{{ with $pp }} poster="{{ (.Resize "540x webp q80").RelPermalink }}"{{ end }} aria-label="{{ $.Get "screen_alt" }}" muted loop autoplay playsinline preload="auto" data-clip="ambient"></video>
+          {{- else }}
+          <img class="absolute inset-0 size-full object-cover" src="{{ (.Resize "480x webp q80").RelPermalink }}" alt="{{ $.Get "screen_alt" }}" loading="eager" decoding="async">
+          {{- end }}
+          <span class="absolute left-1/2 top-[2.2%] h-[3.2%] w-[30%] -translate-x-1/2 rounded-full bg-canvas" aria-hidden="true"></span>
+        </div>
+      </div>
+      {{- end }}
     </figure>
     {{- end }}
   </div>

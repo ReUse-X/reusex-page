@@ -1,1 +1,1 @@
-{{< media image="images/FromScanTo3D_1.jpg" alt="From scan to 3D model" caption="A lone picture with a caption — no text inside, so the element is self-closed." />}}
+{{< media image="media/hero-rgb.webp" alt="The scanned point cloud of an office floor" kind="scan" caption="A lone picture with a caption — no text inside, so the element is self-closed." />}}

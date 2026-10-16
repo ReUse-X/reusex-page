@@ -18,7 +18,7 @@ and Hugo build everything; fonts are self-hosted.
 ## Develop
 
 ```bash
-nix develop            # or direnv: hugo, bd, Python + Playwright
+nix develop            # or direnv: hugo, bd, git-lfs, Python + Playwright; sets up LFS + git hooks
 bash .claude/skills/design-studio/scripts/serve.sh            # live server
 DRAFTS=1 bash .claude/skills/design-studio/scripts/serve.sh restart   # incl. /components/
 ```

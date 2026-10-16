@@ -1,0 +1,1 @@
+{{< infographic name="timing" alt="On a project timeline the transform-or-demolish decision falls at feasibility; a manual survey arrives before demolition, a ReUseX scan before the decision" caption="Drawn natively in the page: sharp at any size, follows the theme, tall layout on phones" >}}

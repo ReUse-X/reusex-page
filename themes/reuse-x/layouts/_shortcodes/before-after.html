@@ -16,11 +16,11 @@
 {{- $label := "absolute top-3 rounded-sm bg-chrome px-2 py-1 text-xs font-bold tracking-caps text-on-chrome uppercase" -}}
 <figure class="element before-after" data-before-after>
   <div class="before-after__stage relative {{ partial "frame.html" (.Get "kind") }}">
-    <div class="before-after__before relative">
+    <div class="before-after__before">
       {{ partial "image.html" (dict "src" (.Get "before") "alt" (.Get "before_alt") "page" .Page "sizes" "(min-width: 74rem) 74rem, 100vw" "position" .Position) }}
       <span class="{{ $label }} left-3">{{ i18n "before" }}</span>
     </div>
-    <div class="before-after__after relative">
+    <div class="before-after__after">
       {{ partial "image.html" (dict "src" (.Get "after") "alt" (.Get "after_alt") "page" .Page "sizes" "(min-width: 74rem) 74rem, 100vw" "position" .Position) }}
       <span class="{{ $label }} right-3">{{ i18n "after" }}</span>
     </div>

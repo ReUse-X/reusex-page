@@ -1,17 +1,12 @@
-*.png filter=lfs diff=lfs merge=lfs -text
-*.jpg filter=lfs diff=lfs merge=lfs -text
-*.jpeg filter=lfs diff=lfs merge=lfs -text
-*.webp filter=lfs diff=lfs merge=lfs -text
-*.gif filter=lfs diff=lfs merge=lfs -text
-*.mp4 filter=lfs diff=lfs merge=lfs -text
-*.webm filter=lfs diff=lfs merge=lfs -text
-*.mov filter=lfs diff=lfs merge=lfs -text
-*.pdf filter=lfs diff=lfs merge=lfs -text
-*.JPG filter=lfs diff=lfs merge=lfs -text
-*.JPEG filter=lfs diff=lfs merge=lfs -text
-*.PNG filter=lfs diff=lfs merge=lfs -text
-*.WEBP filter=lfs diff=lfs merge=lfs -text
-*.GIF filter=lfs diff=lfs merge=lfs -text
-*.MP4 filter=lfs diff=lfs merge=lfs -text
-*.MOV filter=lfs diff=lfs merge=lfs -text
-*.PDF filter=lfs diff=lfs merge=lfs -text
+# Binary media is stored in Git LFS (git-lfs is in the dev shell; the dev
+# shell sets up the filters and hooks). Text assets — SVG, fonts, CSS, JS —
+# stay in normal git. Patterns are case-insensitive (photos come as .JPG).
+*.[pP][nN][gG]         filter=lfs diff=lfs merge=lfs -text
+*.[jJ][pP][gG]         filter=lfs diff=lfs merge=lfs -text
+*.[jJ][pP][eE][gG]     filter=lfs diff=lfs merge=lfs -text
+*.[wW][eE][bB][pP]     filter=lfs diff=lfs merge=lfs -text
+*.[gG][iI][fF]         filter=lfs diff=lfs merge=lfs -text
+*.[mM][pP]4            filter=lfs diff=lfs merge=lfs -text
+*.[wW][eE][bB][mM]     filter=lfs diff=lfs merge=lfs -text
+*.[mM][oO][vV]         filter=lfs diff=lfs merge=lfs -text
+*.[pP][dD][fF]         filter=lfs diff=lfs merge=lfs -text

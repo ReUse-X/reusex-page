@@ -5,9 +5,11 @@ import { initMenu } from './menu.js';
 import { initBeforeAfter } from './before-after.js';
 import { initVideo } from './video.js';
 import { initDeck } from './deck.js';
+import { initInfographics } from './infographic.js';
 
 initTheme();
 initMenu();
 initBeforeAfter();
 initVideo();
 initDeck();
+initInfographics();

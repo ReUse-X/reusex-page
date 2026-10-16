@@ -53,7 +53,7 @@
 | Front matter | ≤ 10 lines: `title`, `description`, `layout` (landing \| article \| deck), `draft`, `date`, `aliases`, `weight` |
 | Navigation | `hugo.toml` `[menus]` (main + footer with parent columns) — never in pages |
 | Lists of things | `data/people.yaml` (team/board, `draft: true` hides), `partners.yaml`, `contact.yaml`, `socials.yaml` |
-| Images / video | `assets/images/`, `assets/videos/`, `assets/people/`, `assets/partners/` (or next to a page in its bundle) — referenced as `image="images/x.jpg"`; the image partial resizes them |
+| Images / video | `assets/media/` (made by the `media-library` skill's derive.py — don't hand-edit), `assets/images/` (pilot pictures), `assets/people/`, `assets/partners/` (or next to a page in its bundle) — referenced as `image="images/x.jpg"`; the image partial resizes them |
 | Design | `themes/reuse-x/` only |
 
 Layout defaults: home and section pages → `landing`; leaf pages →
@@ -75,7 +75,7 @@ valid layouts, known element names and **no hand-written HTML** (Goldmark
 | Tokens | `assets/css/tokens.css` (vendored from rux-frontend, never edit; `scripts/sync-tokens.sh`), `assets/css/site-tokens.css` (display type, widths, bands, deck canvas — all colours alias product tokens) |
 | CSS | Utilities in the templates. Small layers only where utilities can't reach: `base/` (fonts, reset, typography), `layouts/` (flow grid, landing bands, article, deck), `components/` (`markdown.css` = `.md` for Markdown inside elements, media side alternation, checklist ticks, before/after clip, gallery panel) |
 | Shared template pieces | `_partials/button.html` (all button variants — templates pass `variant`, never classes), `frame.html` (picture frames by `kind`), `heading-split.html` (title from the first Markdown heading) |
-| JS | `assets/js/{theme,menu,before-after,video,deck}.js` |
+| JS | `assets/js/{theme,menu,before-after,video,deck,infographic}.js`; infographic modules in `assets/js/infographics/` (see the `infographics` skill) |
 
 ## How layout works (the "flow" grid)
 

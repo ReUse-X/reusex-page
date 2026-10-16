@@ -1,0 +1,38 @@
+<!doctype html>
+<!--
+SPDX-FileCopyrightText: 2026 Povl Filip Sonne-Frederiksen
+
+SPDX-License-Identifier: GPL-3.0-or-later
+
+Infographic "timing" for render.py (video) — a thin wrapper: the drawing is the
+site's own module, themes/reuse-x/assets/js/infographics/timing.js.
+?layout=wide|tall  ?theme=light|dark  ?render=1 (render.py seeks renderAt)
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Infographic: timing</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="_base.css">
+</head>
+<body>
+<div id="stage"></div>
+<script type="module">
+import * as m from '../../themes/reuse-x/assets/js/infographics/timing.js';
+const q = new URLSearchParams(location.search);
+document.documentElement.dataset.theme = q.get('theme') || 'dark';
+const layout = q.get('layout') || 'wide';
+const { w, h } = m.layouts[layout];
+document.body.style.setProperty('--stage-w', w + 'px');
+document.body.style.setProperty('--stage-h', h + 'px');
+const stage = document.getElementById('stage');
+window.renderAt = m.mount(stage, layout);
+window.infographic = { duration: m.duration, still: m.still, w, h };
+if (!q.has('render')) {
+  const t0 = performance.now();
+  (function loop(now) { window.renderAt((now - t0) / 1000); requestAnimationFrame(loop); })(t0);
+} else window.renderAt(0);
+document.documentElement.dataset.ready = '1';
+</script>
+</body>
+</html>

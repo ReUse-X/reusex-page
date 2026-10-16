@@ -1,0 +1,159 @@
+# App capture recipes — screenshots and recordings of app.reuse-x.com.
+# Run: python3 .claude/skills/app-capture/scripts/capture.py [ids…]
+# Masters → $REUSEX_MEDIA/app/<id>/; web files: derive.py (media/web.toml).
+# The capture browser is read-only: non-GET /api requests are aborted.
+
+[defaults]
+base = "https://app.reuse-x.com"
+case = "office-cph"
+viewport = [1600, 1000]   # stills: CSS px …
+scale = 2                 # … × 2 → 3200×2000 PNG masters
+clip_viewport = [1920, 1080]  # clips: 16:9, promo-ready
+clip_scale = 1
+fps = 30
+themes = ["light", "dark"]
+wait = 3000               # ms after load before actions
+settle = 1500             # ms after actions before the shot
+
+# Text masks, applied to every page (also to nodes added later).
+mask = [
+  { find = '[\w.+-]+@[\w-]+\.[\w.]+', replace = "demo@reuse-x.com" },  # account e-mail
+  { find = 'SAM3 · ', replace = "" },        # model name not cleared for public use (bead l2c)
+  { find = '\bSAM3\b', replace = "AI" },
+]
+# Hide build/dev chrome that means nothing to a visitor.
+css = """
+"""
+
+# Reusable action lists: `{ use = "viewport" }` in actions / clip `do`.
+[preludes]
+# Viewport ready for a picture: cloud fully streamed, capture-position
+# markers off, camera framed on the content.
+viewport = [
+  { wait_for = "canvas" },
+  { gone = "[class*='_track_']" },
+  { click = "button:has-text('Browse panoramas')" },
+  { uncheck = "label:has-text('Show capture positions') input" },
+  { click = "button:has-text('Hide panoramas')" },
+  { idle = 1000 },
+]
+# Hero camera: the same framing for every canvas crop, so before/after
+# pairs line up exactly.
+hero_cam = [
+  { hide = "button:has-text('Pick point')" },
+  { click = "button:has-text('Frame all')" },
+  { idle = 800 },
+  { camera = { elevation = 40 } },
+  { frame = { fill = 0.82, wait_gone = "[class*='_track_']" } },
+  { idle = 1500 },
+]
+labels = [{ select = "select", option = "labels" }, { click = "button:has-text('Labels')" }, { wait = 1200 }, { gone = "[class*='_track_']" }, { idle = 800 }]
+instances = [{ select = "select", option = "instances" }, { click = "button:has-text('Labels')" }, { wait = 1200 }, { gone = "[class*='_track_']" }, { idle = 800 }]
+rooms = [{ select = "select", option = "rooms" }, { click = "button:has-text('Labels')" }, { wait = 1200 }, { gone = "[class*='_track_']" }, { idle = 800 }]
+
+# --------------------------------------------------------------- stills
+
+[[shot]]
+id = "cases"
+title = "Case list"
+alt = "The ReUseX case list: one building case with a top-view thumbnail, address, component count and review status"
+path = "/sager"
+
+[[shot]]
+id = "overview"
+title = "Case overview"
+alt = "Case overview in ReUseX: components, share classified, items to review and pending samples, with links to mapping, samples, report and waste reporting"
+path = "/sager/{case}/"
+
+[[shot]]
+id = "mapping"
+title = "Resource mapping table"
+alt = "Resource mapping in ReUseX: building components grouped by type with quantity, unit, treatment, environmental status and photo evidence, beside a floor-plan preview"
+path = "/sager/{case}/kortlaegning"
+
+[[shot]]
+id = "viewport-rgb"
+title = "3D viewport — scanned point cloud"
+alt = "The ReUseX 3D viewport showing the scanned point cloud of an office floor in true colour"
+path = "/sager/{case}/viewport"
+actions = [{ use = "viewport" }, { use = "hero_cam" }]
+
+[[shot]]
+id = "report"
+title = "Report versions"
+alt = "The ReUseX report page: versioned resource-mapping reports as PDF and an inventory export as CSV"
+path = "/sager/{case}/rapport"
+
+[[shot]]
+id = "waste-reporting"
+title = "Waste reporting"
+alt = "Waste fractions aggregated by EWC code and treatment, ready to report to bygningsaffald.dk"
+path = "/sager/{case}/indberetning"
+
+[[shot]]
+id = "viewport-labels"
+title = "3D viewport — AI semantic labels"
+alt = "The same office point cloud coloured by AI-assigned building-component class: walls, floor, ceiling, windows, doors, furniture"
+path = "/sager/{case}/viewport"
+actions = [{ use = "viewport" }, { use = "labels" }, { use = "hero_cam" }]
+
+[[shot]]
+id = "viewport-instances"
+title = "3D viewport — individual components"
+alt = "The office point cloud with every detected component instance in its own colour"
+path = "/sager/{case}/viewport"
+actions = [{ use = "viewport" }, { use = "instances" }, { use = "hero_cam" }]
+
+[[shot]]
+id = "viewport-rooms"
+title = "3D viewport — rooms"
+alt = "The office point cloud split into rooms, each in its own colour"
+path = "/sager/{case}/viewport"
+actions = [{ use = "viewport" }, { use = "rooms" }, { use = "hero_cam" }]
+
+# ----- canvas-only crops: the 3D view without app chrome (hero visuals)
+
+[[shot]]
+id = "hero"
+title = "Office floor close-up — one camera, four layers"
+alt = "Close-up of the scanned office floor: true colour (rgb), every point coloured by component class (labels), every component in its own colour (instances), rooms (rooms)"
+path = "/sager/{case}/viewport"
+viewport = [2200, 1100]
+selector = "canvas"
+themes = ["dark"]
+actions = [{ use = "viewport" }, { use = "hero_cam" }]
+# Same camera in every pass (measured in the first, restored in the rest):
+# rgb.png / labels.png / … line up pixel for pixel for before/after sliders.
+passes = { rgb = {}, labels = { query = "labels=labels" }, instances = { query = "labels=instances" }, rooms = { query = "labels=rooms" } }
+
+# --------------------------------------------------------------- clips
+# Every frame is rendered, then screenshotted: smooth at any resolution.
+# Timeline segments: hold | orbit | pan | zoom | scroll | cursor | do.
+
+[[clip]]
+id = "orbit"
+title = "One orbit, every layer: scan → labels → components → rooms"
+alt = "A scanned office floor turning a full circle; the same view cross-fades from true colour to AI component classes, to individual components, to rooms, and back"
+path = "/sager/{case}/viewport"
+viewport = [2540, 1135]     # canvas ≈ 2044×1092 → 1920×1080 after derive
+selector = "canvas"
+themes = ["dark"]           # the 3D canvas is dark in both app themes
+frame_wait = "[class*='_track_']"   # points re-stream as the camera moves
+frame_check = 0.92          # re-shoot a frame that draws < 92 % of recent frames (d8u; normal variation < 1 %)
+actions = [
+  { use = "viewport" },
+  { hide = "button:has-text('Pick point')" },
+  { click = "button:has-text('Frame all')" },
+  { idle = 800 },
+  { camera = { elevation = 38 } },
+  # centred, sized so the widest angle of the turn still fits
+  { frame = { fill = 0.56, wait_gone = "[class*='_track_']" } },
+  { idle = 1500 },
+]
+# Recorded once per pass — numerically identical camera (damping off,
+# __ruxCam) — so passes can be cut or cross-faded freely in an editor.
+passes = { rgb = {}, labels = { query = "labels=labels" }, instances = { query = "labels=instances" }, rooms = { query = "labels=rooms" } }
+timeline = [{ turn = { deg = 360 }, seconds = 24, ease = "linear" }]   # full turn: loops seamlessly
+composite = [["rgb", 0], ["labels", 4.5], ["instances", 10.5], ["rooms", 16.5], ["rgb", 22]]
+fade = 1.5
+poster_frame = 0

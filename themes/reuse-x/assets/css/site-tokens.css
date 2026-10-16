@@ -53,6 +53,16 @@
   --site-header-muted: var(--color-on-chrome-muted);
   --site-footer-bg: var(--color-chrome);
   --site-footer-text: var(--color-on-chrome-muted);
+  /* Data-viz hues for building-component classes in infographics — the
+     same hues as the app's label legend (Okabe–Ito, colour-blind safe).
+     Drawn on the near-black scan canvas, so identical in both themes. */
+  --viz-floor: #e69f00;
+  --viz-wall: #56b4e9;
+  --viz-window: #f0e442;
+  --viz-door: #009e73;
+  --viz-radiator: #0072b2;
+  --viz-table: #d55e00;
+  --viz-scan: #8a94a3;
 }
 
 /* In dark mode the product's accent-deep is a light tint; a band that bright

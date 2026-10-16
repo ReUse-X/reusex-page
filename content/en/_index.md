@@ -3,7 +3,8 @@ title: ReUseX
 description: Revolutionizing resource reuse for a sustainable future
 ---
 
-{{< hero image="images/hero-image-reusex.jpg" alt="A tablet showing the segmented point cloud of an empty office floor"
+{{< hero image="media/orbit-poster.webp" video="media/orbit.mp4" alt="A scanned office floor turning slowly; the view fades from true colour to AI component classes, individual components and rooms" kind="scan"
+         screen="media/phone-scan.mp4" screen_alt="A phone screen showing the point cloud building up during a LiDAR scan"
          action="Book a pilot project" link="contact/" action2="Learn More" link2="solution/" >}}
 # Turn existing buildings into circularity-ready data with AI
 AI-powered resource mapping from LiDAR — reuse-focused 3D models and inventories for faster transformation decisions.
@@ -29,6 +30,8 @@ Drawings are outdated, BIM models don’t exist, and point clouds stay locked in
 Circularity, reuse, and taxonomy requirements demand better documentation than current methods can deliver.
 {{< /card >}}
 {{< /cards >}}
+
+{{< infographic name="timing" alt="On a project timeline the transform-or-demolish decision falls at feasibility; a manual resource survey only arrives before demolition, while a ReUseX scan arrives before the decision" >}}
 {{< /section >}}
 
 {{< section >}}
@@ -52,9 +55,9 @@ Generate component inventories and exports that plug into simple 3D, spreadsheet
 {{< /card >}}
 {{< /cards >}}
 
-{{< video src="videos/reusex-scan.mp4" title="ReUseX Scan demonstration video showing transformation from raw building to AI segmented components" kind="clip" caption="Raw building → AI segmented components" >}}
+{{< infographic name="pipeline" alt="A LiDAR scan of a room appears as grey points, the AI colours every point by component, and a material list builds up beside it" caption="Scan → AI labels every point → structured material list" >}}
 
-{{< media image="images/ReUseX_Platform.jpg" alt="ReUseX Platform Dashboard" kind="screenshot" caption="ReUseX platform — interactive 3D dashboard with linked inventories and documentation." >}}
+{{< media image="media/app-mapping.webp" alt="The ReUseX resource mapping view: building components grouped by type with quantity, treatment, environmental status and photo evidence, beside a floor-plan preview" kind="screenshot" caption="Resource mapping in the ReUseX app — every component with its photos, treatment and status." >}}
 ### Explore everything in the ReUseX platform
 Explore the building in an interactive 3D dashboard. The model, documents, inventories, and analysis results are connected in one place — so municipalities, owners, and consultants work from the same dataset.
 {{< /media >}}

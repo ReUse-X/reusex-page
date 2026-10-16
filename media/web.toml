@@ -1,0 +1,109 @@
+# Which master becomes which output file.
+# Run: python3 .claude/skills/media-library/scripts/derive.py [--profile linkedin]
+# from = inside $REUSEX_MEDIA; to/poster = inside assets/ (profile "site")
+# or inside $REUSEX_MEDIA/out/<profile>/ for other profiles.
+
+# ------------------------------------------------------------- site: stills
+[[out]]
+from = "app/hero/labels.png"
+to = "media/hero-labels.webp"
+
+[[out]]
+from = "app/hero/rgb.png"
+to = "media/hero-rgb.webp"
+
+[[out]]
+from = "app/mapping/light.png"
+to = "media/app-mapping.webp"
+
+[[out]]
+from = "app/viewport-labels/light.png"
+to = "media/app-viewport-labels.webp"
+
+# ------------------------------------------------------------- site: video
+[[out]]
+from = "app/orbit/composite.mp4"
+to = "media/orbit.mp4"
+poster = "media/orbit-poster.webp"
+poster_at = 0
+width = 1280
+crf = 28
+
+# Infographics are live elements on the site (assets/js/infographics/); these
+# stills are only the no-JS fallback.
+[[out]]
+from = "infographics/pipeline/dark-final.png"
+to = "media/pipeline-poster.webp"
+width = 1600
+
+[[out]]
+from = "infographics/timing/light-final.png"
+to = "media/timing-poster.webp"
+width = 1600
+
+[[out]]
+from = "imports/scan-ipad/master.mp4"
+to = "media/scan-ipad.mp4"
+poster = "media/scan-ipad-poster.webp"
+poster_at = 2
+width = 1280
+
+# ------------------------------------------------------------- linkedin (bead 9b8)
+[[out]]
+profile = "linkedin"
+from = "app/hero/labels.png"
+to = "cover-1128x191.png"
+crop = [1128, 191]
+width = 2256
+
+[[out]]
+profile = "linkedin"
+from = "infographics/pipeline/dark-final.png"
+to = "post-pipeline-1200x627.png"
+crop = [1200, 627]
+width = 2400
+
+[[out]]
+profile = "linkedin"
+from = "infographics/timing/light-final.png"
+to = "post-timing-1200x627.png"
+crop = [1200, 627]
+width = 2400
+
+[[out]]
+profile = "linkedin"
+from = "app/hero/labels.png"
+to = "post-labels-1080x1080.png"
+crop = [1, 1]
+width = 2160
+
+[[out]]
+profile = "linkedin"
+from = "app/orbit/composite.mp4"
+to = "clip-orbit-1080x1080.mp4"
+crop = [1, 1]
+width = 1080
+crf = 22
+
+# Phone screen in the home hero (bead dxe.8): the point cloud growing while
+# scanning: the iPad footage from 7 s (cloud only, no people), letterboxed
+# to a phone screen.
+[[out]]
+from = "imports/scan-ipad/master.mp4"
+to = "media/phone-scan.mp4"
+poster = "media/phone-scan-poster.webp"
+poster_at = 11
+start = 7
+duration = 13
+pad = [9, 19.5]
+width = 540
+crf = 28
+
+# Lyfaparken (cleared 2026-10-16): photos → masks → labelled multi-storey cloud.
+[[out]]
+from = "imports/analysis-multistorey/master.mp4"
+to = "media/lyfaparken-analysis.mp4"
+crf = 32
+poster = "media/lyfaparken-analysis-poster.webp"
+poster_at = 18
+width = 1280

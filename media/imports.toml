@@ -1,0 +1,46 @@
+# External material imported into the media library (copied, never moved).
+# Run: python3 .claude/skills/media-library/scripts/import.py [ids…]
+# → $REUSEX_MEDIA/imports/<id>/master.<ext> + meta.json.
+# clearance: ok | owner-check (may not go public before the owner confirms)
+
+[[import]]
+id = "scan-ipad"
+source = "~/Videos/ReUseX Scan.mp4"
+title = "Scanning with an iPad, point cloud growing"
+notes = "Team member scanning an office with an iPad; then the point cloud builds up on black. Team photo consent given."
+clearance = "ok"
+
+[[import]]
+id = "frame-to-cloud"
+source = "~/repos/blender-diagrams/cloud_animation.mp4"
+title = "One LiDAR frame → depth → 3D points"
+notes = "Blender diagram (repo blender-diagrams): RGB frame, depth map, back-projected point cloud with an iPhone inset. 720×960."
+clearance = "ok"
+
+[[import]]
+id = "cloud-to-csg"
+source = "~/repos/blender-diagrams/cloud_to_csg.mp4"
+title = "Point cloud → structure → labels → clean model (loop)"
+notes = "Blender diagram, 18 s seamless loop, 960×540 — re-render from cloud_to_csg.blend at 1920 for print/promo."
+clearance = "ok"
+
+[[import]]
+id = "geometry-types"
+source = "~/repos/blender-diagrams/geometires.mkv0001-0240.mp4"
+title = "Geometry types: points, meshes, solids"
+notes = "Blender diagram, 10 s; research / explainer material."
+clearance = "ok"
+
+[[import]]
+id = "analysis-multistorey"
+source = "~/Videos/Lyfaparken Analysis.mp4"
+title = "Frames → segmentation masks → labelled multi-storey cloud"
+notes = "Edited clip from the Lyfaparken pilot building. Owner cleared for public use 2026-10-16."
+clearance = "ok"
+
+[[import]]
+id = "model-orbit-multistorey"
+source = "~/Videos/3D Model.mp4"
+title = "Labelled multi-storey point cloud orbit"
+notes = "Semantic → instance colours. Same pilot building (Lyfaparken). Owner cleared 2026-10-16."
+clearance = "ok"

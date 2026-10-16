@@ -28,6 +28,7 @@ element at all:
 {{< example "quote" >}}
 {{< example "callout" >}}
 {{< example "before-after" >}}
+{{< example "infographic" >}}
 {{< example "logos" >}}
 {{< example "people" >}}
 {{< example "publication" >}}

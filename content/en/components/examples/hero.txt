@@ -1,4 +1,4 @@
-{{< hero image="images/hero-image-reusex.jpg" alt="A tablet showing the segmented point cloud of an empty office floor"
+{{< hero image="media/hero-labels.webp" alt="Scanned point cloud of an office floor, every point coloured by the building component the AI assigned it to" kind="scan"
          action="Book a pilot" link="contact/" action2="Learn more" link2="solution/" >}}
 # Turn existing buildings into circularity-ready data with AI
 AI-powered resource mapping from LiDAR — reuse-focused 3D models and inventories for faster transformation decisions.

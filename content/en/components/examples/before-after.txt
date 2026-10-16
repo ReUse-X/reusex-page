@@ -1,1 +1,1 @@
-{{< before-after before="images/before.jpg" before_alt="The raw building scan" after="images/after.jpg" after_alt="The same view with AI-segmented components" kind="scan" caption="Raw building → AI-segmented components" >}}
+{{< before-after before="media/hero-rgb.webp" before_alt="The raw building scan" after="media/hero-labels.webp" after_alt="The same view with AI-segmented components" kind="scan" caption="Raw building → AI-segmented components" >}}

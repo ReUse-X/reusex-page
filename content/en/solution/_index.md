@@ -14,7 +14,9 @@ Because the workflow and outputs are standardised, ReUseX is designed to scale f
 ## 3D Scanning
 Reliable decisions start with reliable capture. ReUseX combines LiDAR scanning and 360° imagery to create a consistent digital record of the existing building—fast, repeatable, and suitable for early-phase analysis.
 
-{{< media image="images/hero-image-reusex.jpg" alt="ReUseX 3D scanning and processing visualization" >}}
+{{< video src="media/scan-ipad.mp4" poster="media/scan-ipad-poster.webp" title="A team member scans an office with an iPad; the point cloud builds up room by room" kind="clip" caption="Scanning with an iPad — the point cloud builds up as you walk." >}}
+
+{{< media image="media/hero-rgb.webp" alt="The scanned point cloud of an office floor in true colour" kind="scan" >}}
 ### AI-powered resource mapping
 We capture the building geometry as a scan-based dataset that represents what is actually on site—not what an outdated drawing says. 360° imagery adds visual context that supports interpretation, review, and quality control. The result is a robust input for downstream processing: registration, point cloud generation, segmentation, and model creation.
 {{< /media >}}
@@ -34,17 +36,19 @@ ReUseX uses AI to turn raw point clouds into structured building information—i
 ### From scan to 3D model
 After upload, ReUseX generates a unified point cloud and produces a simplified 3D model designed for early decision-making. This model is not a full as-built BIM replacement—it is a lightweight, structured representation that supports screening, quantities, and collaboration.
 
-{{< before-after before="images/FromScanTo3D_1.jpg" before_alt="Point cloud before processing" after="images/FromScanTo3D_2.jpg" after_alt="3D model after processing" >}}
+{{< video src="media/orbit.mp4" poster="media/orbit-poster.webp" title="A scanned office floor turning a full circle; the view cross-fades from true colour to component classes, individual components and rooms" kind="clip" caption="One scan, several layers: true colour → component classes → individual components → rooms." >}}
 
 ### AI-powered resource mapping
 ReUseX segments the point cloud into building elements and systems (for example structural and envelope components). The segmentation is designed to support reuse evaluation: locating components, understanding extent, and preparing structured datasets that can be reviewed and refined.
 
-{{< before-after before="images/AI-poweredResourceMapping_1.png" before_alt="Raw point cloud data" after="images/AI-poweredResourceMapping_2.png" after_alt="AI-segmented components" kind="scan" >}}
+{{< before-after before="media/hero-rgb.webp" before_alt="The scanned point cloud in true colour" after="media/hero-labels.webp" after_alt="The same point cloud with every point coloured by component class: walls, floor, windows, doors, furniture" kind="scan" >}}
+
+{{< video src="media/lyfaparken-analysis.mp4" poster="media/lyfaparken-analysis-poster.webp" title="Camera frames from a scan of a multi-storey building are segmented into walls, floors, doors and windows, and the labels are carried onto the whole point cloud" kind="clip" caption="Lyfaparken: every camera frame is segmented, and the labels are carried onto the point cloud of the whole building." >}}
 
 ### Reuse inventories & exports
 From the segmented dataset, ReUseX produces structured inventories and geometry exports. These outputs are designed to integrate with common AEC workflows—BIM coordination, spreadsheets, LCA/circularity assessments, and feasibility studies—so your team can move faster from 'capture' to 'decision'.
 
-{{< before-after before="images/ReuseInventoriesAndExports_1.png" before_alt="Segmented data" after="images/ReuseInventoriesAndExports_2.png" after_alt="Structured inventory export" kind="scan" >}}
+{{< media image="media/app-mapping.webp" alt="The resource mapping table: components grouped by type with quantity, unit, treatment, environmental status and photo evidence" kind="screenshot" caption="The inventory in the app — exported to spreadsheet (XLS/CSV) and report (PDF)." />}}
 
 {{< checklist >}}
 ### What you get
@@ -58,7 +62,7 @@ From the segmented dataset, ReUseX produces structured inventories and geometry 
 ## Cloudbased Platform
 All outputs are connected in one place. ReUseX provides a shared 3D workspace where geometry, inventories, documents, and analysis results stay aligned— so stakeholders collaborate on the same dataset.
 
-{{< media image="images/ReUseX_Platform.jpg" alt="ReUseX Platform Interface" kind="screenshot" >}}
+{{< media image="media/app-viewport-labels.webp" alt="The ReUseX 3D viewport: the labelled point cloud of an office floor, with layers, colour modes and the label legend in the side panel" kind="screenshot" >}}
 ### Explore reuse potential in an interactive 3D dashboard
 The ReUseX platform links the building's 3D view with structured component data and supporting documentation. Users can navigate by location and component type, inspect key elements, and use the platform as a common reference during early-stage workshops and decision gates.
 {{< /media >}}

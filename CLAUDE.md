@@ -63,6 +63,13 @@ This protocol applies when ending a Beads implementation workflow. It is subordi
 Everything runs in the Nix dev shell (`nix develop`, or direnv): hugo, beads
 (`bd`), Python + Playwright with a Nix-provided Chromium. See README.md.
 
+**Git LFS:** images and video (`*.png *.jpg *.webp *.mp4 …`, see
+`.gitattributes`) are stored in Git LFS. The dev shell sets up the LFS
+filters and all git hooks in `.git/hooks` — pre-commit stages from
+`flake.nix` (incl. the git-lfs hooks) plus the beads sections (`bd hooks
+install`). Commit and push from inside the dev shell, or the LFS objects
+won't be uploaded. Don't raise the large-file limit: binary files go to LFS.
+
 ```bash
 bash .claude/skills/design-studio/scripts/serve.sh               # live server (Tailscale IP)
 python3 .claude/skills/design-studio/scripts/shot.py --all        # screenshots + QA, both themes
@@ -95,6 +102,12 @@ element's tags and its content always sit on separate lines.
 Any visual, template or content work: use the `design-studio` skill
 (`.claude/skills/design-studio/`) — site map, element checklist, naming
 rule and the screenshot loop. Never write "REUSEX" as one uppercase word.
+
+Images and video: `app-capture` (screenshots/recordings of app.reuse-x.com,
+read-only, recipes in `media/app.toml`), `infographics` (animated HTML on the
+tokens → MP4) and `media-library` (masters in `$REUSEX_MEDIA`, default
+`~/Videos/reusex-media`, outside git; `derive.py` writes the web files into
+`assets/media/`). Never commit masters; never publish an `owner-check` import.
 
 ## Planning & tracking: beads only
 
